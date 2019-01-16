@@ -36,97 +36,97 @@ class UsersController < ApplicationController
   end
 
   post "/users" do
-    username = User.all.exists?(username: params[:username])
-    email = User.all.exists?(email: params[:email])
-    password = params[:password] != params[:password?] || (params[:password].length < 6 || params[:password?].length < 6)
+    @username = params[:username]
+    @email = params[:email]
 
-    #CHECK IF THERE ARE ANY ISSUES WITH USER INPUTS
-    if username || email || password
-      if username
-        @username_error = "Username already taken. Please try again!"
-        @email = params[:email]
-      end
+    pass = true
 
-      if email
-        @email_error = "E-mail address already in use. Please use a different one."
+    if @username.length < 3
+      @username_error = "Username is less than 3 characters. Please try again."
 
-        @username = params[:username]
-        @email = ""
-      end
+      pass = false
+    elsif User.all.exists?(username: @username)
+      @username_error = "Username already taken. Please try a different one!"
 
-      if password
-        if params[:password].length + params[:password?].length < 12
-          @password_error = "Password is less than 6 characters. Please try again."
-        else
-          @password_error = "Passwords do not match. Please try again."
-        end
+      pass = false
+    elsif @email.length < 5
+      @email_error = "E-mail address is less than 5 characters. Please try again."
 
-        @username = username ? params[:username] : ""
-        @email = email ? params[:email] : ""
-      end
+      pass = false
+    elsif !@email.match(/\w+@\w+\.\w{2,}/)
+      @email_error = "Wrong e-mail address format. Please try again."
 
-      erb :"/registrations/form"
-    elsif !params.any?{ |key, value| value.empty? }
-    #IF NO USER INPUTS ARE EMPTY, DELETE PASSWORD CONFIRMATION KEY-VALUE PAIR AND CREATE USER
+      pass = false
+    elsif User.all.exists?(email: @email)
+      @email_error = "E-mail address already in use. Please use a different one."
+
+      pass = false
+    elsif params[:password].length + params[:password?].length < 12
+      @password_error = "Password is less than 6 characters. Please try again."
+
+      pass = false
+    elsif params[:password] != params[:password?]
+      @password_error = "Passwords do not match. Please try again."
+
+      pass = false
+    elsif pass
       params.delete(:password?)
 
-      @user = User.create(params)
+      user = User.create(params)
 
-      session[:user_id] = @user.id
+      session[:user_id] = user.id
+    end
 
-      erb :"/users/profile"
+    if pass
+      redirect "/users/#{user.slug}"
     else
-
-
-      @username = params[:username]
-      @email = params[:password]
-
       erb :"/registrations/form"
     end
   end
 
   patch "/users" do
-    username = User.all.exists?(username: params[:username])
-    email = User.all.exists?(email: params[:email])
-    password = params[:password] != params[:password?] || (params[:password].length < 6 || params[:password?].length < 6)
+    @username = params[:username]
+    @email = params[:email]
 
-    user = User.find(session[:user_id])
+    pass = true
 
-    #CHECK IF THERE ARE ANY ISSUES WITH USER INPUTS
-    if !username || !email || !password
-      if !username && user.username != params[:username]
-        @username_error = "Username already taken. Please try again!"
+    if @username.length < 3
+      @username_error = "Username is less than 3 characters. Please try again."
 
-        @email = email ? params[:email] : ""
-      end
+      pass = false
+    elsif User.all.exists?(username: @username) && current_user.username != @username
+      @username_error = "Username already taken. Please try a different one!"
 
-      if !email && user.email != params[:email]
-        @email_error = "E-mail address already in use. Please use a different one."
+      pass = false
+    elsif @email.length < 5
+      @email_error = "E-mail address is less than 5 characters. Please try again."
 
-        @username = !username ? "" : params[:username]
-      end
+      pass = false
+    elsif !@email.match(/\w+@\w+\.\w{2,}/)
+      @email_error = "Wrong e-mail address format. Please try again."
 
-      if !password
-        if params[:password].length + params[:password?].length < 12
-          @password_error = "Password is less than 6 characters. Please try again."
-        else
-          @password_error = "Passwords do not match. Please try again."
-        end
+      pass = false
+    elsif User.all.exists?(email: @email) && current_user.email != @email
+      @email_error = "E-mail address already in use. Please use a different one."
 
-        @username = username ? params[:username] : ""
-        @email = email ? params[:email] : ""
-      end
+      pass = false
+    elsif params[:password].length + params[:password?].length < 12
+      @password_error = "Password is less than 6 characters. Please try again."
 
-      erb :"/users/account"
-    elsif !params.any?{ |key, value| value.empty? }
-    #IF NO USER INPUTS ARE EMPTY, DELETE PASSWORD CONFIRMATION KEY-VALUE PAIR AND CREATE USER
-      @user = User.find(session[:user_id])
+      pass = false
+    elsif params[:password] != params[:password?]
+      @password_error = "Passwords do not match. Please try again."
 
+      pass = false
+    elsif pass
       params.delete(:password?)
+      params.delete(:_method)
 
-      @user.update(params)
+      current_user.update(params)
+    end
 
-      erb :"/users/account"
+    if pass
+      redirect "/users/#{current_user.slug}"
     else
       erb :"/users/account"
     end
@@ -155,7 +155,7 @@ class UsersController < ApplicationController
 
       redirect "/users/#{user.slug}"
     else
-      @message = "Invalid username/password. Please try again!"
+      @message = "Incorrect username/password. Please try again!"
 
       erb :"/sessions/login"
     end
