@@ -2,23 +2,43 @@
   <div class="col-5">
 
     <h1 class="display-3">REGISTER</h1>
-
-    <form class="px-4 py-3" action="/users" method="POST">
+    
+    <form class="px-4 py-3" id="input-progress" role="form" action="/users" method="POST">
       <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" name="username" placeholder="Minimum 3 characters">
+        <input type="text" class="form-control <%= @username_border %>" id="username" name="username" value="<%= @username %>" placeholder="Minimum 3 characters">
+        <% if !@username_error.nil? %>
+        <div class="alert alert-danger font-italic" role="alert">
+          <small><%= @username_error %></small>
+        </div>
+        <% end %>      
       </div>
       <div class="form-group">
         <label for="email">E-mail Address</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="email@example.com">
+        <input type="email" class="form-control <%= @email_border %>" id="email" name="email" value="<%= @email %>" placeholder="email@example.com">
+        <% if !@email_error.nil? %>
+        <div class="alert alert-danger font-italic" role="alert">
+          <small><%= @email_error %></small>
+        </div>
+        <% end %> 
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" name="password" placeholder="Minimum 5 characters">
+        <input type="password" class="form-control <%= @password_border %>" id="password" name="password" placeholder="Minimum 5 characters">
+        <% if !@password_error.nil? %>
+        <div class="alert alert-danger font-italic" role="alert">
+          <small><%= @password_error %></small>
+        </div>
+        <% end %> 
       </div>
       <div class="form-group">
         <label for="password?">Confirm Password</label>
-        <input type="password" class="form-control" id="password?" name="password?" placeholder="Re-type password">
+        <input type="password" class="form-control <%= @password_border %>" id="password?" name="password?" placeholder="Re-type password">
+        <% if !@password_error.nil? %>
+        <div class="alert alert-danger font-italic" role="alert">
+          <small><%= @password_error %></small>
+        </div>
+        <% end %> 
       </div>
       <!-- <div class="form-group">
         <div class="form-check">

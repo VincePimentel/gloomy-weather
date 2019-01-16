@@ -46,30 +46,37 @@ class UsersController < ApplicationController
 
     if @username.length < 3
       @username_error = "Username is less than 3 characters. Please try again."
+      @username_border = "border-danger"
 
       pass = false
     elsif User.all.exists?(username: @username)
       @username_error = "Username already taken. Please try a different one!"
+      @username_border = "border-danger"
 
       pass = false
     elsif @email.length < 5
       @email_error = "E-mail address is less than 5 characters. Please try again."
+      @email_border = "border-danger"
 
       pass = false
     elsif !@email.match(/\w+@\w+\.\w{2,}/)
       @email_error = "Wrong e-mail address format. Please try again."
+      @email_border = "border-danger"
 
       pass = false
     elsif User.all.exists?(email: @email)
       @email_error = "E-mail address already in use. Please use a different one."
+      @email_border = "border-danger"
 
       pass = false
     elsif params[:password].length + params[:password?].length < 12
       @password_error = "Password is less than 6 characters. Please try again."
+      @password_border = "border-danger"
 
       pass = false
     elsif params[:password] != params[:password?]
       @password_error = "Passwords do not match. Please try again."
+      @password_border = "border-danger"
 
       pass = false
     elsif pass
