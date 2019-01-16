@@ -1,36 +1,31 @@
-<div class="row">
-  <div class="col-5 mx-auto">
-
-    <form class="px-4 py-3" action="/login" method="POST">
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" class="form-control <%= @username_border %>" id="username" name="username" value="<%= @username %>" placeholder="Minimum 3 characters">
-        <% if !@username_error.nil? %>
-        <div class="alert alert-danger font-italic" role="alert">
-          <small><%= @username_error %></small>
-        </div>
-        <% end %>
+<form class="px-4 py-3" action="/login" method="POST">
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input type="text" class="form-control <%= "border-danger" if @username_error %>" id="username" name="username" value="<%= @username %>" placeholder="Minimum 3 characters">
+    <% if @error_type == 1 %>
+      <div class="alert alert-danger font-italic" role="alert">
+      <% case @error_message
+        when 1 %>
+        <small>"Username is less than 3 characters. Please try again."</small>
+      <% when 2 %>
+        <small>"Username already taken. Please try a different one!"</small>
+      <% end %>
       </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control <%= @password_border %>" id="password" name="password" placeholder="Minimum 5 characters">
-        <% if !@password_error.nil? %>
-        <div class="alert alert-danger font-italic" role="alert">
-          <small><%= @password_error %></small>
-        </div>
-        <% end %>
-      </div>
-      <!-- <div class="form-group">
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="dropdownCheck">
-          <label class="form-check-label" for="dropdownCheck">
-            Remember me
-          </label>
-        </div>
-      </div> -->
-      <button type="submit" class="btn btn-primary btn-block">Log In</button>
-    </form>
-    <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="/signup">Need an account? Click me!</a>
+    <% end %>
   </div>
-</div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control <%= "border-danger" if @password_error %>" id="password" name="password" placeholder="Minimum 5 characters">
+    <% if @error_type == 2 %>
+      <div class="alert alert-danger font-italic" role="alert">
+      <% case @error_message
+        when 3 %>
+        <small>"Password is less than 6 characters. Please try again."</small>
+      <% when 4 %>
+        <small>"Passwords do not match. Please try again."</small>
+      <% end %>
+      </div>
+    <% end %>
+  </div>
+  <button type="submit" class="btn btn-primary btn-block">Log In</button>
+</form>

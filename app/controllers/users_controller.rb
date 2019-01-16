@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
       erb :"/users/account"
     else
-      session[:previous_location] = "/users/account"
+      session[:previous] = "/users/account"
 
       erb :"/sessions/login"
       #redirect "/login"
@@ -22,8 +22,7 @@ class UsersController < ApplicationController
         erb :index
       end
     else
-      session[:previous_location] = "/users/#{params[:slug]}"
-      session[:previous_message] = "To view #{params[:slug]}'s presets, please log in first."
+      session[:previous] = "/users/#{params[:slug]}"
 
       #erb :"/sessions/login"
       redirect "/login"
@@ -45,37 +44,38 @@ class UsersController < ApplicationController
     pass = true
 
     if @username.length < 3
-      @username_error = true
+      @error_type = 1
+      @error_message = 1
 
       pass = false
     elsif User.all.exists?(username: @username)
-      @username_error = "Username already taken. Please try a different one!"
-      @username_border = "border-danger"
+      @error_type = 1
+      @error_message = 2
 
       pass = false
     elsif @email.length < 5
-      @email_error = "E-mail address is less than 5 characters. Please try again."
-      @email_border = "border-danger"
+      @error_type = 2
+      @error_message = 3
 
       pass = false
     elsif !@email.match(/\w+@\w+\.\w{2,}/)
-      @email_error = "Wrong e-mail address format. Please try again."
-      @email_border = "border-danger"
+      @error_type = 2
+      @error_message = 4
 
       pass = false
     elsif User.all.exists?(email: @email)
-      @email_error = "E-mail address already in use. Please use a different one."
-      @email_border = "border-danger"
+      @error_type = 2
+      @error_message = 5
 
       pass = false
     elsif params[:password].length + params[:password?].length < 12
-      @password_error = "Password is less than 6 characters. Please try again."
-      @password_border = "border-danger"
+      @error_type = 3
+      @error_message = 6
 
       pass = false
     elsif params[:password] != params[:password?]
-      @password_error = "Passwords do not match. Please try again."
-      @password_border = "border-danger"
+      @error_type = 3
+      @error_message = 7
 
       pass = false
     elsif pass
@@ -100,38 +100,37 @@ class UsersController < ApplicationController
     pass = true
 
     if @username.length < 3
-      @username_error = "Username is less than 3 characters. Please try again."
-      @username_border = "border-danger"
+      @error_type = 1
+      @error_message = 1
 
       pass = false
     elsif User.all.exists?(username: @username) && current_user.username != @username
-      @username_error = "Username already taken. Please try a different one!"
-      @username_border = "border-danger"
+      @error_type = 1
+      @error_message = 2
 
       pass = false
     elsif @email.length < 5
-      @email_error = "E-mail address is less than 5 characters. Please try again."
-      @email_border = "border-danger"
+      @error_type = 2
+      @error_message = 3
 
       pass = false
     elsif !@email.match(/\w+@\w+\.\w{2,}/)
-      @email_error = "Wrong e-mail address format. Please try again."
-      @email_border = "border-danger"
+      @error_type = 2
+      @error_message = 4
 
       pass = false
     elsif User.all.exists?(email: @email) && current_user.email != @email
-      @email_error = "E-mail address already in use. Please use a different one."
-      @email_border = "border-danger"
-
+      @error_type = 2
+      @error_message = 5
       pass = false
     elsif params[:password].length + params[:password?].length < 12
-      @password_error = "Password is less than 6 characters. Please try again."
-      @password_border = "border-danger"
+      @error_type = 3
+      @error_message = 6
 
       pass = false
     elsif params[:password] != params[:password?]
-      @password_error = "Passwords do not match. Please try again."
-      @password_border = "border-danger"
+      @error_type = 3
+      @error_message = 7
 
       pass = false
     elsif pass
@@ -152,32 +151,75 @@ class UsersController < ApplicationController
     if logged_in?
       redirect "/users/#{current_user.slug}"
     else
-      @message = session[:previous_message]
+      @message = session[:previous]
 
       erb :"/sessions/login"
     end
   end
 
   post "/login" do
-    previous = session[:previous_location]
-
     user = User.find_by(username: params[:username])
+    pass = true
 
-    if user && user.authenticate(params[:password])
+    @username = params[:username]
+    @email = params[:email]
+
+    if @username.length < 3
+      @error_type = 1
+      @error_message = 1
+
+      pass = false
+    elsif User.all.exists?(username: @username) && current_user.username != @username
+      @error_type = 1
+      @error_message = 3
+
+      pass = false
+    elsif params[:password].length < 6
+      @error_type = 2
+      @error_message = 4
+
+      pass = false
+    elsif pass && user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      session[:previous_location] = nil
+    end
 
-        if previous
-          redirect "#{previous}"
-        else
-          redirect "/users/#{user.slug}"
-        end
+    if pass
+      if session[:previous]
+        session[:previous] = nil
+
+        redirect "#{previous}"
+      else
+        session[:previous] = nil
+
+        redirect "/users/#{user.slug}"
+      end
     else
       @message = "Incorrect username/password. Please try again!"
 
       erb :"/sessions/login"
     end
   end
+
+  # post "/login" do
+  #   previous = session[:previous_location]
+  #
+  #   user = User.find_by(username: params[:username])
+  #
+  #   if user && user.authenticate(params[:password])
+  #     session[:user_id] = user.id
+  #     session[:previous_location] = nil
+  #
+  #       if previous
+  #         redirect "#{previous}"
+  #       else
+  #         redirect "/users/#{user.slug}"
+  #       end
+  #   else
+  #     @message = "Incorrect username/password. Please try again!"
+  #
+  #     erb :"/sessions/login"
+  #   end
+  # end
 
   get "/logout" do
     if logged_in?
