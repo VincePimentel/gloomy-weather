@@ -1,0 +1,3 @@
+class PresetsController < ApplicationController
+
+end

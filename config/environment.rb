@@ -1,7 +1,7 @@
 ENV["SINATRA_ACTIVESUPPORT_WARNING"] = "false"
-ENV["SESSION_SECRET"] = "hello"
+ENV["SESSION_SECRET"] = "179caaecf958c907622a3ab3ae056665f1aecb3f"
 
-require "bundler"
+require "bundler/setup"
 Bundler.require
 
 ActiveRecord::Base.establish_connection(

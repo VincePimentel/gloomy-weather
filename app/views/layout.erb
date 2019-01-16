@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Gloomy Weather</title>
+  </head>
+  <body>
+    <header>
+      <p>
+        <a href="/">HOME</a> |
+        <% if @logged_in %>
+          <a href="/users/profile">PROFILE</a> |
+          <a href="/users/account">ACCOUNT</a> |
+          <a href="/users/logout">LOG OUT</a>
+        <% else %>
+          <a href="/login">LOG IN</a> |
+          <a href="/signup">SIGN UP</a>
+        <% end %>
+      </p>
+    </header>
+    <div class="container">
+
+
+      <%= yield %>
+    </div>
+  </body>
+</html>

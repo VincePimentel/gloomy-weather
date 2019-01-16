@@ -14,20 +14,20 @@ ActiveRecord::Schema.define(version: 2019_01_16_002015) do
 
   create_table "presets", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "rain_volume"
-    t.integer "river_volume"
-    t.integer "wave_volume"
-    t.integer "wind_volume"
-    t.integer "leaf_volume"
-    t.integer "thunder_volume"
-    t.integer "fire_volume"
-    t.integer "bird_volume"
-    t.integer "cricket_volume"
-    t.integer "crowd_volume"
-    t.integer "train_volume"
-    t.integer "white_volume"
-    t.integer "pink_volume"
-    t.integer "brown_volume"
+    t.integer "rain_volume", default: 0
+    t.integer "river_volume", default: 0
+    t.integer "wave_volume", default: 0
+    t.integer "wind_volume", default: 0
+    t.integer "leaf_volume", default: 0
+    t.integer "thunder_volume", default: 0
+    t.integer "fire_volume", default: 0
+    t.integer "bird_volume", default: 0
+    t.integer "cricket_volume", default: 0
+    t.integer "crowd_volume", default: 0
+    t.integer "train_volume", default: 0
+    t.integer "white_volume", default: 0
+    t.integer "pink_volume", default: 0
+    t.integer "brown_volume", default: 0
   end
 
   create_table "users", force: :cascade do |t|
