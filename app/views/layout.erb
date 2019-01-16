@@ -10,7 +10,7 @@
         <a href="/">HOME</a> |
         <% if session[:user_id] %>
           <% user = User.find(session[:user_id]) %>
-          Welcome, <%= user.username.capitalize %>! |
+          Welcome, <%= user.username %>! |
           <a href="/users/<%= user.slug %>">PROFILE</a> |
           <a href="/users/account">ACCOUNT</a> |
           <a href="/logout">LOG OUT</a>

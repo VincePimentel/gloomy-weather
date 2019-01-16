@@ -4,7 +4,10 @@ class User < ActiveRecord::Base
   has_many :presets
 
   def slug
+    binding.pry
     self.username.gsub(/\W/, "-").downcase
+    #ADD CHECKS FOR USERNAMES LATER
+    #NO SPECIAL CHARACTERS
   end
 
   def self.find_by_slug(slug)
