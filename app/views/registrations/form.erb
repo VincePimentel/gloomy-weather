@@ -1,24 +1,20 @@
 <h1>Register</h1>
 
-<p>
-  <%= @message %>
-</p>
-
 <form class="" action="/users" method="POST">
   <p>
-    <input type="text" name="username" value="" placeholder="Username">
+    <input type="text" name="username" value="<%= @username %>" placeholder="Username"> <%= @user_error %>
   </p>
 
   <p>
-    <input type="text" name="email" value="" placeholder="E-mail address">
+    <input type="text" name="email" value="<%= @email %>" placeholder="E-mail address"> <%= @email_error %>
   </p>
 
   <p>
-    <input type="password" name="password" value="" placeholder="Password">
+    <input type="password" name="password" value="" placeholder="Password"> <%= @password_error %>
   </p>
 
   <p>
-    <input type="password" name="password?" value="" placeholder="Confirm password">
+    <input type="password" name="password?" value="" placeholder="Confirm Password">
   </p>
 
   <p>

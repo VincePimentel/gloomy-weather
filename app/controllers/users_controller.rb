@@ -42,34 +42,46 @@ class UsersController < ApplicationController
   post "/users" do
     username = User.all.exists?(username: params[:username])
     email = User.all.exists?(email: params[:email])
-    password = params[:password] != params[:password?]
+    password = params[:password] != params[:password?] || (params[:password].length < 6 || params[:password?].length < 6)
 
-    if
+    #CHECK IF THERE ARE ANY ISSUES WITH USER INPUTS
+    if username || email || password
+      if username
+        @user_error = "Username already taken. Please try again!"
 
+        @email = params[:email] unless email
+      end
 
-    if User.all.exists?(username: params[:username])
-      @message = "Username already taken. Please try again!"
+      if email
+        @email_error = "E-mail address already in use. Please use a different one."
 
-      @email = params[:email]
-    elsif User.all.exists?(email: params[:email])
-      @message = "E-mail address already in use. Please use a different one."
+        @username = params[:username] unless username
+      end
 
-      @username = params[:username]
-    elsif params[:password] != params[:password?]
-      @message = "Passwords do not match. Please try again."
+      if password
+        if params[:password].length + params[:password?].length < 12
+          @password_error = "Password is less than 6 characters. Please try again."
+        else
+          @password_error = "Passwords do not match. Please try again."
+        end
 
-      @username = params[:username]
-      @email = params[:email]
+        @username = params[:username] unless username
+        @email = params[:email] unless email
+      end
+
+      erb :"/registrations/form"
+    elsif !params.any?{ |key, value| value.empty? }
+    #IF NO USER INPUTS ARE EMPTY, DELETE PASSWORD CONFIRMATION KEY-VALUE PAIR AND CREATE USER
+      params.delete(:password?)
+
+      @user = User.create(params)
+
+      session[:user_id] = @user.id
+
+      erb :"/users/profile"
+    else
+      erb :"/registrations/form"
     end
-
-    erb :"/registrations/form"
-
-
-    user = User.create(params)
-
-    session[:user_id] = user.id
-
-    redirect "/"
   end
 
   get "/login" do
