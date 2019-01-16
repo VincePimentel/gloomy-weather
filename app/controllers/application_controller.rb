@@ -9,7 +9,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    @logged_in = logged_in? ? true : false
+    #@user = User.find_by_id(session[:user_id])
 
     erb :index
   end

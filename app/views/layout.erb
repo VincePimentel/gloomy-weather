@@ -8,10 +8,12 @@
     <header>
       <p>
         <a href="/">HOME</a> |
-        <% if @logged_in %>
-          <a href="/users/profile">PROFILE</a> |
+        <% if session[:user_id] %>
+          <% user = User.find(session[:user_id]) %>
+          Welcome, <%= user.username.capitalize %>! |
+          <a href="/users/<%= user.slug %>">PROFILE</a> |
           <a href="/users/account">ACCOUNT</a> |
-          <a href="/users/logout">LOG OUT</a>
+          <a href="/logout">LOG OUT</a>
         <% else %>
           <a href="/login">LOG IN</a> |
           <a href="/signup">SIGN UP</a>
@@ -19,8 +21,6 @@
       </p>
     </header>
     <div class="container">
-
-
       <%= yield %>
     </div>
   </body>
