@@ -1,9 +1,13 @@
-<div class="row justify-content-center">
-  <div class="col-5">
-
+<div class="row">
+  <div class="mx-auto">
     <h1 class="display-3">REGISTER</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-5 mx-auto">
     
-    <form class="px-4 py-3" id="input-progress" role="form" action="/users" method="POST">
+    <form class="px-4 py-3" action="/users" method="POST">
       <div class="form-group">
         <label for="username">Username</label>
         <input type="text" class="form-control <%= @username_border %>" id="username" name="username" value="<%= @username %>" placeholder="Minimum 3 characters">
@@ -51,6 +55,6 @@
       <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
     </form>
     <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="#">Forgot password? Click me!</a>
+    <a class="dropdown-item" href="/login">Already registered? Click me!</a>
   </div>
 </div>

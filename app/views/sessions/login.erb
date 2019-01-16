@@ -17,3 +17,69 @@
     <input type="submit" name="" value="Log In">
   </p>
 </form>
+
+<div class="row">
+  <div class="mx-auto">
+    <h1 class="display-3">LOG IN</h1>
+  </div>
+</div>
+
+<% if @message %>
+<div class="alert alert-danger font-italic" role="alert">
+  <%= @message %>
+</div>
+<% end %>
+
+<div class="row">
+  <div class="col-5 mx-auto">
+
+    <form class="px-4 py-3" action="/users" method="POST">
+      <input type="hidden" name="_method" value="PATCH">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control <%= @username_border %>" id="username" name="username" value="<%= @username || @user.username %>" placeholder="Minimum 3 characters">
+        <% if !@username_error.nil? %>
+        <div class="alert alert-danger font-italic" role="alert">
+          <small><%= @username_error %></small>
+        </div>
+        <% end %>
+      </div>
+      <div class="form-group">
+        <label for="email">E-mail Address</label>
+        <input type="email" class="form-control <%= @email_border %>" id="email" name="email" value="<%= @email || @user.email %>" placeholder="email@example.com">
+        <% if !@email_error.nil? %>
+        <div class="alert alert-danger font-italic" role="alert">
+          <small><%= @email_error %></small>
+        </div>
+        <% end %>
+      </div>
+      <div class="form-group">
+        <label for="password">New Password</label>
+        <input type="password" class="form-control <%= @password_border %>" id="password" name="password" placeholder="Minimum 5 characters">
+        <% if !@password_error.nil? %>
+        <div class="alert alert-danger font-italic" role="alert">
+          <small><%= @password_error %></small>
+        </div>
+        <% end %>
+      </div>
+      <div class="form-group">
+        <label for="password?">Confirm New Password</label>
+        <input type="password" class="form-control <%= @password_border %>" id="password?" name="password?" placeholder="Re-type password">
+        <% if !@password_error.nil? %>
+        <div class="alert alert-danger font-italic" role="alert">
+          <small><%= @password_error %></small>
+        </div>
+        <% end %>
+      </div>
+      <!-- <div class="form-group">
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="dropdownCheck">
+          <label class="form-check-label" for="dropdownCheck">
+            Remember me
+          </label>
+        </div>
+      </div> -->
+      <button type="submit" class="btn btn-primary btn-block">Update</button>
+    </form>
+  </div>
+</div>
