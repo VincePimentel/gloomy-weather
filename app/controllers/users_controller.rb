@@ -45,8 +45,7 @@ class UsersController < ApplicationController
     pass = true
 
     if @username.length < 3
-      @username_error = "Username is less than 3 characters. Please try again."
-      @username_border = "border-danger"
+      @username_error = true
 
       pass = false
     elsif User.all.exists?(username: @username)

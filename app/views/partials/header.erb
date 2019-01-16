@@ -27,7 +27,8 @@
             LOG IN
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="login-menu-dropdown">
-          <form class="px-4 py-3" action="/login" method="POST">
+          <%= erb :"/partials/login_form" %>
+          <!-- <form class="px-4 py-3" action="/login" method="POST">
             <div class="form-group">
               <label for="username">Username</label>
               <input type="text" class="form-control" id="username" name="username" placeholder="Username">
@@ -36,20 +37,10 @@
               <label for="password">Password</label>
               <input type="password" class="form-control" id="password" name="password" placeholder="Password">
             </div>
-            <!-- REMEMBER ME CHECKBOX
-            <div class="form-group">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="dropdownCheck">
-                <label class="form-check-label" for="dropdownCheck">
-                  Remember me
-                </label>
-              </div>
-            </div>
-            -->
             <button type="submit" class="btn btn-primary btn-block">Log In</button>
           </form>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Forgot password? Click me!</a>
+          <a class="dropdown-item" href="/signup">Need an account? Click me!</a> -->
         </div>
 
         <a class="nav-item nav-link" href="/signup">SIGN UP</a>

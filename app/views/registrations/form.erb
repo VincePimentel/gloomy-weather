@@ -1,3 +1,5 @@
+<%= erb :"/registrations/error_handler" %>
+
 <div class="row">
   <div class="mx-auto">
     <h1 class="display-3">REGISTER</h1>
@@ -10,10 +12,10 @@
     <form class="px-4 py-3" action="/users" method="POST">
       <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" class="form-control <%= @username_border %>" id="username" name="username" value="<%= @username %>" placeholder="Minimum 3 characters">
+        <input type="text" class="form-control <%= username_border %>" id="username" name="username" value="<%= params[:username] %>" placeholder="Minimum 3 characters">
         <% if !@username_error.nil? %>
         <div class="alert alert-danger font-italic" role="alert">
-          <small><%= @username_error %></small>
+          <small><%= username_message %></small>
         </div>
         <% end %>      
       </div>
