@@ -167,12 +167,17 @@ class UsersController < ApplicationController
       @error_message = 1
 
       pass = false
-    elsif User.all.exists?(username: @username)
+    elsif !User.all.exists?(username: @username)
       @error_type = 1
-      @error_message = 3
+      @error_message = 2
 
       pass = false
     elsif params[:password].length < 6
+      @error_type = 2
+      @error_message = 3
+
+      pass = false
+    elsif user && !user.authenticate(params[:password])
       @error_type = 2
       @error_message = 4
 
