@@ -1,13 +1,14 @@
 class UsersController < ApplicationController
   get "/users/account" do
     if logged_in?
-      @user = User.find(session[:user_id])
+      @user = current_user
 
       erb :"/users/account"
     else
       session[:previous_location] = "/users/account"
 
-      redirect "/login"
+      erb :"/sessions/login"
+      #redirect "/login"
     end
   end
 
@@ -16,20 +17,22 @@ class UsersController < ApplicationController
       @user = User.find_by_slug(params[:slug])
 
       if @user
-        erb :"/users/profile"
+        erb :"/users/presets"
       else
-        redirect "/"
+        erb :index
       end
     else
       session[:previous_location] = "/users/#{params[:slug]}"
+      session[:previous_message] = "To view #{params[:slug]}'s presets, please log in first."
 
+      #erb :"/sessions/login"
       redirect "/login"
     end
   end
 
   get "/signup" do
     if logged_in?
-      erb :"/users/profile"
+      redirect "/users/#{current_user.slug}"
     else
       erb :"/registrations/form"
     end
@@ -133,27 +136,29 @@ class UsersController < ApplicationController
   end
 
   get "/login" do
-    back = session[:previous_location]
-    session[:previous_location] = nil
-
     if logged_in?
-      if back
-        redirect "#{back}"
-      else
-        redirect "/"
-      end
+      redirect "/users/#{current_user.slug}"
     else
+      @message = session[:previous_message]
+
       erb :"/sessions/login"
     end
   end
 
   post "/login" do
+    previous = session[:previous_location]
+
     user = User.find_by(username: params[:username])
 
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
+      session[:previous_location] = nil
 
-      redirect "/users/#{user.slug}"
+        if previous
+          redirect "#{previous}"
+        else
+          redirect "/users/#{user.slug}"
+        end
     else
       @message = "Incorrect username/password. Please try again!"
 
@@ -167,7 +172,7 @@ class UsersController < ApplicationController
 
       redirect "/"
     else
-      redirect "/login"
+      erb :"/sessions/login"
     end
   end
 
