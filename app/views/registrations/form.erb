@@ -1,23 +1,27 @@
-<h1>Register</h1>
+<h1 class="display-3">REGISTER</h1>
 
-<form class="" action="/users" method="POST">
-  <p>
-    <input type="text" name="username" value="<%= @username %>" placeholder="Username"> <%= @username_error %>
-  </p>
-
-  <p>
-    <input type="text" name="email" value="<%= @email %>" placeholder="E-mail address"> <%= @email_error %>
-  </p>
-
-  <p>
-    <input type="password" name="password" value="" placeholder="Password"> <%= @password_error %>
-  </p>
-
-  <p>
-    <input type="password" name="password?" value="" placeholder="Confirm Password">
-  </p>
-
-  <p>
-    <input type="submit" name="" value="Register">
-  </p>
+<form class="px-4 py-3" action="/users" method="POST">
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+  </div>
+  <div class="form-group">
+    <label for="email">E-mail Address</label>
+    <input type="email" class="form-control" id="email" name="email" placeholder="email@example.com">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+  </div>
+  <!-- <div class="form-group">
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="dropdownCheck">
+      <label class="form-check-label" for="dropdownCheck">
+        Remember me
+      </label>
+    </div>
+  </div> -->
+  <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
 </form>
+<div class="dropdown-divider"></div>
+<a class="dropdown-item" href="#">Forgot password? Click me!</a>
