@@ -27,10 +27,6 @@ class UsersController < ApplicationController
     end
   end
 
-  patch "/users" do
-
-  end
-
   get "/signup" do
     if logged_in?
       erb :"/users/profile"
@@ -47,15 +43,15 @@ class UsersController < ApplicationController
     #CHECK IF THERE ARE ANY ISSUES WITH USER INPUTS
     if username || email || password
       if username
-        @user_error = "Username already taken. Please try again!"
-
-        @email = params[:email] unless email
+        @username_error = "Username already taken. Please try again!"
+        @email = params[:email]
       end
 
       if email
         @email_error = "E-mail address already in use. Please use a different one."
 
-        @username = params[:username] unless username
+        @username = params[:username]
+        @email = ""
       end
 
       if password
@@ -65,8 +61,8 @@ class UsersController < ApplicationController
           @password_error = "Passwords do not match. Please try again."
         end
 
-        @username = params[:username] unless username
-        @email = params[:email] unless email
+        @username = username ? params[:username] : ""
+        @email = email ? params[:email] : ""
       end
 
       erb :"/registrations/form"
@@ -80,7 +76,59 @@ class UsersController < ApplicationController
 
       erb :"/users/profile"
     else
+
+
+      @username = params[:username]
+      @email = params[:password]
+
       erb :"/registrations/form"
+    end
+  end
+
+  patch "/users" do
+    username = User.all.exists?(username: params[:username])
+    email = User.all.exists?(email: params[:email])
+    password = params[:password] != params[:password?] || (params[:password].length < 6 || params[:password?].length < 6)
+
+    user = User.find(session[:user_id])
+
+    #CHECK IF THERE ARE ANY ISSUES WITH USER INPUTS
+    if !username || !email || !password
+      if !username && user.username != params[:username]
+        @username_error = "Username already taken. Please try again!"
+
+        @email = email ? params[:email] : ""
+      end
+
+      if !email && user.email != params[:email]
+        @email_error = "E-mail address already in use. Please use a different one."
+
+        @username = !username ? "" : params[:username]
+      end
+
+      if !password
+        if params[:password].length + params[:password?].length < 12
+          @password_error = "Password is less than 6 characters. Please try again."
+        else
+          @password_error = "Passwords do not match. Please try again."
+        end
+
+        @username = username ? params[:username] : ""
+        @email = email ? params[:email] : ""
+      end
+
+      erb :"/users/account"
+    elsif !params.any?{ |key, value| value.empty? }
+    #IF NO USER INPUTS ARE EMPTY, DELETE PASSWORD CONFIRMATION KEY-VALUE PAIR AND CREATE USER
+      @user = User.find(session[:user_id])
+
+      params.delete(:password?)
+
+      @user.update(params)
+
+      erb :"/users/account"
+    else
+      erb :"/users/account"
     end
   end
 

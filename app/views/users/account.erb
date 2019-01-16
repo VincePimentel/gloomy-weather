@@ -3,19 +3,19 @@
 <form class="" action="/users" method="POST">
   <input type="hidden" name="_method" value="PATCH">
   <p>
-    <input type="text" name="username" value="<%= @user.username %>" placeholder="Username">
+    <input type="text" name="username" value="<%= @username || @user.username %>" placeholder="Username"> <%= @username_error %>
   </p>
 
   <p>
-    <input type="text" name="email" value="<%= @user.email %>" placeholder="E-mail address">
+    <input type="text" name="email" value="<%= @email || @user.email %>" placeholder="E-mail address"> <%= @email_error %>
   </p>
 
-  <p>
+  <!-- <p>
     <input type="password" name="password" value="" placeholder="Old Password">
-  </p>
+  </p> -->
 
   <p>
-    <input type="password" name="password!" value="" placeholder="New Password">
+    <input type="password" name="password" value="" placeholder="New Password"> <%= @password_error %>
   </p>
 
   <p>
