@@ -7,8 +7,7 @@ class UsersController < ApplicationController
     else
       session[:previous] = "/users/account"
 
-      erb :"/sessions/login"
-      #redirect "/login"
+      redirect "/login"
     end
   end
 
@@ -19,12 +18,11 @@ class UsersController < ApplicationController
       if @user
         erb :"/users/presets"
       else
-        erb :index
+        redirect "/"
       end
     else
       session[:previous] = "/users/#{params[:slug]}"
 
-      #erb :"/sessions/login"
       redirect "/login"
     end
   end
@@ -151,7 +149,7 @@ class UsersController < ApplicationController
     if logged_in?
       redirect "/users/#{current_user.slug}"
     else
-      @message = session[:previous]
+      @previous = session[:previous]
 
       erb :"/sessions/login"
     end
@@ -169,7 +167,7 @@ class UsersController < ApplicationController
       @error_message = 1
 
       pass = false
-    elsif User.all.exists?(username: @username) && current_user.username != @username
+    elsif User.all.exists?(username: @username)
       @error_type = 1
       @error_message = 3
 
@@ -184,42 +182,18 @@ class UsersController < ApplicationController
     end
 
     if pass
-      if session[:previous]
-        session[:previous] = nil
+      previous = session[:previous]
+      session.delete(:previous)
 
+      if previous
         redirect "#{previous}"
       else
-        session[:previous] = nil
-
         redirect "/users/#{user.slug}"
       end
     else
-      @message = "Incorrect username/password. Please try again!"
-
       erb :"/sessions/login"
     end
   end
-
-  # post "/login" do
-  #   previous = session[:previous_location]
-  #
-  #   user = User.find_by(username: params[:username])
-  #
-  #   if user && user.authenticate(params[:password])
-  #     session[:user_id] = user.id
-  #     session[:previous_location] = nil
-  #
-  #       if previous
-  #         redirect "#{previous}"
-  #       else
-  #         redirect "/users/#{user.slug}"
-  #       end
-  #   else
-  #     @message = "Incorrect username/password. Please try again!"
-  #
-  #     erb :"/sessions/login"
-  #   end
-  # end
 
   get "/logout" do
     if logged_in?

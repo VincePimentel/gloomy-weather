@@ -6,9 +6,9 @@
       <div class="alert alert-danger font-italic" role="alert">
       <% case @error_message
         when 1 %>
-        <small>"Username is less than 3 characters. Please try again."</small>
+        <small>Username is less than 3 characters. Please try again.</small>
       <% when 2 %>
-        <small>"Username already taken. Please try a different one!"</small>
+        <small>Username does not exist. Please try again.</small>
       <% end %>
       </div>
     <% end %>
@@ -20,12 +20,14 @@
       <div class="alert alert-danger font-italic" role="alert">
       <% case @error_message
         when 3 %>
-        <small>"Password is less than 6 characters. Please try again."</small>
+        <small>Password is less than 6 characters. Please try again.</small>
       <% when 4 %>
-        <small>"Passwords do not match. Please try again."</small>
+        <small>Incorrect password. Please try again.</small>
       <% end %>
       </div>
     <% end %>
   </div>
   <button type="submit" class="btn btn-primary btn-block">Log In</button>
+  <div class="dropdown-divider"></div>
+  <a class="dropdown-item" href="/signup">Need an account? Click me!</a>
 </form>
