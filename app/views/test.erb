@@ -1,0 +1,75 @@
+<div class="col-sm-3 text-center">
+  <audio id="rain-audio" loop>
+    <source src="https://od.lk/s/MjZfODk0MzgwMV8/Meizong%20-%20Conundrum.mp3" type="audio/mpeg">
+  </audio>
+
+  <button id="rain" type="button" class="btn"><i class="fas fa-cloud-rain"></i></button>
+  <br>
+
+  <input id="rain-volume" class="form-control-plaintext text-center" type="number" name="rain_volume" value="" disabled>
+</div>
+
+<div class="col-sm-3 text-center">
+  <audio id="fire-audio" loop>
+    <source src="#" type="audio/mpeg">
+  </audio>
+
+  <button id="fire" type="button" class="btn"><i class="fas fa-bolt"></i></button>
+  <br>
+
+  <input id="fire-volume" class="form-control-plaintext text-center" type="number" name="fire_volume" value="" disabled>
+</div>
+
+
+
+<script type="text/javascript">
+var volumeUp = function() {
+  button = document.getElementById(this.id);
+  audio = document.getElementById(this.id+"-audio");
+  volume = document.getElementById(this.id+"-volume");
+
+  if (audio.volume == 1.00 && audio.paused) {
+    audio.volume = 0.25;
+    audio.play();
+  } else if (audio.volume == 1.00) {
+    audio.volume = 0.00;
+    audio.pause();
+  } else {
+    audio.volume += 0.25;
+    audio.play();
+  }
+
+  volume.value = audio.volume * 100;
+}
+
+var volumeDown = function() {
+  button = document.getElementById(this.id);
+  audio = document.getElementById(this.id+"-audio");
+  volume = document.getElementById(this.id+"-volume");
+
+  if (audio.volume == 1.00 && audio.paused) {
+    audio.volume -= 0.25;
+    audio.play();
+  } else if (audio.volume == 0.00 && audio.paused) {
+    audio.volume = 1.00;
+    audio.play();
+  } else if (audio.volume == 0.25) {
+    audio.volume -= 0.25;
+    audio.pause();
+  } else {
+    audio.volume -= 0.25;
+  }
+
+  volume.value = audio.volume * 100;
+}
+
+var buttons = document.getElementsByTagName("button");
+var buttonsCount = buttons.length;
+for (var i = 0; i < buttons.length; i++) {
+  buttons[i].onclick = volumeUp;
+  buttons[i].addEventListener("contextmenu", volumeDown);
+  buttons[i].oncontextmenu = function() {
+    return false;
+  }
+}
+</script>
