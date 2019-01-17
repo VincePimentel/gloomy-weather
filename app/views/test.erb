@@ -20,8 +20,6 @@
   <input id="fire-volume" class="form-control-plaintext text-center" type="number" name="fire_volume" value="" disabled>
 </div>
 
-
-
 <script type="text/javascript">
 var volumeUp = function() {
   button = document.getElementById(this.id);
@@ -39,7 +37,11 @@ var volumeUp = function() {
     audio.play();
   }
 
-  volume.value = audio.volume * 100;
+  if (volume.value == 100) {
+    volume.value = "";
+  } else {
+    volume.value = audio.volume * 100;
+  }
 }
 
 var volumeDown = function() {
@@ -60,15 +62,20 @@ var volumeDown = function() {
     audio.volume -= 0.25;
   }
 
-  volume.value = audio.volume * 100;
+  if (volume.value == 25) {
+    volume.value = "";
+  } else {
+    volume.value = audio.volume * 100;
+  }
 }
 
 var buttons = document.getElementsByTagName("button");
 var buttonsCount = buttons.length;
 for (var i = 0; i < buttons.length; i++) {
-  buttons[i].onclick = volumeUp;
-  buttons[i].addEventListener("contextmenu", volumeDown);
-  buttons[i].oncontextmenu = function() {
+  button = buttons[i];
+  button.onclick = volumeUp;
+  button.addEventListener("contextmenu", volumeDown);
+  button.oncontextmenu = function() {
     return false;
   }
 }
