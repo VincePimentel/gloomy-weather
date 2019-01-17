@@ -1,80 +1,223 @@
 <% @title = "Experience Tranquility" %>
 
-<div class="jumbotron">
-  <h1 class="display-4">Hello, world!</h1>
-  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-  <hr class="my-4">
-  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-</div>
-
 <!-- <audio controls id="rain" volume="0.25">
   <source src="https://od.lk/s/MjZfODk0MzgwMV8/Meizong%20-%20Conundrum.mp3" type="audio/mpeg">
 </audio>
 
 <a href="#"><i class="fas fa-cloud-showers-heavy" onclick="document.getElementById('rain').play(); document.getElementById('rain').volume=0.25" onchange="document.getElementById('rain').volume=(this.value+0.25)" style="font-size: 5em"></i></a> -->
 
-<audio id="rain-audio" volume="0.25" controls>
-  <source src="https://od.lk/s/MjZfODk0MzgwMV8/Meizong%20-%20Conundrum.mp3" type="audio/mpeg">
-</audio>
+<div class="card-group">
+  <div class="card text-center">
+    <div class="card-body">
+      <audio id="rain-audio" loop>
+        <source src="https://od.lk/s/MjZfODk0MzgwMV8/Meizong%20-%20Conundrum.mp3" type="audio/mpeg">
+      </audio>
 
-<p>
-  <button id="rain-button" type="button" class="btn btn-outline-dark"><i id="rain-icon" class="fas fa-cloud-showers-heavy" style="font-size: 5em"></i></button><br>
-  vol: <span id="rain-volume"></span>%
-</p>
+      <button id="rain-button" type="button" class="btn"><i id="rain-icon" class="fas fa-cloud-rain"></i></button>
+    </div>
+    <div class="card-footer text-muted">
+      <span id="rain-volume">100</span>
+    </div>
+  </div>
 
-<script>
-  var rainButton = document.getElementById("rain-button");
-  var rainIcon = document.getElementById("rain-icon");
-  var rainAudio = document.getElementById("rain-audio");
-  rainButton.addEventListener("click", volumeUp);
-  rainButton.addEventListener("contextmenu", volumeDown);
-  rainButton.oncontextmenu = function() {
-    return false;
-  }
+  <div class="card text-center">
+    <div class="card-body">
+      <audio id="#-audio" loop>
+        <source src="#" type="audio/mpeg">
+      </audio>
 
-  function volumeDown() {
-    //rainAudio.play();
+      <button id="#-button" type="button" class="btn"><i class="fas fa-bolt"></i></button>
+    </div>
+    <div class="card-footer text-muted">
+      <span id="#-volume">100</span>
+    </div>
+  </div>
 
-    if (rainAudio.volume == 1.00 && rainAudio.paused) {
-      rainAudio.volume -= 0.25;
-      rainAudio.play();
-    } else if (rainAudio.volume == 0.00) {
-      rainAudio.pause();
-      rainAudio.volume = 1.00;
-    } else {
-      rainAudio.volume -= 0.25;
-      rainAudio.play();
-    }
-  }
+  <div class="card text-center">
+    <div class="card-body">
+      <audio id="#-audio" loop>
+        <source src="#" type="audio/mpeg">
+      </audio>
 
-  function volumeUp() {
-    if (rainAudio.volume == 1.00 && rainAudio.paused) {
-      rainAudio.volume = 0.25;
-      rainAudio.play();
-    } else if (rainAudio.volume == 1.00) {
-      rainAudio.volume = 0.00;
-      rainAudio.pause();
-    } else {
-      rainAudio.volume += 0.25;
-      rainAudio.play();
-    }
-  }
+      <button id="#-button" type="button" class="btn"></button>
+    </div>
+    <div class="card-footer text-muted">
+      <span id="#-volume">100</span>
+    </div>
+  </div>
 
-  function togglePlay() {
-    if (rainAudio.paused) {
-      rainAudio.play();
-      //rainIcon.classList.add("bg-dark");
-      //rainButton.innerHTML = "Pause";
-    }
-    else {
-      rainAudio.pause();
-      //rainIcon.classList.remove("bg-dark");
-      //rainButton.innerHTML = "Play";
-    }
-  }
+  <div class="card text-center">
+    <div class="card-body">
+      <audio id="#-audio" loop>
+        <source src="#" type="audio/mpeg">
+      </audio>
 
+      <button id="#-button" type="button" class="btn"></button>
+    </div>
+    <div class="card-footer text-muted">
+      <span id="#-volume">100</span>
+    </div>
+  </div>
+</div>
 
+<div class="card-group">
+  <div class="card text-center">
+    <div class="card-body">
+      <audio id="#-audio" loop>
+        <source src="#" type="audio/mpeg">
+      </audio>
 
+      <button id="#-button" type="button" class="btn"></button>
+    </div>
+    <div class="card-footer text-muted">
+      <span id="#-volume">100</span>
+    </div>
+  </div>
 
-</script>
+  <div class="card text-center">
+    <div class="card-body">
+      <audio id="#-audio" loop>
+        <source src="#" type="audio/mpeg">
+      </audio>
+
+      <button id="#-button" type="button" class="btn"></button>
+    </div>
+    <div class="card-footer text-muted">
+      <span id="#-volume">100</span>
+    </div>
+  </div>
+
+  <div class="card text-center">
+    <div class="card-body">
+      <audio id="#-audio" loop>
+        <source src="#" type="audio/mpeg">
+      </audio>
+
+      <button id="#-button" type="button" class="btn"></button>
+    </div>
+    <div class="card-footer text-muted">
+      <span id="#-volume">100</span>
+    </div>
+  </div>
+
+  <div class="card text-center">
+    <div class="card-body">
+      <audio id="#-audio" loop>
+        <source src="#" type="audio/mpeg">
+      </audio>
+
+      <button id="#-button" type="button" class="btn"></button>
+    </div>
+    <div class="card-footer text-muted">
+      <span id="#-volume">100</span>
+    </div>
+  </div>
+</div>
+
+<div class="card-group">
+  <div class="card text-center">
+    <div class="card-body">
+      <audio id="#-audio" loop>
+        <source src="#" type="audio/mpeg">
+      </audio>
+
+      <button id="#-button" type="button" class="btn"></button>
+    </div>
+    <div class="card-footer text-muted">
+      <span id="#-volume">100</span>
+    </div>
+  </div>
+
+  <div class="card text-center">
+    <div class="card-body">
+      <audio id="#-audio" loop>
+        <source src="#" type="audio/mpeg">
+      </audio>
+
+      <button id="#-button" type="button" class="btn"></button>
+    </div>
+    <div class="card-footer text-muted">
+      <span id="#-volume">100</span>
+    </div>
+  </div>
+
+  <div class="card text-center">
+    <div class="card-body">
+      <audio id="#-audio" loop>
+        <source src="#" type="audio/mpeg">
+      </audio>
+
+      <button id="#-button" type="button" class="btn"></button>
+    </div>
+    <div class="card-footer text-muted">
+      <span id="#-volume">100</span>
+    </div>
+  </div>
+
+  <div class="card text-center">
+    <div class="card-body">
+      <audio id="#-audio" loop>
+        <source src="#" type="audio/mpeg">
+      </audio>
+
+      <button id="#-button" type="button" class="btn"></button>
+    </div>
+    <div class="card-footer text-muted">
+      <span id="#-volume">100</span>
+    </div>
+  </div>
+</div>
+
+<div class="card-group">
+  <div class="card text-center">
+    <div class="card-body">
+      <audio id="#-audio" loop>
+        <source src="#" type="audio/mpeg">
+      </audio>
+
+      <button id="#-button" type="button" class="btn"></button>
+    </div>
+    <div class="card-footer text-muted">
+      <span id="#-volume">100</span>
+    </div>
+  </div>
+
+  <div class="card text-center">
+    <div class="card-body">
+      <audio id="#-audio" loop>
+        <source src="#" type="audio/mpeg">
+      </audio>
+
+      <button id="#-button" type="button" class="btn"></button>
+    </div>
+    <div class="card-footer text-muted">
+      <span id="#-volume">100</span>
+    </div>
+  </div>
+
+  <div class="card text-center">
+    <div class="card-body">
+      <audio id="#-audio" loop>
+        <source src="#" type="audio/mpeg">
+      </audio>
+
+      <button id="#-button" type="button" class="btn"></button>
+    </div>
+    <div class="card-footer text-muted">
+      <span id="#-volume">100</span>
+    </div>
+  </div>
+
+  <div class="card text-center">
+    <div class="card-body">
+      <audio id="#-audio" loop>
+        <source src="#" type="audio/mpeg">
+      </audio>
+
+      <button id="#-button" type="button" class="btn"></button>
+    </div>
+    <div class="card-footer text-muted">
+      <span id="#-volume">100</span>
+    </div>
+  </div>
+</div>

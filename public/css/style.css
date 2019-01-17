@@ -3,3 +3,7 @@
 body {
   font-family: 'Quicksand', sans-serif;
 } */
+
+div.card-group i {
+  font-size: 5em;
+}
