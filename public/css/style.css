@@ -4,6 +4,12 @@ body {
   font-family: 'Quicksand', sans-serif;
 } */
 
-div.card-group i {
+div.col-sm-3 i {
   font-size: 5em;
+}
+
+@media (max-width: 575.98px) {
+  div.col-sm-3 i {
+    font-size: 7em;
+  }
 }

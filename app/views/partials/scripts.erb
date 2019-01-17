@@ -27,7 +27,7 @@
       rainAudio.volume -= 0.25;
     }
 
-    rainVolume.innerHTML = rainAudio.volume * 100;
+    rainVolume.value = rainAudio.volume * 100;
   }
 
   function volumeUp() {
@@ -42,6 +42,6 @@
       rainAudio.play();
     }
 
-    rainVolume.innerHTML = rainAudio.volume * 100;
+    rainVolume.value = rainAudio.volume * 100;
   }
 </script>
