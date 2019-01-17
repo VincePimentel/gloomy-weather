@@ -1,8 +1,29 @@
-/*
 @import url('https://fonts.googleapis.com/css?family=Quicksand');
 
+/*
 body {
+  background-color: #1a1a1a;
+  color: #fff;
   font-family: 'Quicksand', sans-serif;
+}
+
+header {
+
+}
+
+.header-divider-1 {
+  background-color: #832f24;
+  height: 5px;
+}
+
+.header-divider-2 {
+  background-color: #b7b7b7;
+  height: 1px;
+}
+
+i {
+  color: #757571;
+  text-shadow: 0 0 10px #fff;
 }
 */
 

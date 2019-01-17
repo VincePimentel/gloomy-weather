@@ -1,13 +1,9 @@
 <% @title = "Experience Tranquility" %>
 
-<!-- <audio controls id="rain" volume="0.25">
-  <source src="https://od.lk/s/MjZfODk0MzgwMV8/Meizong%20-%20Conundrum.mp3" type="audio/mpeg">
-</audio>
-
-<a href="#"><i class="fas fa-cloud-showers-heavy" onclick="document.getElementById('rain').play(); document.getElementById('rain').volume=0.25" onchange="document.getElementById('rain').volume=(this.value+0.25)" style="font-size: 5em"></i></a> -->
-
 <h4>to-do:</h4>
-<p>add invalid feedback to forms</p>
+<ol>
+  <li>add invalid feedback to forms</li>
+</ol>
 
 <form class="" action="/presets" method="post">
 
@@ -15,21 +11,55 @@
     <div class="row justify-content-center">
       <div class="col-sm-3 text-center">
         <audio id="rain-audio" loop>
-          <source src="https://od.lk/s/MjZfODk0MzgwMV8/Meizong%20-%20Conundrum.mp3" type="audio/mpeg">
-          </audio>
+          <source src="https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/aee2e72d788" type="audio/mpeg">
+        </audio>
 
-          <button id="rain" type="button" class="btn"><i class="fas fa-cloud-rain"></i></button>
-          <br>
+        <button id="rain" type="button" class="btn"><i class="fas fa-cloud-rain"></i></button>
+        <br>
 
-          <input id="rain-volume" class="form-control-plaintext text-center" type="number" name="rain_volume" value="" readonly>
-        </div>
+        <input id="rain-volume" class="form-control-plaintext text-center" type="number" name="rain_volume" value="" readonly>
       </div>
-    </div>
+
+      <div class="col-sm-3 text-center">
+        <audio id="thunder-audio" loop>
+          <source src="https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/795b33f56f2" type="audio/mpeg">
+        </audio>
+
+        <button id="thunder" type="button" class="btn"><i class="fas fa-bolt"></i></button>
+        <br>
+
+        <input id="thunder-volume" class="form-control-plaintext text-center" type="number" name="thunder_volume" value="" readonly>
+      </div>
+
+      <div class="col-sm-3 text-center">
+        <audio id="wave-audio" loop>
+          <source src="https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/06259a051ee" type="audio/mpeg">
+        </audio>
+
+        <button id="wave" type="button" class="btn"><i class="fas fa-umbrella-beach"></i></button>
+        <br>
+
+        <input id="wave-volume" class="form-control-plaintext text-center" type="number" name="wave_volume" value="" readonly>
+      </div>
+
+      <div class="col-sm-3 text-center">
+        <audio id="fire-audio" loop>
+          <source src="https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/f22c3aaed90" type="audio/mpeg">
+        </audio>
+
+        <button id="fire" type="button" class="btn"><i class="fas fa-fire"></i></button>
+        <br>
+
+        <input id="fire-volume" class="form-control-plaintext text-center" type="number" name="fire_volume" value="" readonly>
+      </div>
+
+    </div> <!-- row -->
+  </div> <!-- container -->
 
     <div class="row justify-content-center">
       <button type="submit" class="btn btn-success" name="">Save</button>
-
-      <button type="submit" class="btn btn-secondary" id="reset">Reset</button>
+      &nbsp;
+      <button type="button" class="btn btn-secondary" id="reset">Reset</button>
     </div>
 
 </form>
