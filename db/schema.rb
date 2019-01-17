@@ -14,6 +14,8 @@ ActiveRecord::Schema.define(version: 2019_01_16_002015) do
 
   create_table "presets", force: :cascade do |t|
     t.integer "user_id"
+    t.string "title"
+    t.string "description"
     t.integer "rain_volume", default: 0
     t.integer "river_volume", default: 0
     t.integer "wave_volume", default: 0

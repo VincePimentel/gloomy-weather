@@ -210,6 +210,20 @@ class UsersController < ApplicationController
     end
   end
 
+  get "/users/:slug/delete" do
+    if logged_in?
+      user = User.find_by_slug(params[:slug])
+
+      if current_user == user
+        erb :"/users/delete"
+      else
+
+      end
+    else
+      erb :"/sessions/login"
+    end
+  end
+
   helpers do
 
   end

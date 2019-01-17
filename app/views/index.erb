@@ -6,50 +6,30 @@
 
 <a href="#"><i class="fas fa-cloud-showers-heavy" onclick="document.getElementById('rain').play(); document.getElementById('rain').volume=0.25" onchange="document.getElementById('rain').volume=(this.value+0.25)" style="font-size: 5em"></i></a> -->
 
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-sm-3 text-center">
-      <audio id="rain-audio" loop>
-        <source src="https://od.lk/s/MjZfODk0MzgwMV8/Meizong%20-%20Conundrum.mp3" type="audio/mpeg">
-      </audio>
+<h4>to-do:</h4>
+<p>add invalid feedback to forms</p>
 
-      <button id="rain-button" type="button" class="btn"><i id="rain-icon" class="fas fa-cloud-rain"></i></button>
-      <br>
+<form class="" action="/presets" method="post">
 
-      <input id="rain-volume" class="form-control-plaintext text-center" type="number" name="rain_volume" value="" disabled>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-3 text-center">
+        <audio id="rain-audio" loop>
+          <source src="https://od.lk/s/MjZfODk0MzgwMV8/Meizong%20-%20Conundrum.mp3" type="audio/mpeg">
+          </audio>
+
+          <button id="rain" type="button" class="btn"><i class="fas fa-cloud-rain"></i></button>
+          <br>
+
+          <input id="rain-volume" class="form-control-plaintext text-center" type="number" name="rain_volume" value="" readonly>
+        </div>
+      </div>
     </div>
 
-    <div class="col-sm-3 text-center">
-      <audio id="#-audio" loop>
-        <source src="#" type="audio/mpeg">
-      </audio>
+    <div class="row justify-content-center">
+      <button type="submit" class="btn btn-success" name="">Save</button>
 
-      <button id="#-button" type="button" class="btn"><i class="fas fa-bolt"></i></button>
-      <br>
-
-      <input id="#-volume" class="form-control-plaintext text-center" type="number" name="#_volume" value="" disabled>
+      <button type="submit" class="btn btn-secondary" id="reset">Reset</button>
     </div>
 
-    <div class="col-sm-3 text-center">
-      <audio id="#-audio" loop>
-        <source src="#" type="audio/mpeg">
-      </audio>
-
-      <button id="#-button" type="button" class="btn"><i class="fas fa-water"></i></button>
-      <br>
-
-      <input id="#-volume" class="form-control-plaintext text-center" type="number" name="#_volume" value="" disabled>
-    </div>
-
-    <div class="col-sm-3 text-center">
-      <audio id="#-audio" loop>
-        <source src="#" type="audio/mpeg">
-      </audio>
-
-      <button id="#-button" type="button" class="btn"><i class="fas fa-umbrella-beach"></i></button>
-      <br>
-
-      <input id="#-volume" class="form-control-plaintext text-center" type="number" name="#_volume" value="" disabled>
-    </div>
-  </div>
-</div>
+</form>
