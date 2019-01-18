@@ -1,31 +1,77 @@
 @import url('https://fonts.googleapis.com/css?family=Quicksand');
 
-/*
 body {
-  background-color: #1a1a1a;
+  background-color: #50aa8d;
   color: #fff;
-  font-family: 'Quicksand', sans-serif;
+  /* font-family: 'Quicksand', sans-serif; */
 }
 
-header {
+header nav {
+  background-color: #2a5d4f;
+  /* background-color: #3fa78d; */
+}
 
+header a {
+  color: #fff !important;
+}
+
+footer {
+  background-color: #2a5d4f;
 }
 
 .header-divider-1 {
-  background-color: #832f24;
-  height: 5px;
+  background-color: #865223;
+  height: 2px;
 }
 
 .header-divider-2 {
-  background-color: #b7b7b7;
-  height: 1px;
+  background-color: #a67143;
+  height: 4px;
 }
 
-i {
-  color: #757571;
-  text-shadow: 0 0 10px #fff;
+.dark-brown-color {
+  color: #734517;
 }
-*/
+
+.light-brown-color {
+  color: #865223;
+}
+
+.light-green-color {
+  color: #50aa8d;
+}
+
+.dark-green-color {
+  color: #2a5e50;
+}
+
+.yellow-color {
+  color: #fceda4;
+}
+
+.table-main-color {
+  color: #d9976a;
+}
+
+.table-shadow-color {
+  color: #a67143;
+}
+
+#save-preset, #reset-all {
+  background-color: #2a5e50;
+  border-color: #2a5e50;
+}
+
+#pause-play {
+  background-color: #734517;
+  border-color: #734517;
+}
+
+
+div.col-sm-3 i {
+  color: #fceda4;
+  text-shadow: 4px 3px 0px #734517;
+}
 
 div.col-sm-3 i {
   font-size: 5em;

@@ -6,6 +6,7 @@
 var volumeUp = function() {
   button = document.getElementById(this.id);
   audio = document.getElementById(this.id + "-audio");
+  input = document.getElementById(this.id + "-input");
   volume = document.getElementById(this.id + "-volume");
 
   volumeFix = Number(audio.volume.toFixed(1));
@@ -13,20 +14,30 @@ var volumeUp = function() {
   if (audio.paused && (volumeFix >= 1 || volumeFix <= 0)) {
     audio.volume = 0.1;
     audio.play();
+    button.classList.remove("text-secondary");
   } else if (!audio.paused && volumeFix >= 1) {
     audio.volume = 0;
     audio.pause();
+    button.classList.add("text-secondary");
   } else {
     audio.volume = Number((volumeFix + 0.1).toFixed(1));
     audio.play();
+    button.classList.remove("text-secondary");
   }
 
-  volume.value = audio.volume;
+  if (audio.volume == 0) {
+    input.value = 0;
+  } else {
+    input.value = audio.volume * 100;
+  }
+
+  volume.innerHTML = input.value;
 }
 
 var volumeDown = function() {
   button = document.getElementById(this.id);
   audio = document.getElementById(this.id + "-audio");
+  input = document.getElementById(this.id + "-input");
   volume = document.getElementById(this.id + "-volume");
 
   volumeFix = Number(audio.volume.toFixed(1));
@@ -34,15 +45,24 @@ var volumeDown = function() {
   if (audio.paused && (volumeFix >= 1 || volumeFix <= 0)) {
     audio.volume = 1;
     audio.play();
+    button.classList.remove("text-secondary");
   } else if (!audio.paused && volumeFix <= 0.1) {
     audio.volume = 0;
     audio.pause();
+    button.classList.add("text-secondary");
   } else {
     audio.volume = Number((volumeFix - 0.1).toFixed(1));
     audio.play();
+    button.classList.remove("text-secondary");
   }
 
-  volume.value = audio.volume;
+  if (audio.volume == 0) {
+    input.value = "";
+  } else {
+    input.value = audio.volume * 100;
+  }
+
+  volume.innerHTML = input.value;
 }
 
 var buttons = document.getElementsByTagName("button");
@@ -60,7 +80,10 @@ var pausePlay = function() {
   media = document.getElementsByTagName("audio");
   for (var i = 0; i < media.length; i++) {
     audio = media[i];
-    volume = document.getElementById(audio.id + "-volume");
+
+    //FIX VOLUME
+
+    input = document.getElementById(audio.id + "-input");
 
     volumeFix = Number(audio.volume.toFixed(1));
 
@@ -69,11 +92,10 @@ var pausePlay = function() {
         audio.pause();
       } else {
         audio.play();
+
       }
     }
-
-
-
+    input.value = audio.volume;
   }
 }
 pause.onclick = pausePlay;

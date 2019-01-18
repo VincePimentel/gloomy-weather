@@ -1,10 +1,20 @@
 <% @title = "Experience Tranquility" %>
 
 <form class="" action="/presets" method="post">
+  <div class="row justify-content-center">
+    <div class="btn-group">
+      <button id="save-preset" type="submit" class="btn btn-secondary">save</button>
+      <button id="pause-play" type="button" class="btn btn-dark"><i class="fas fa-play"></i> | <i class="fas fa-pause"></i></button>
+      <button id="reset-all" type="button" class="btn btn-secondary">reset</button>
+    </div>
+  </div>
+
+  <div class="row">&nbsp;</div>
 
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-sm-3 text-center">
+
         <audio id="rain-audio" preload="auto" loop>
           <source src="https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/aee2e72d788" type="audio/mpeg">
         </audio>
@@ -12,7 +22,9 @@
         <button id="rain" type="button" class="btn"><i class="fas fa-cloud-rain"></i></button>
         <br>
 
-        <input id="rain-volume" class="form-control-plaintext text-center" type="number" name="rain_volume" value="" readonly>
+        <input id="rain-input" class="form-control-plaintext text-center" type="number" name="rain_volume" value="" hidden>
+
+        <span id="rain-volume" class="badge badge-dark badge-pill"></span>
       </div>
 
       <div class="col-sm-3 text-center">
@@ -20,21 +32,25 @@
           <source src="https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/795b33f56f2" type="audio/mpeg">
         </audio>
 
-        <button id="thunder" type="button" class="btn"><i class="fas fa-bolt"></i></button>
+        <button id="thunder" type="button" class="btn text-secondary"><i class="fas fa-bolt"></i></button>
         <br>
 
-        <input id="thunder-volume" class="form-control-plaintext text-center" type="number" name="thunder_volume" value="" readonly>
+        <input id="thunder-input" class="form-control-plaintext text-center" type="number" name="thunder_volume" value="" hidden>
+
+        <span id="thunder-volume" class="badge badge-dark badge-pill"></span>
       </div>
 
-      <!-- <div class="col-sm-3 text-center">
+      <div class="col-sm-3 text-center">
         <audio id="wave-audio" preload="auto" loop>
           <source src="https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/06259a051ee" type="audio/mpeg">
         </audio>
 
-        <button id="wave" type="button" class="btn"><i class="fas fa-umbrella-beach"></i></button>
+        <button id="wave" type="button" class="btn text-secondary"><i class="fas fa-umbrella-beach"></i></button>
         <br>
 
-        <input id="wave-volume" class="form-control-plaintext text-center" type="number" name="wave_volume" value="" readonly>
+        <input id="wave-input" class="form-control-plaintext text-center" type="number" name="wave_volume" value="" hidden>
+
+        <span id="wave-volume" class="badge badge-dark badge-pill"></span>
       </div>
 
       <div class="col-sm-3 text-center">
@@ -42,26 +58,21 @@
           <source src="https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/f22c3aaed90" type="audio/mpeg">
         </audio>
 
-        <button id="fire" type="button" class="btn"><i class="fas fa-fire"></i></button>
+        <button id="fire" type="button" class="btn text-secondary"><i class="fas fa-fire"></i></button>
         <br>
 
-        <input id="fire-volume" class="form-control-plaintext text-center" type="number" name="fire_volume" value="" readonly>
-      </div> -->
+        <input id="fire-input" class="form-control-plaintext text-center" type="number" name="fire_volume" value="" hidden>
+
+        <span id="fire-volume" class="badge badge-dark badge-pill"></span>
+      </div>
 
     </div> <!-- row -->
   </div> <!-- container -->
-
-    <div class="row justify-content-center">
-      <button type="submit" class="btn btn-success" name="">Save</button>
-      &nbsp;
-      <button id="pause-play" type="button" class="btn btn-primary" name=""><i class="fas fa-play"></i> | <i class="fas fa-pause"></i></button>
-      &nbsp;
-      <button id="reset-all" type="button" class="btn btn-secondary" id="reset">Reset</button>
-    </div>
 
 </form>
 
 <h4>to-do:</h4>
 <ol>
   <li>add invalid feedback to forms</li>
+  <li>fix audio levels</li>
 </ol>
