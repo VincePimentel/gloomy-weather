@@ -3,17 +3,21 @@
 body {
   background-color: #50aa8d;
   color: #fff;
-  /* font-family: 'Quicksand', sans-serif; */
+  font-family: 'Quicksand', sans-serif;
 }
 
 header nav {
-  background-color: #2a5d4f;
+  background-color: #50aa8d;
   /* background-color: #3fa78d; */
 }
 
 header a {
   color: #fff !important;
 }
+
+/* #global-controls {
+
+} */
 
 footer {
   background-color: #2a5d4f;
@@ -42,7 +46,7 @@ footer {
 }
 
 .dark-green-color {
-  color: #2a5e50;
+  color: #2a5d4f !important;
 }
 
 .yellow-color {
@@ -67,17 +71,23 @@ footer {
   border-color: #734517;
 }
 
-
-div.col-sm-3 i {
-  color: #fceda4;
-  text-shadow: 4px 3px 0px #734517;
+form button[type="submit"] {
+  background-color: #2a5d4f;
+  color: #fff;
 }
 
 div.col-sm-3 i {
   font-size: 5em;
+  color: #fceda4;
+  text-shadow: 3px 3px 3px #734517;
 }
 
 @media (max-width: 575.98px) {
+  div.col-sm-3 {
+    width: 50%;
+    margin-bottom: 40px;
+  }
+
   div.col-sm-3 i {
     font-size: 7em;
   }

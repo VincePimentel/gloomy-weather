@@ -1,7 +1,7 @@
 <% @title = "Experience Tranquility" %>
 
 <form class="" action="/presets" method="post">
-  <div class="row justify-content-center">
+  <div id="global-controls" class="row justify-content-center">
     <div class="btn-group">
       <button id="save-preset" type="submit" class="btn btn-secondary">save</button>
       <button id="pause-play" type="button" class="btn btn-dark"><i class="fas fa-play"></i> | <i class="fas fa-pause"></i></button>
@@ -15,55 +15,16 @@
     <div class="row justify-content-center">
       <div class="col-sm-3 text-center">
 
-        <audio id="rain-audio" preload="auto" loop>
+        <audio id="rain-audio" preload="auto" autoplay loop>
           <source src="https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/aee2e72d788" type="audio/mpeg">
         </audio>
 
-        <button id="rain" type="button" class="btn"><i class="fas fa-cloud-rain"></i></button>
+        <button id="rain" type="button" class="btn preset-button"><i id="rain-icon" class="fas fa-cloud-rain dark-green-color"></i></button>
         <br>
 
         <input id="rain-input" class="form-control-plaintext text-center" type="number" name="rain_volume" value="" hidden>
 
-        <span id="rain-volume" class="badge badge-dark badge-pill"></span>
-      </div>
-
-      <div class="col-sm-3 text-center">
-        <audio id="thunder-audio" preload="auto" loop>
-          <source src="https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/795b33f56f2" type="audio/mpeg">
-        </audio>
-
-        <button id="thunder" type="button" class="btn text-secondary"><i class="fas fa-bolt"></i></button>
-        <br>
-
-        <input id="thunder-input" class="form-control-plaintext text-center" type="number" name="thunder_volume" value="" hidden>
-
-        <span id="thunder-volume" class="badge badge-dark badge-pill"></span>
-      </div>
-
-      <div class="col-sm-3 text-center">
-        <audio id="wave-audio" preload="auto" loop>
-          <source src="https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/06259a051ee" type="audio/mpeg">
-        </audio>
-
-        <button id="wave" type="button" class="btn text-secondary"><i class="fas fa-umbrella-beach"></i></button>
-        <br>
-
-        <input id="wave-input" class="form-control-plaintext text-center" type="number" name="wave_volume" value="" hidden>
-
-        <span id="wave-volume" class="badge badge-dark badge-pill"></span>
-      </div>
-
-      <div class="col-sm-3 text-center">
-        <audio id="fire-audio" preload="auto" loop>
-          <source src="https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/f22c3aaed90" type="audio/mpeg">
-        </audio>
-
-        <button id="fire" type="button" class="btn text-secondary"><i class="fas fa-fire"></i></button>
-        <br>
-
-        <input id="fire-input" class="form-control-plaintext text-center" type="number" name="fire_volume" value="" hidden>
-
-        <span id="fire-volume" class="badge badge-dark badge-pill"></span>
+        <span id="rain-volume" class="badge badge-pill"></span>
       </div>
 
     </div> <!-- row -->
