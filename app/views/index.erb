@@ -1,16 +1,11 @@
 <% @title = "Experience Tranquility" %>
 
-<h4>to-do:</h4>
-<ol>
-  <li>add invalid feedback to forms</li>
-</ol>
-
 <form class="" action="/presets" method="post">
 
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-sm-3 text-center">
-        <audio id="rain-audio" loop>
+        <audio id="rain-audio" preload="auto" loop>
           <source src="https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/aee2e72d788" type="audio/mpeg">
         </audio>
 
@@ -21,7 +16,7 @@
       </div>
 
       <div class="col-sm-3 text-center">
-        <audio id="thunder-audio" loop>
+        <audio id="thunder-audio" preload="auto" loop>
           <source src="https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/795b33f56f2" type="audio/mpeg">
         </audio>
 
@@ -31,8 +26,8 @@
         <input id="thunder-volume" class="form-control-plaintext text-center" type="number" name="thunder_volume" value="" readonly>
       </div>
 
-      <div class="col-sm-3 text-center">
-        <audio id="wave-audio" loop>
+      <!-- <div class="col-sm-3 text-center">
+        <audio id="wave-audio" preload="auto" loop>
           <source src="https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/06259a051ee" type="audio/mpeg">
         </audio>
 
@@ -43,7 +38,7 @@
       </div>
 
       <div class="col-sm-3 text-center">
-        <audio id="fire-audio" loop>
+        <audio id="fire-audio" preload="auto" loop>
           <source src="https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/f22c3aaed90" type="audio/mpeg">
         </audio>
 
@@ -51,7 +46,7 @@
         <br>
 
         <input id="fire-volume" class="form-control-plaintext text-center" type="number" name="fire_volume" value="" readonly>
-      </div>
+      </div> -->
 
     </div> <!-- row -->
   </div> <!-- container -->
@@ -59,7 +54,14 @@
     <div class="row justify-content-center">
       <button type="submit" class="btn btn-success" name="">Save</button>
       &nbsp;
-      <button type="button" class="btn btn-secondary" id="reset">Reset</button>
+      <button id="pause-play" type="button" class="btn btn-primary" name=""><i class="fas fa-play"></i> | <i class="fas fa-pause"></i></button>
+      &nbsp;
+      <button id="reset-all" type="button" class="btn btn-secondary" id="reset">Reset</button>
     </div>
 
 </form>
+
+<h4>to-do:</h4>
+<ol>
+  <li>add invalid feedback to forms</li>
+</ol>
