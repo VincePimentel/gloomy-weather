@@ -13,27 +13,35 @@
 
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-sm-3 text-center">
 
-        <audio id="rain-audio" preload="auto" autoplay loop>
-          <source src="https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/aee2e72d788" type="audio/mpeg">
-        </audio>
+      <% @sources.each do |id, source| %>
 
-        <button id="rain" type="button" class="btn preset-button"><i id="rain-icon" class="fas fa-cloud-rain dark-green-color"></i></button>
-        <br>
+      <% id = id.to_s %>
 
-        <input id="rain-input" class="form-control-plaintext text-center" type="number" name="rain_volume" value="" hidden>
+        <div class="col-sm-3 text-center">
+          <audio id="<%= id %>-audio" preload="auto" loop>
+            <source src="<%= source[:url] %>" type="audio/mpeg">
+          </audio>
 
-        <span id="rain-volume" class="badge badge-pill"></span>
-      </div>
+          <button id="<%= id %>" type="button" class="btn preset-button"><i id="<%= id %>-icon" class="<%= source[:icon] %> dark-green-color"></i></button>
+          <br>
+
+          <input id="<%= id %>-input" class="form-control-plaintext text-center" type="number" name="<%= id %>_volume" value="" hidden>
+
+          <span id="<%= id %>-volume" class="badge badge-pill"></span>
+        </div>
+
+      <% end %>
 
     </div> <!-- row -->
   </div> <!-- container -->
 
 </form>
 
-<h4>to-do:</h4>
-<ol>
-  <li>add invalid feedback to forms</li>
-  <li>fix audio levels</li>
-</ol>
+<div class="container">
+  <h4>to-do:</h4>
+  <ol>
+    <li>add invalid feedback to forms</li>
+    <li>fix audio levels</li>
+  </ol>
+</div>

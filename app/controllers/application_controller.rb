@@ -10,6 +10,7 @@ class ApplicationController < Sinatra::Base
 
   get "/" do
     @user = current_user if logged_in?
+    @sources = Preset.sources
 
     erb :index
   end
