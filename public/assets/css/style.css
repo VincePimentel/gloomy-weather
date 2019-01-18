@@ -76,6 +76,10 @@ form button[type="submit"] {
   color: #fff;
 }
 
+.inactive-sound {
+  opacity: 0.5;
+}
+
 div.col-sm-3 i {
   font-size: 5em;
   color: #fceda4;

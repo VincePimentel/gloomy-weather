@@ -15,15 +15,15 @@ var volumeUp = function() {
   if (audio.paused && (volumeFix >= 1 || volumeFix <= 0)) {
     audio.volume = 0.1;
     audio.play();
-    icon.classList.remove("dark-green-color");
+    icon.classList.remove("inactive-sound");
   } else if (!audio.paused && volumeFix >= 1) {
     audio.volume = 0;
     audio.pause();
-    icon.classList.add("dark-green-color");
+    icon.classList.add("inactive-sound");
   } else {
     audio.volume = Number((volumeFix + 0.1).toFixed(1));
     audio.play();
-    icon.classList.remove("dark-green-color");
+    icon.classList.remove("inactive-sound");
   }
 
   if (audio.volume == 0) {
@@ -47,15 +47,15 @@ var volumeDown = function() {
   if (audio.paused && (volumeFix >= 1 || volumeFix <= 0)) {
     audio.volume = 1;
     audio.play();
-    icon.classList.remove("dark-green-color");
+    icon.classList.remove("inactive-sound");
   } else if (!audio.paused && volumeFix <= 0.1) {
     audio.volume = 0;
     audio.pause();
-    icon.classList.add("dark-green-color");
+    icon.classList.add("inactive-sound");
   } else {
     audio.volume = Number((volumeFix - 0.1).toFixed(1));
     audio.play();
-    icon.classList.remove("dark-green-color");
+    icon.classList.remove("inactive-sound");
   }
 
   if (audio.volume == 0) {
