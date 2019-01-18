@@ -1,4 +1,7 @@
-<% @title = "Experience Tranquility" %>
+<% @page_info = {
+  title: nil,
+  heading: nil
+} %>
 
 <form class="" action="/presets" method="post">
   <div id="global-controls" class="row justify-content-center">
@@ -12,6 +15,9 @@
   <div class="row">&nbsp;</div>
 
   <div class="container">
+
+    <br>
+
     <div class="row justify-content-center">
 
       <% @sources.each do |id, source| %>
@@ -19,16 +25,20 @@
       <% id = id.to_s %>
 
         <div class="col-sm-3 text-center">
+          <button id="<%= id %>" type="button" class="btn preset-button"><i id="<%= id %>-icon" class="<%= source[:icon] %> inactive-sound"></i></button>
+
           <audio id="<%= id %>-audio" preload="auto" loop>
             <source src="<%= source[:url] %>" type="audio/mpeg">
           </audio>
 
-          <button id="<%= id %>" type="button" class="btn preset-button"><i id="<%= id %>-icon" class="<%= source[:icon] %> inactive-sound"></i></button>
           <br>
 
           <input id="<%= id %>-input" class="form-control-plaintext text-center" type="number" name="<%= id %>_volume" value="" hidden>
 
           <span id="<%= id %>-volume" class="badge badge-pill"></span>
+
+          <br><br><br>
+
         </div>
 
       <% end %>

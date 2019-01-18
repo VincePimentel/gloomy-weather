@@ -15,6 +15,10 @@ header a {
   color: #fff !important;
 }
 
+header div.dropdown-menu a.dropdown-item {
+  color: #212529;
+}
+
 /* #global-controls {
 
 } */

@@ -1,3 +1,6 @@
+<% @page_info[:title] ||= "Experience Tranquility" %>
+<% @page_info[:heading] ||= "" %>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -6,7 +9,7 @@
 
     <%= erb :"/partials/stylesheets" %>
 
-    <title><%= "Gloomy Weather - #{@title}" %></title>
+    <title><%= "Gloomy Weather - #{@page_info[:title]}" %></title>
 
   </head>
   <body>
@@ -15,6 +18,15 @@
     </header>
 
     <div class="container">
+
+      <% if !@page_info[:heading].empty? %>
+      <div class="row">
+        <div class="mx-auto">
+          <h1 class="display-3"><%= @page_info[:heading] %></h1>
+        </div>
+      </div>
+      <% end %>
+
       <%= yield %>
     </div>
 

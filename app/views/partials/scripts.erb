@@ -67,7 +67,7 @@ var volumeDown = function() {
   volume.innerHTML = input.value;
 }
 
-var buttons = document.getElementsByTagName("button");
+var buttons = document.getElementsByClassName("preset-button");
 for (var i = 0; i < buttons.length; i++) {
   button = buttons[i];
   button.addEventListener("click", volumeUp);
