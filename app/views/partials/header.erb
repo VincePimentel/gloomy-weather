@@ -11,6 +11,8 @@
     <div class="navbar-nav float-right">
       <% if user = current_user %>
 
+        <a class="nav-item nav-link" href="/presets">ALL PRESETS</a>
+
         <a class="nav-item nav-link" href="/users/<%= user.slug %>">MY PRESETS</a>
 
         <a class="nav-item nav-link dropdown-toggle dropdown" href="#" id="logged-in-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

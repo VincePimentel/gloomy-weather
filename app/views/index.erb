@@ -45,22 +45,22 @@
 
     <div class="row justify-content-center">
 
-      <% @sources.each do |id, source| %>
+      <% @sources.each do |element, source| %>
 
-      <% id = id.to_s %>
+      <% element = element.to_s %>
 
         <div class="col-sm-3 text-center">
-          <button id="<%= id %>" type="button" class="btn preset-button"><i id="<%= id %>-icon" class="<%= source[:icon] %> inactive-sound"></i></button>
+          <button id="<%= element %>" type="button" class="btn preset-button"><i id="<%= element %>-icon" class="<%= source[:icon] %> inactive-sound"></i></button>
 
-          <audio id="<%= id %>-audio" preload="auto" loop>
+          <audio id="<%= element %>-audio" preload="auto" loop>
             <source src="<%= source[:url] %>" type="audio/mpeg">
           </audio>
 
           <br>
 
-          <input id="<%= id %>-input" class="form-control-plaintext text-center" type="number" name="volume[<%= id %>]" value="" hidden>
+          <input id="<%= element %>-input" class="form-control-plaintext text-center" type="number" name="volume[<%= element %>]" value="" hidden>
 
-          <span id="<%= id %>-volume" class="badge badge-pill"></span>&nbsp;
+          <span id="<%= element %>-volume" class="badge badge-pill"></span>&nbsp;
 
         </div>
 

@@ -6,12 +6,8 @@ class PresetsController < ApplicationController
     #display all presets by other users
   end
 
-  get "/presets/:id_or_slug" do
-    if params[:slug].is_a?(Integer)
-      @preset = Preset.find(params[:id_or_slug])
-    else
-      @preset = Preset.find_by_slug(params[:id_or_slug])
-    end
+  get "/presets/:slug" do
+    @preset = Preset.find_by_slug(params[:slug])
 
     erb :"/presets/show"
     #display presets by slug
@@ -47,7 +43,7 @@ class PresetsController < ApplicationController
 
   end
 
-  delete "/presets/:id_or_slug/delete" do
+  delete "/presets/:slug/delete" do
 
   end
 

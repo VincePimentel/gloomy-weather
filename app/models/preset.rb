@@ -15,15 +15,15 @@ class Preset < ActiveRecord::Base
   def self.sources
     {
       rain: {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/aee2e72d788",
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/0200723436a",
         icon: "fas fa-cloud-rain"
       },
       thunder: {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/795b33f56f2",
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/72f6ca7f003",
         icon: "fas fa-bolt"
       },
       wave: {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/06259a051ee",
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/da0916d2ac2",
         icon: "fas fa-umbrella-beach"
       },
       river: {
@@ -39,7 +39,7 @@ class Preset < ActiveRecord::Base
         icon: "fas fa-leaf"
       },
       fire: {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/f22c3aaed90",
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/45e28676876",
         icon: "fas fa-fire"
       },
       bird: {
