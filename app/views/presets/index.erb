@@ -4,13 +4,12 @@
 } %>
 
 <ol>
-  
+
   <% @presets.each do |preset| %>
     <li>
       <a href="/presets/<%= preset.slug %>"><%= preset.title %></a> by: <a href="/users/<%= preset.user.slug %>"><%= preset.user.username %></a>
     </li>
-  <% end %>  
+  <% end %>
 </ol>
 
 display in cards
-

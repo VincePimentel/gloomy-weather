@@ -21,24 +21,22 @@ class PresetsController < ApplicationController
     if params[:title].strip.empty?
       title = ""
 
-      params.each do |key, value|
-        if !["title"].include?(key) && !value.empty?
-          title << "#{key.to_s.gsub("_volume", "").capitalize}(#{value}) | "
-        end
+      params[:volume].each do |key, value|
+        title << "#{key.capitalize}(#{value}) | "
       end
 
       params[:title] = title[0...-3]
     end
 
-    params.each do |key, value|
-      if !["title", "description"].include?(key)
-        params[key.to_sym] = value.to_i
-      end
+    params[:volume].each do |key, value|
+      params[:volume][key.to_sym] = value.to_i
     end
 
-    session[:preset] = Preset.create(params)
+    current_user.presets << Preset.create(params)
 
-    current_user.presets << session[:preset]
+    session[:preset] = current_user.preset.last
+
+    binding.pry
 
     erb :index
 

@@ -1,1 +1,67 @@
-test
+<form action="/presets" method="POST">
+  <div class="row justify-content-center">
+
+    <!--  -->
+    <div class="dropdown">
+      <div class="btn-group">
+
+        <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" data-offset="-5">save</button>
+
+        <button id="pause-play" type="button" class="btn"><i class="fas fa-play"></i> | <i class="fas fa-pause"></i></button>
+
+        <button id="reset-all" type="button" class="btn">reset</button>
+
+      <div class="dropdown-menu">
+        <div class="px-3 py-1">
+
+          <div class="form-group">
+            <input type="text" name="title" value="" placeholder="Give it a title (optional)">
+          </div>
+
+          <div class="form-group">
+            <textarea name="description" rows="4" cols="20" placeholder="And a short description! (optional)"></textarea>
+            <button id="save-preset" class="btn btn-block" type="submit">update</button>
+          </div>
+
+        </div>
+      </div>
+
+      </div>
+    </div>
+    <!--  -->
+
+  </div>
+
+  <div class="row">&nbsp;</div>
+
+  <div class="container">
+
+    <br>
+
+    <div class="row justify-content-center">
+
+      <% @sources.each do |id, source| %>
+
+      <% id = id.to_s %>
+
+        <div class="col-sm-3 text-center">
+          <button id="<%= id %>" type="button" class="btn preset-button"><i id="<%= id %>-icon" class="<%= source[:icon] %> inactive-sound"></i></button>
+
+          <audio id="<%= id %>-audio" preload="auto" loop>
+            <source src="<%= source[:url] %>" type="audio/mpeg">
+          </audio>
+
+          <br>
+
+          <input id="<%= id %>-input" class="form-control-plaintext text-center" type="number" name="<%= id %>_volume" value="" hidden>
+
+          <span id="<%= id %>-volume" class="badge badge-pill"></span>&nbsp;
+
+        </div>
+
+      <% end %>
+
+    </div> <!-- row -->
+  </div> <!-- container -->
+
+</form>

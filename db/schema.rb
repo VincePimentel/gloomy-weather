@@ -16,20 +16,7 @@ ActiveRecord::Schema.define(version: 2019_01_16_002015) do
     t.integer "user_id"
     t.string "title"
     t.string "description"
-    t.integer "rain_volume", default: 0
-    t.integer "river_volume", default: 0
-    t.integer "wave_volume", default: 0
-    t.integer "wind_volume", default: 0
-    t.integer "leaf_volume", default: 0
-    t.integer "thunder_volume", default: 0
-    t.integer "fire_volume", default: 0
-    t.integer "bird_volume", default: 0
-    t.integer "cricket_volume", default: 0
-    t.integer "crowd_volume", default: 0
-    t.integer "train_volume", default: 0
-    t.integer "white_volume", default: 0
-    t.integer "pink_volume", default: 0
-    t.integer "brown_volume", default: 0
+    t.text "volume"
   end
 
   create_table "users", force: :cascade do |t|
