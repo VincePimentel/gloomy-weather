@@ -2,7 +2,7 @@ class Preset < ActiveRecord::Base
   belongs_to :user
 
   def slug
-    self.title.gsub(/\W/, "-").downcase
+    self.title.gsub(/\W+/, "-").chop.downcase
   end
 
   def self.find_by_slug(slug)

@@ -6,8 +6,15 @@ class PresetsController < ApplicationController
     #display all presets by other users
   end
 
-  get "/presets/:id_or_title" do
-    #display all presets by slug
+  get "/presets/:id_or_slug" do
+    if params[:slug].is_a?(Integer)
+      @preset = Preset.find(params[:id])
+    else
+      @preset = Preset.find_by_slug(params[:slug])
+    end
+
+    erb :"/presets/show"
+    #display presets by slug
   end
 
   post "/presets" do
@@ -33,6 +40,8 @@ class PresetsController < ApplicationController
 
     current_user.presets << session[:preset]
 
+    erb :index
+
     #ASK USER TO LOG IN FIRST BEFORE SAVING
   end
 
@@ -40,7 +49,7 @@ class PresetsController < ApplicationController
 
   end
 
-  delete "/presets/:id_or_title/delete" do
+  delete "/presets/:id_or_slug/delete" do
 
   end
 

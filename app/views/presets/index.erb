@@ -3,9 +3,14 @@
   heading: "PRESETS"
 } %>
 
-<% @presets.each do |preset| %>
-  <a href="/presets/<%= preset.slug %>"><%= preset.title %></a>
-  <p><%= preset.description %></p>
+<ol>
+  
+  <% @presets.each do |preset| %>
+    <li>
+      <a href="/presets/<%= preset.slug %>"><%= preset.title %></a> by: <a href="/users/<%= preset.user.slug %>"><%= preset.user.username %></a>
+    </li>
+  <% end %>  
+</ol>
 
-  display in cards
-<% end %>
+display in cards
+
