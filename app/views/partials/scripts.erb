@@ -3,10 +3,10 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
-window.onload = function() {
-  buttons = document.getElementsByClassName("preset-button");
+var buttons = document.getElementsByClassName("preset-button");
 
-  for (var i = 0; i < buttons.length; i++) {
+window.onload = function() {
+  for (i = 0; i < buttons.length; i++) {
     button = buttons[i];
     input = document.getElementById(button.id + "-input");
     volume = document.getElementById(button.id + "-volume");
@@ -73,8 +73,7 @@ var volumeDown = function() {
   audio.volume = Number((input.value / 100).toFixed(1));
 }
 
-var buttons = document.getElementsByClassName("preset-button");
-for (var i = 0; i < buttons.length; i++) {
+for (i = 0; i < buttons.length; i++) {
   button = buttons[i];
   button.addEventListener("click", volumeUp);
   button.addEventListener("contextmenu", volumeDown);

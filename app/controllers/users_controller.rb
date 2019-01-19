@@ -12,20 +12,22 @@ class UsersController < ApplicationController
   end
 
   get "/users/:slug" do
-    if logged_in?
-      @user = User.find_by_slug(params[:slug])
+    @user = User.find_by_slug(params[:slug])
 
-      #IF MY ACCOUNT VS OTHER PERSON
+    #CHECK IF IT'S MY SLUG
 
-      if @user
+    if @user
+      if logged_in?
         erb :"/users/presets"
       else
-        redirect "/"
+        session[:previous] = "/users/#{params[:slug]}"
+
+        redirect "/login"
       end
     else
-      session[:previous] = "/users/#{params[:slug]}"
+      #OR SHOW 404
 
-      redirect "/login"
+      redirect "/"
     end
   end
 

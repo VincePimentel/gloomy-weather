@@ -1,6 +1,8 @@
 class Preset < ActiveRecord::Base
-  belongs_to :user
   serialize :volume, Hash
+  validates_presence_of :title
+  belongs_to :user
+
 
   def slug
     self.title.gsub(/\W+/, "-").chop.downcase

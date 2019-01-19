@@ -3,13 +3,23 @@
   heading: "PRESETS"
 } %>
 
-<ol>
-
-  <% @presets.each do |preset| %>
-    <li>
-      <a href="/presets/<%= preset.slug %>"><%= preset.title %></a> by: <a href="/users/<%= preset.user.slug %>"><%= preset.user.username %></a>
-    </li>
-  <% end %>
-</ol>
-
-display in cards
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">User</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @presets.each do |preset| %>
+      <tr>
+        <th scope="row"><%= preset.id %></th>
+        <td><a class="text-white" href="/users/<%= preset.user.slug %>" target="_blank"><%= preset.user.username %></a></td>
+        <td><a class="text-white" href="/presets/<%= preset.slug %>" target="_blank"><%= preset.title %></a></td>
+        <td><p class="text-white"><%= preset.description %></p></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

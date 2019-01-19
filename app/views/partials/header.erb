@@ -9,9 +9,10 @@
     <div class="navbar-nav mr-auto"></div>
 
     <div class="navbar-nav float-right">
-      <% if user = current_user %>
 
-        <a class="nav-item nav-link" href="/presets">ALL PRESETS</a>
+      <a class="nav-item nav-link" href="/presets">ALL PRESETS</a>
+
+      <% if user = current_user %>
 
         <a class="nav-item nav-link" href="/users/<%= user.slug %>">MY PRESETS</a>
 
