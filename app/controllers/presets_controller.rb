@@ -11,6 +11,12 @@ class PresetsController < ApplicationController
   end
 
   post "/presets" do
+    if params[:title].nil?
+
+
+    end
+    preset = Preset.create(params)
+
     binding.pry
   end
 

@@ -74,7 +74,7 @@ footer {
   color: #fceda4;
 }
 
-#save-preset, #reset-all {
+.green-button {
   background-color: #2f5e4e;
   border-color: #2f5e4e;
 }

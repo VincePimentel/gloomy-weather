@@ -3,13 +3,38 @@
   heading: nil
 } %>
 
-<form action="/presets" method="post">
+<form action="/presets" method="POST">
   <div class="row justify-content-center">
-    <div id="global-controls" class="btn-group">
-      <button id="save-preset" type="submit" class="btn">save</button>
-      <button id="pause-play" type="button" class="btn"><i class="fas fa-play"></i> | <i class="fas fa-pause"></i></button>
-      <button id="reset-all" type="button" class="btn">reset</button>
+
+    <!--  -->
+    <div class="dropdown">
+      <div class="btn-group">
+
+        <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" data-offset="-5">save</button>
+
+        <button id="pause-play" type="button" class="btn"><i class="fas fa-play"></i> | <i class="fas fa-pause"></i></button>
+
+        <button id="reset-all" type="button" class="btn">reset</button>
+
+      <div class="dropdown-menu">
+        <div class="px-3 py-1">
+
+          <div class="form-group">
+            <input type="text" name="title" value="" placeholder="Give it a title">
+          </div>
+
+          <div class="form-group">
+            <textarea name="description" rows="4" cols="20" placeholder="And a short description!"></textarea>
+            <button id="save-preset" class="btn btn-block" type="submit">update</button>
+          </div>
+
+        </div>
+      </div>
+
+      </div>
     </div>
+    <!--  -->
+
   </div>
 
   <div class="row">&nbsp;</div>
