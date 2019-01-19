@@ -8,9 +8,9 @@ class PresetsController < ApplicationController
 
   get "/presets/:id_or_slug" do
     if params[:slug].is_a?(Integer)
-      @preset = Preset.find(params[:id])
+      @preset = Preset.find(params[:id_or_slug])
     else
-      @preset = Preset.find_by_slug(params[:slug])
+      @preset = Preset.find_by_slug(params[:id_or_slug])
     end
 
     erb :"/presets/show"
@@ -22,7 +22,9 @@ class PresetsController < ApplicationController
       title = ""
 
       params[:volume].each do |key, value|
-        title << "#{key.capitalize}(#{value}) | "
+        if value.to_i > 0
+          title << "#{key.capitalize}(#{value}) | "
+        end
       end
 
       params[:title] = title[0...-3]
@@ -32,13 +34,11 @@ class PresetsController < ApplicationController
       params[:volume][key.to_sym] = value.to_i
     end
 
-    current_user.presets << Preset.create(params)
+    preset = Preset.create(params)
 
-    session[:preset] = current_user.preset.last
+    current_user.presets << preset
 
-    binding.pry
-
-    erb :index
+    redirect "/presets/#{preset.slug}"
 
     #ASK USER TO LOG IN FIRST BEFORE SAVING
   end
