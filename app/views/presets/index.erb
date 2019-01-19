@@ -2,3 +2,10 @@
   title: "Presets",
   heading: "PRESETS"
 } %>
+
+<% @presets.each do |preset| %>
+  <a href="/presets/<%= preset.slug %>"><%= preset.title %></a>
+  <p><%= preset.description %></p>
+
+  display in cards
+<% end %>

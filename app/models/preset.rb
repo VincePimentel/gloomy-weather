@@ -1,6 +1,16 @@
 class Preset < ActiveRecord::Base
   belongs_to :user
 
+  def slug
+    self.title.gsub(/\W/, "-").downcase
+  end
+
+  def self.find_by_slug(slug)
+    self.all.find do |preset|
+      preset.slug == slug
+    end
+  end
+
   def self.sources
     {
       rain: {

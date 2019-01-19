@@ -15,12 +15,16 @@ header a.navbar-brand, a.nav-item {
   color: #fff !important;
 }
 
+.navbar-toggler-icon {
+  color: #fff !important;
+}
+
 header a.dropdown-item {
   color: #212529 !important;
 }
 
-header a.dropdown-item a:active {
-  color: #fff !important;
+header a.dropdown-item a:hover {
+  background-color: #fff !important;
 }
 
 /* #global-controls {
@@ -91,6 +95,10 @@ button.preset-button {
 
 .inactive-sound {
   opacity: 0.5;
+}
+
+form[action="/presets"] div.col-sm-3 {
+  margin-bottom: 75px;
 }
 
 div.col-sm-3 i {

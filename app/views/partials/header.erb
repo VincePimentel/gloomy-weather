@@ -1,4 +1,4 @@
-<nav class="navbar sticky-top navbar-expand-sm navbar-light">
+<nav class="navbar sticky-top navbar-expand-sm navbar-dark">
   <!-- bg-light -->
   <a class="navbar-brand" href="/">gloomy weather</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navigation-bar" aria-controls="main-navigation-bar" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,12 +9,12 @@
     <div class="navbar-nav mr-auto"></div>
 
     <div class="navbar-nav float-right">
-      <% if @user %>
+      <% if user = current_user %>
 
-        <a class="nav-item nav-link" href="/users/<%= @user.slug %>">MY PRESETS</a>
+        <a class="nav-item nav-link" href="/users/<%= user.slug %>">MY PRESETS</a>
 
         <a class="nav-item nav-link dropdown-toggle dropdown" href="#" id="logged-in-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-user"></i> <%= @user.username %>
+          <i class="fas fa-user"></i> <%= user.username %>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="logged-in-dropdown">
           <a class="dropdown-item" href="/users/account"><i class="fas fa-edit fa-fw"></i> ACCOUNT</a>

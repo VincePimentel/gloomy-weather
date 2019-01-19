@@ -6,11 +6,17 @@
 <div class="row">
   <div class="col-5 mx-auto">
 
+    <% if @pass %>
+    <div class="alert alert-success font-italic text-center" role="alert">
+      <small>Account information updated.</small>
+    </div>
+    <% end %>
+
     <form class="px-4 py-3" action="/users" method="POST">
       <input type="hidden" name="_method" value="PATCH">
       <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" class="form-control <%= "border-danger" if @username_error %>" id="username" name="username" value="<%= @username || @user.username %>" placeholder="Minimum 3 characters">
+        <input type="text" class="form-control <%= "border-danger" if @username_error %>" id="username" name="username" value="<%= @username || current_user.username %>" placeholder="Minimum 3 characters">
         <% if @error_type == 1 %>
           <div class="alert alert-danger font-italic" role="alert">
           <% case @error_message
@@ -24,7 +30,7 @@
       </div>
       <div class="form-group">
         <label for="email">E-mail Address</label>
-        <input type="email" class="form-control <%= "border-danger" if @email_error %>" id="email" name="email" value="<%= @email || @user.email %>" placeholder="email@example.com">
+        <input type="email" class="form-control <%= "border-danger" if @email_error %>" id="email" name="email" value="<%= @email || current_user.email %>" placeholder="email@example.com">
         <% if @error_type == 2 %>
           <div class="alert alert-danger font-italic" role="alert">
           <% case @error_message
@@ -66,7 +72,7 @@
           </div>
         <% end %>
       </div>
-      <button type="submit" class="btn btn-primary btn-block">Update</button>
+      <button type="submit" class="btn btn-block">Update</button>
     </form>
   </div>
 </div>

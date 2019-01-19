@@ -3,18 +3,15 @@
   heading: "LOG IN"
 } %>
 
-<% if @previous %>
 <div class="row">
   <div class="col-5 mx-auto">
-    <div class="alert alert-danger font-italic text-center" role="alert">
-      <small>Please log in to view <%= @previous.split("/")[2] %>'s presets.</small>
-    </div>
-  </div>
-</div>
-<% end %>
 
-<div class="row">
-  <div class="col-5 mx-auto">
+    <% if @previous %>
+      <div class="alert alert-danger font-italic text-center" role="alert">
+        <small>Please log in to view <%= @previous.split("/")[2] %>'s presets.</small>
+      </div>
+    <% end %>
+
     <%= erb :"/sessions/form" %>
   </div>
 </div>

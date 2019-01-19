@@ -3,7 +3,7 @@
   heading: nil
 } %>
 
-<form class="" action="/presets" method="post">
+<form action="/presets" method="post">
   <div class="row justify-content-center">
     <div id="global-controls" class="btn-group">
       <button id="save-preset" type="submit" class="btn">save</button>
@@ -36,8 +36,6 @@
           <input id="<%= id %>-input" class="form-control-plaintext text-center" type="number" name="<%= id %>_volume" value="" hidden>
 
           <span id="<%= id %>-volume" class="badge badge-pill"></span>
-
-          <br><br><br><br><br>
 
         </div>
 

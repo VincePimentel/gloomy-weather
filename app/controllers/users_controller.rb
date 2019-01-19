@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   get "/users/account" do
     if logged_in?
-      @user = current_user
+      # @user = current_user
 
       erb :"/users/account"
     else
@@ -14,6 +14,8 @@ class UsersController < ApplicationController
   get "/users/:slug" do
     if logged_in?
       @user = User.find_by_slug(params[:slug])
+
+      #IF MY ACCOUNT VS OTHER PERSON
 
       if @user
         erb :"/users/presets"
@@ -86,6 +88,8 @@ class UsersController < ApplicationController
 
     if pass
       redirect "/users/#{user.slug}"
+
+      #ADD WELCOME
     else
       erb :"/registrations/form"
     end
@@ -94,55 +98,51 @@ class UsersController < ApplicationController
   patch "/users" do
     @username = params[:username]
     @email = params[:email]
-
-    pass = true
+    @pass = true
 
     if @username.length < 3
       @error_type = 1
       @error_message = 1
 
-      pass = false
+      @pass = false
     elsif User.all.exists?(username: @username) && current_user.username != @username
       @error_type = 1
       @error_message = 2
 
-      pass = false
+      @pass = false
     elsif @email.length < 5
       @error_type = 2
       @error_message = 3
 
-      pass = false
+      @pass = false
     elsif !@email.match(/\w+@\w+\.\w{2,}/)
       @error_type = 2
       @error_message = 4
 
-      pass = false
+      @pass = false
     elsif User.all.exists?(email: @email) && current_user.email != @email
       @error_type = 2
       @error_message = 5
-      pass = false
+
+      @pass = false
     elsif params[:password].length + params[:password?].length < 12
       @error_type = 3
       @error_message = 6
 
-      pass = false
+      @pass = false
     elsif params[:password] != params[:password?]
       @error_type = 3
       @error_message = 7
 
-      pass = false
-    elsif pass
+      @pass = false
+    elsif @pass
       params.delete(:password?)
       params.delete(:_method)
 
       current_user.update(params)
     end
 
-    if pass
-      redirect "/users/#{current_user.slug}"
-    else
-      erb :"/users/account"
-    end
+    erb :"/users/account"
   end
 
   get "/login" do
