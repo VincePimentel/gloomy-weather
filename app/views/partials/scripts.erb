@@ -3,68 +3,74 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
+window.onload = function() {
+  buttons = document.getElementsByClassName("preset-button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    button = buttons[i];
+    input = document.getElementById(button.id + "-input");
+    volume = document.getElementById(button.id + "-volume");
+    audio = document.getElementById(button.id + "-audio");
+    icon = document.getElementById(button.id + "-icon");
+
+    audio.volume = Number((input.value / 100).toFixed(1));
+    volume.innerHTML = input.value;
+    icon.classList.remove("inactive-sound");
+
+    if (input.value == 0 || input.value == "") {
+      volume.innerHTML = "";
+      icon.classList.add("inactive-sound");
+    }
+  }
+}
+
 var volumeUp = function() {
-  button = document.getElementById(this.id);
-  audio = document.getElementById(this.id + "-audio");
-  icon = document.getElementById(this.id + "-icon");
+  // button = document.getElementById(this.id);
   input = document.getElementById(this.id + "-input");
   volume = document.getElementById(this.id + "-volume");
+  audio = document.getElementById(this.id + "-audio");
+  icon = document.getElementById(this.id + "-icon");
 
-  volumeFix = Number(audio.volume.toFixed(1));
+  input.value = Number(input.value) + 10;
+  volume.innerHTML = input.value;
+  audio.play();
+  icon.classList.remove("inactive-sound");
 
-  if (audio.paused && (volumeFix >= 1 || volumeFix <= 0)) {
-    audio.volume = 0.1;
-    audio.play();
-    icon.classList.remove("inactive-sound");
-  } else if (!audio.paused && volumeFix >= 1) {
-    audio.volume = 0;
+  if (input.value > 100 || input.value < 0) {
+    input.value = 0;
+    volume.innerHTML = "";
     audio.pause();
     icon.classList.add("inactive-sound");
-  } else {
-    audio.volume = Number((volumeFix + 0.1).toFixed(1));
-    audio.play();
-    icon.classList.remove("inactive-sound");
   }
 
-  if (audio.volume == 0) {
-    input.value = "";
-  } else {
-    input.value = audio.volume * 100;
-  }
-
-  volume.innerHTML = input.value;
+  audio.volume = Number((input.value / 100).toFixed(1));
 }
 
 var volumeDown = function() {
-  button = document.getElementById(this.id);
-  audio = document.getElementById(this.id + "-audio");
-  icon = document.getElementById(this.id + "-icon");
+  // button = document.getElementById(this.id);
   input = document.getElementById(this.id + "-input");
   volume = document.getElementById(this.id + "-volume");
+  audio = document.getElementById(this.id + "-audio");
+  icon = document.getElementById(this.id + "-icon");
 
-  volumeFix = Number(audio.volume.toFixed(1));
+  input.value = Number(input.value) - 10;
+  volume.innerHTML = input.value;
+  audio.play();
+  icon.classList.remove("inactive-sound");
 
-  if (audio.paused && (volumeFix >= 1 || volumeFix <= 0)) {
-    audio.volume = 1;
-    audio.play();
-    icon.classList.remove("inactive-sound");
-  } else if (!audio.paused && volumeFix <= 0.1) {
-    audio.volume = 0;
+  if (input.value == 0) {
+    input.value = 0;
+    volume.innerHTML = "";
     audio.pause();
     icon.classList.add("inactive-sound");
-  } else {
-    audio.volume = Number((volumeFix - 0.1).toFixed(1));
+  } else if (input.value < 0) {
+    input.value = 100;
+    volume.innerHTML = input.value;
     audio.play();
     icon.classList.remove("inactive-sound");
   }
 
-  if (audio.volume == 0) {
-    input.value = "";
-  } else {
-    input.value = audio.volume * 100;
-  }
-
-  volume.innerHTML = input.value;
+  audio.volume = Number((input.value / 100).toFixed(1));
 }
 
 var buttons = document.getElementsByClassName("preset-button");
@@ -76,29 +82,4 @@ for (var i = 0; i < buttons.length; i++) {
     return false;
   }
 }
-
-var pause = document.getElementById("pause-play");
-var pausePlay = function() {
-  media = document.getElementsByTagName("audio");
-  for (var i = 0; i < media.length; i++) {
-    audio = media[i];
-
-    //FIX VOLUME
-
-    input = document.getElementById(audio.id + "-input");
-
-    volumeFix = Number(audio.volume.toFixed(1));
-
-    if (audio.volume > 0) {
-      if (!audio.paused) {
-        audio.pause();
-      } else {
-        audio.play();
-
-      }
-    }
-    input.value = audio.volume;
-  }
-}
-pause.onclick = pausePlay;
 </script>

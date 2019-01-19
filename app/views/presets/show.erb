@@ -58,7 +58,7 @@
         <div class="col-sm-3 text-center">
           <button id="<%= element %>" type="button" class="btn preset-button"><i id="<%= element %>-icon" class="<%= source[element.to_sym][:icon] %> <%= "inactive-sound" if volume == 0 %>"></i></button>
 
-          <audio id="<%= element %>-audio" preload="auto" <%= "autoplay" if volume > 0 %> loop>
+          <audio id="<%= element %>-audio" preload="auto" <%= "autoplay" if volume > 0 %> volume="<%= volume %>" loop>
             <source src="<%= source[element.to_sym][:url] %>" type="audio/mpeg">
           </audio>
 
