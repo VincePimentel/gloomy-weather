@@ -11,13 +11,27 @@ class PresetsController < ApplicationController
   end
 
   post "/presets" do
+    title = ""
+
     if params[:title].nil?
+      params.compact.each do |key, value|
+        if key != "description"
+          title << "#{key.to_s.capitalize}(#{value}) | "
+        end
+      end
 
-
+      params[:title] = title[0...-2]
     end
-    preset = Preset.create(params)
+
+    params.each do |key, value|
+      if key != "description"
+        params[key] = value.to_i
+      end
+    end
 
     binding.pry
+
+    preset = Preset.create(params)
   end
 
   patch "/presets" do
