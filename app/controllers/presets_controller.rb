@@ -11,27 +11,29 @@ class PresetsController < ApplicationController
   end
 
   post "/presets" do
-    title = ""
+    if params[:title].strip.empty?
+      title = ""
 
-    if params[:title].nil?
-      params.compact.each do |key, value|
-        if key != "description"
-          title << "#{key.to_s.capitalize}(#{value}) | "
+      params.each do |key, value|
+        if !["title"].include?(key) && !value.empty?
+          title << "#{key.to_s.gsub("_volume", "").capitalize}(#{value}) | "
         end
       end
 
-      params[:title] = title[0...-2]
+      params[:title] = title[0...-3]
     end
 
     params.each do |key, value|
-      if key != "description"
-        params[key] = value.to_i
+      if !["title", "description"].include?(key)
+        params[key.to_sym] = value.to_i
       end
     end
 
-    binding.pry
+    session[:preset] = Preset.create(params)
 
-    preset = Preset.create(params)
+    current_user.presets << session[:preset]
+
+    #ASK USER TO LOG IN FIRST BEFORE SAVING
   end
 
   patch "/presets" do
