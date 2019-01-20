@@ -30,63 +30,79 @@ class UsersController < ApplicationController
     if logged_in?
       redirect "/users/#{current_user.slug}"
     else
+      @validation = {
+        username: {
+          value: nil,
+          test: {
+            length: nil,
+            available: nil
+          },
+          valid: nil
+        },
+        email: {
+          value: nil,
+          test: {
+            length: nil,
+            format: nil,
+            available: nil
+          },
+          valid: nil
+        },
+        password: {
+          test: {
+            length: nil,
+            match: nil
+          },
+          valid: nil
+        }
+      }
+
+
       erb :"/registrations/form"
     end
   end
 
   post "/users" do
-    @username = params[:username]
-    @email = params[:email]
+    @validation = {
+      username: {
+        value: params[:username],
+        test: {
+          length: params[:username].length >= 3,
+          available: !User.all.exists?(username: params[:username])
+        }
+      },
+      email: {
+        value: params[:email],
+        test: {
+          length: params[:email].length >= 6,
+          format: params[:email].match(/\w+@\w+\.\w{2,}/),
+          available: !User.all.exists?(email: params[:email])
+        }
+      },
+      password: {
+        test: {
+          length: params[:password].length + params[:password?].length >= 12,
+          match: params[:password] == params[:password?]
+        }
+      }
+    }
 
-    pass = true
+    @validation[:username][:valid] = @validation[:username][:test].values.all?
+    @validation[:email][:valid] = @validation[:email][:test].values.all?
+    @validation[:password][:valid] = @validation[:email][:test].values.all?
 
-    if @username.length < 3
-      @error_type = 1
-      @error_message = 1
-
-      pass = false
-    elsif User.all.exists?(username: @username)
-      @error_type = 1
-      @error_message = 2
-
-      pass = false
-    elsif @email.length < 5
-      @error_type = 2
-      @error_message = 3
-
-      pass = false
-    elsif !@email.match(/\w+@\w+\.\w{2,}/)
-      @error_type = 2
-      @error_message = 4
-
-      pass = false
-    elsif User.all.exists?(email: @email)
-      @error_type = 2
-      @error_message = 5
-
-      pass = false
-    elsif params[:password].length + params[:password?].length < 12
-      @error_type = 3
-      @error_message = 6
-
-      pass = false
-    elsif params[:password] != params[:password?]
-      @error_type = 3
-      @error_message = 7
-
-      pass = false
-    elsif pass
+    if @validation[:username][:valid] && @validation[:email][:valid] && @validation[:password][:valid]
       params.delete(:password?)
 
       user = User.create(params)
 
       session[:user_id] = user.id
-    end
 
-    if pass
+      binding.pry
+
       redirect "/users/#{user.slug}"
 
-      #ADD WELCOME
+      #ADD WELCOME?
     else
       erb :"/registrations/form"
     end

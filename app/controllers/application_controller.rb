@@ -18,6 +18,10 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
+  get "/test" do
+    erb :test
+  end
+
   helpers do
     def current_user
       User.find_by_id(session[:user_id])
