@@ -12,8 +12,6 @@ class UsersController < ApplicationController
   get "/users/:slug" do
     @user = User.find_by_slug(params[:slug])
 
-    #CHECK IF IT'S MY SLUG
-
     if @user
       if logged_in?
         erb :"/users/presets"
@@ -23,8 +21,7 @@ class UsersController < ApplicationController
         redirect "/login"
       end
     else
-      #OR SHOW 404
-
+      #OR SHOW ERROR
       redirect "/"
     end
   end
@@ -87,8 +84,6 @@ class UsersController < ApplicationController
     end
 
     if pass
-
-      flash[:message] = "HELLO"
       redirect "/users/#{user.slug}"
 
       #ADD WELCOME
@@ -228,9 +223,7 @@ class UsersController < ApplicationController
     else
       redirect "/login"
     end
-
-    #ADD CONFIRM
-
+    #ADD CONFIRMATION
   end
 
   helpers do

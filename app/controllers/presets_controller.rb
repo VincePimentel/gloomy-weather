@@ -14,8 +14,6 @@ class PresetsController < ApplicationController
   get "/presets/:slug" do
     @preset = Preset.find_by_slug(params[:slug])
 
-    #CHECK IF IT'S MY SLUG
-
     if @preset
       if logged_in?
         session[:preset] = @preset
@@ -27,7 +25,7 @@ class PresetsController < ApplicationController
         redirect "/login"
       end
     else
-      #OR SHOW 404
+      #OR SHOW ERROR
 
       redirect "/"
     end
@@ -60,11 +58,7 @@ class PresetsController < ApplicationController
       redirect "/presets/#{preset.slug}"
     else
       redirect "/login"
-
-      binding.pry
     end
-
-
     #ASK USER TO LOG IN FIRST BEFORE SAVING
   end
 
@@ -114,9 +108,7 @@ class PresetsController < ApplicationController
     else
       redirect "/login"
     end
-
     #ADD CONFIRM BUTTON
-
   end
 
   helpers do
