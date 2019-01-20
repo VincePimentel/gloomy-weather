@@ -18,7 +18,7 @@ class PresetsController < ApplicationController
 
     if @preset
       if logged_in?
-        erb :"/presets/show"
+        erb :"/presets/display"
       else
         session[:previous] = "/presets/#{params[:slug]}"
 
@@ -53,7 +53,7 @@ class PresetsController < ApplicationController
 
       current_user.presets << preset
 
-      session[:preset] = params[:volume]
+      # session[:preset] = params[:volume]
 
       redirect "/presets/#{preset.slug}"
     else
@@ -69,7 +69,7 @@ class PresetsController < ApplicationController
 
   end
 
-  delete "/presets/:id/delete" do
+  delete "/presets/:id" do
     if logged_in?
       preset = Preset.find(params[:id])
 

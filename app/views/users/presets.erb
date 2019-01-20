@@ -27,7 +27,7 @@
 
         <% if current_user == @user %>
         <td>
-          <form class="" action="/presets/<%= preset.id %>/delete" method="post">
+          <form class="" action="/presets/<%= preset.id %>" method="post">
             <input type="hidden" name="_method" value="DELETE">
             <button type="submit" class="btn"><i class="fas fa-trash text-danger"></i></button>
           </form>

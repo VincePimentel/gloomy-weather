@@ -9,14 +9,13 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    @user = current_user if logged_in?
-    @sources = Preset.sources
+    if logged_in?
+      @preset = (session[:preset] || current_user.presets.last) || Preset.all[0]
+    else
+      @preset = Preset.all[0]
+    end
 
     erb :index
-  end
-
-  get "/test" do
-    erb :test
   end
 
   helpers do
@@ -26,10 +25,6 @@ class ApplicationController < Sinatra::Base
 
     def logged_in?
       !!session[:user_id]
-    end
-
-    def current_preset
-
     end
   end
 end

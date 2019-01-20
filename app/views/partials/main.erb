@@ -1,18 +1,9 @@
-<% @page_info = {
-  title: "Preset",
-  heading: nil
-} %>
-
-<%= @preset.title %>
-
-<%= @preset.description %>
-
 <form action="/presets" method="POST">
   <div class="row justify-content-center">
 
     <!--  -->
     <div class="dropdown">
-      <div class="btn-group">
+      <!-- <div class="btn-group"> -->
 
         <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" data-offset="-5">save</button>
 
@@ -35,7 +26,7 @@
         </div>
       </div>
 
-      </div>
+      <!-- </div> -->
     </div>
     <!--  -->
 
@@ -56,9 +47,9 @@
       <% element = element.to_s %>
 
         <div class="col-sm-3 text-center">
-          <button id="<%= element %>" type="button" class="btn preset-button"><i id="<%= element %>-icon" class="<%= source[element.to_sym][:icon] %> <%= "inactive-sound" if volume == 0 %>"></i></button>
+          <button id="<%= element %>" type="button" class="btn preset-button"><i id="<%= element %>-icon" class="<%= source[element.to_sym][:icon] %> inactive-sound"></i></button>
 
-          <audio id="<%= element %>-audio" preload="auto" <%= "autoplay" if volume > 0 %> volume="<%= volume %>" loop>
+          <audio id="<%= element %>-audio" preload="auto" <%= "autoplay" if volume > 0 %> loop>
             <source src="<%= source[element.to_sym][:url] %>" type="audio/mpeg">
           </audio>
 
@@ -66,7 +57,7 @@
 
           <input id="<%= element %>-input" class="form-control-plaintext text-center" type="number" name="volume[<%= element %>]" value="<%= volume %>" hidden>
 
-          <span id="<%= element %>-volume" class="badge badge-pill"><%= volume if volume > 0 %></span>&nbsp;
+          <span id="<%= element %>-volume" class="badge badge-pill"></span>&nbsp;
 
         </div>
 

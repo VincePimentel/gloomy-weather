@@ -208,7 +208,7 @@ class UsersController < ApplicationController
 
       redirect "/"
     else
-      erb :"/sessions/login"
+      redirect "/login"
     end
   end
 
