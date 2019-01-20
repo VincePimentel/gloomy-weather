@@ -39,21 +39,20 @@ var resetAll = function() {
 reset.addEventListener("click", resetAll);
 
 var volumeUp = function() {
-  // button = document.getElementById(this.id);
   input = document.getElementById(this.id + "-input");
   volume = document.getElementById(this.id + "-volume");
   audio = document.getElementById(this.id + "-audio");
   icon = document.getElementById(this.id + "-icon");
 
+  audio.play();
   input.value = Number(input.value) + 10;
   volume.innerHTML = input.value;
-  audio.play();
   icon.classList.remove("inactive-sound");
 
   if (input.value > 100 || input.value < 0) {
+    audio.pause();
     input.value = 0;
     volume.innerHTML = "";
-    audio.pause();
     icon.classList.add("inactive-sound");
   }
 
@@ -61,26 +60,25 @@ var volumeUp = function() {
 }
 
 var volumeDown = function() {
-  // button = document.getElementById(this.id);
   input = document.getElementById(this.id + "-input");
   volume = document.getElementById(this.id + "-volume");
   audio = document.getElementById(this.id + "-audio");
   icon = document.getElementById(this.id + "-icon");
 
+  audio.play();
   input.value = Number(input.value) - 10;
   volume.innerHTML = input.value;
-  audio.play();
   icon.classList.remove("inactive-sound");
 
   if (input.value == 0) {
+    audio.pause();
     input.value = 0;
     volume.innerHTML = "";
-    audio.pause();
     icon.classList.add("inactive-sound");
   } else if (input.value < 0) {
+    audio.play();
     input.value = 100;
     volume.innerHTML = input.value;
-    audio.play();
     icon.classList.remove("inactive-sound");
   }
 
