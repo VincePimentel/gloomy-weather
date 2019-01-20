@@ -53,7 +53,7 @@ class PresetsController < ApplicationController
 
       current_user.presets << preset
 
-      # session[:preset] = params[:volume]
+      session[:preset] = preset
 
       redirect "/presets/#{preset.slug}"
     else
@@ -74,7 +74,9 @@ class PresetsController < ApplicationController
       preset = Preset.find(params[:id])
 
       if preset.user_id == session[:user_id]
-        Preset.delete(params[:id])
+        session[:preset].clear
+        
+        Preset.delete(params[:id])        
 
         redirect "/users/#{current_user.slug}"
       else

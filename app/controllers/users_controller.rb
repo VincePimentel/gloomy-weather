@@ -1,8 +1,6 @@
 class UsersController < ApplicationController
   get "/users/account" do
     if logged_in?
-      # @user = current_user
-
       erb :"/users/account"
     else
       session[:previous] = "/users/account"
@@ -89,6 +87,8 @@ class UsersController < ApplicationController
     end
 
     if pass
+
+      flash[:message] = "HELLO"
       redirect "/users/#{user.slug}"
 
       #ADD WELCOME
