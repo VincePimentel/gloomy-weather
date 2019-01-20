@@ -24,6 +24,20 @@ window.onload = function() {
   }
 }
 
+reset = document.getElementById("reset-all");
+var resetAll = function() {
+  for (i = 0; i < buttons.length; i++) {
+    button = buttons[i];
+    audio = document.getElementById(button.id + "-audio");
+    audio.pause();
+    audio.volume = 0;
+    document.getElementById(button.id + "-input").value = 0;
+    document.getElementById(button.id + "-volume").innerHTML = "";
+    document.getElementById(button.id + "-icon").classList.add("inactive-sound");
+  }
+}
+reset.addEventListener("click", resetAll);
+
 var volumeUp = function() {
   // button = document.getElementById(this.id);
   input = document.getElementById(this.id + "-input");
