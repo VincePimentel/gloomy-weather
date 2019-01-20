@@ -74,5 +74,22 @@
       </div>
       <button type="submit" class="btn btn-block">Update</button>
     </form>
+
+    <div class="dropdown-divider"></div>
+
+    <p class="text-center">Your current password is required in order to delete your account.</p>
+
+    <div class="dropdown-divider"></div>
+
+    <form class="px-4 py-3" action="/users/<%= current_user.id %>" method="POST">
+
+      <input type="hidden" name="_method" value="DELETE">
+
+      <div class="form-group">
+        <label for="password">Current Password</label>
+        <input type="password" class="form-control name="password" placeholder="Current password">
+      </div>
+      <button id="delete-account" type="submit" class="btn btn-block">Delete</button>
+    </form>
   </div>
 </div>

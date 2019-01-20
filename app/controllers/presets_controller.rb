@@ -69,7 +69,22 @@ class PresetsController < ApplicationController
 
   end
 
-  delete "/presets/:slug/delete" do
+  delete "/presets/:id/delete" do
+    if logged_in?
+      preset = Preset.find(params[:id])
+
+      if preset.user_id == session[:user_id]
+        Preset.delete(params[:id])
+
+        redirect "/users/#{current_user.slug}"
+      else
+        redirect "/login"
+      end
+    else
+      redirect "/login"
+    end
+
+    #ADD CONFIRM BUTTON
 
   end
 

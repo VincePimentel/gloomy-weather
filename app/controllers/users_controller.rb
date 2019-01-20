@@ -212,18 +212,25 @@ class UsersController < ApplicationController
     end
   end
 
-  get "/users/:slug/delete" do
+  delete "/users/:id" do
     if logged_in?
-      user = User.find_by_slug(params[:slug])
+      user = User.find(params[:id])
 
-      if current_user == user
-        erb :"/users/delete"
+      if user.id == session[:user_id]
+        session.clear
+
+        User.delete(params[:id])
+
+        redirect "/"
       else
-
+        redirect "/login"
       end
     else
-      erb :"/sessions/login"
+      redirect "/login"
     end
+
+    #ADD CONFIRM
+
   end
 
   helpers do
