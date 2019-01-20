@@ -4,8 +4,14 @@
     <!--  -->
     <div class="dropdown">
       <!-- <div class="btn-group"> -->
+      <% preset = Preset.find_by_slug(params[:slug]) %>
 
+      <% if preset && preset.user_id == current_user.id %>
+        <input type="hidden" name="_method" value="PATCH">
+        <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" data-offset="-5">edit</button>
+      <% else %>
         <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" data-offset="-5">save</button>
+      <% end %>
 
         <button id="pause-play" type="button" class="btn"><i class="fas fa-play"></i> | <i class="fas fa-pause"></i></button>
 
@@ -15,11 +21,11 @@
         <div class="px-3 py-1">
 
           <div class="form-group">
-            <input type="text" name="title" value="" placeholder="Give it a title (optional)">
+            <input type="text" name="title" value="<%= preset.title if preset %>" placeholder="Give it a title (optional)">
           </div>
 
           <div class="form-group">
-            <textarea name="description" rows="4" cols="20" placeholder="And a short description! (optional)"></textarea>
+            <textarea name="description" rows="4" cols="20" placeholder="And a short description! (optional)"><%= preset.description if preset  %></textarea>
             <button id="save-preset" class="btn btn-block" type="submit">update</button>
           </div>
 

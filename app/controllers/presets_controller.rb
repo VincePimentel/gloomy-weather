@@ -18,6 +18,8 @@ class PresetsController < ApplicationController
 
     if @preset
       if logged_in?
+        session[:preset] = @preset
+
         erb :"/presets/display"
       else
         session[:previous] = "/presets/#{params[:slug]}"
@@ -57,6 +59,7 @@ class PresetsController < ApplicationController
 
       redirect "/presets/#{preset.slug}"
     else
+      redirect "/login"
 
       binding.pry
     end
@@ -66,7 +69,35 @@ class PresetsController < ApplicationController
   end
 
   patch "/presets" do
+    if logged_in?
+      if params[:title].strip.empty?
+        title = ""
 
+        params[:volume].each do |key, value|
+          if value.to_i > 0
+            title << "#{key.capitalize}-#{value}, "
+          end
+        end
+
+        params[:title] = title[0...-2]
+      end
+
+      params[:volume].each do |key, value|
+        params[:volume][key.to_sym] = value.to_i
+      end
+
+      preset = Preset.find(session[:preset].id)
+
+      params.delete(:_method)
+
+      preset.update(params)
+
+      session[:preset] = preset
+
+      redirect "/presets/#{preset.slug}"
+    else
+      redirect "/login"
+    end
   end
 
   delete "/presets/:id" do
@@ -74,9 +105,7 @@ class PresetsController < ApplicationController
       preset = Preset.find(params[:id])
 
       if preset.user_id == session[:user_id]
-        session[:preset].clear
-        
-        Preset.delete(params[:id])        
+        Preset.delete(params[:id])
 
         redirect "/users/#{current_user.slug}"
       else
