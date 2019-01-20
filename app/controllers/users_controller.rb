@@ -57,7 +57,6 @@ class UsersController < ApplicationController
         }
       }
 
-
       erb :"/registrations/form"
     end
   end
@@ -89,7 +88,7 @@ class UsersController < ApplicationController
 
     @validation[:username][:valid] = @validation[:username][:test].values.all?
     @validation[:email][:valid] = @validation[:email][:test].values.all?
-    @validation[:password][:valid] = @validation[:email][:test].values.all?
+    @validation[:password][:valid] = @validation[:password][:test].values.all?
 
     if @validation[:username][:valid] && @validation[:email][:valid] && @validation[:password][:valid]
       params.delete(:password?)
