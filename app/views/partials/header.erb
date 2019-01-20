@@ -27,12 +27,16 @@
 
       <% else %>
 
-        <a class="nav-item nav-link dropdown-toggle dropdown" href="#" id="login-menu-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-sign-in-alt fa-fw"></i> LOG IN</a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="login-menu-dropdown">
+        <% if @page_info[:title] != "Log In" %>
 
-          <%= erb :"/partials/login_form" %>
+          <a class="nav-item nav-link dropdown-toggle dropdown" href="#" id="login-menu-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-sign-in-alt fa-fw"></i> LOG IN</a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="login-menu-dropdown">
 
-        </div>
+            <%= erb :"/partials/login_form" %>
+
+          </div>
+
+        <% end %>
 
         <a class="nav-item nav-link" href="/signup">SIGN UP</a>
       <% end %>
