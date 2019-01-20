@@ -6,9 +6,9 @@
 <div class="row">
   <div class="col-5 mx-auto">
 
-    <% if @previous %>
+    <% if session[:previous] %>
       <div class="alert alert-danger font-italic text-center" role="alert">
-        <small>Please log in to view this. You will be redirected after.</small>
+        <small>Please log in first and you will be redirected after.</small>
       </div>
     <% end %>
 

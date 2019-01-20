@@ -5,7 +5,7 @@ class Preset < ActiveRecord::Base
 
 
   def slug
-    self.title.gsub(/\W+/, "-").chop.downcase
+    self.title.gsub(/\W+/, "-").gsub(/\W+\z/,"").downcase
   end
 
   def self.find_by_slug(slug)

@@ -53,6 +53,8 @@ class PresetsController < ApplicationController
 
       current_user.presets << preset
 
+      session[:preset] = params[:volume]
+
       redirect "/presets/#{preset.slug}"
     else
 

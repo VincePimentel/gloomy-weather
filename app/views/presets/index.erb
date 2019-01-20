@@ -16,8 +16,8 @@
     <% @presets.each do |preset| %>
       <tr>
         <th scope="row"><%= preset.id %></th>
-        <td><a class="text-white" href="/users/<%= preset.user.slug %>" target="_blank"><%= preset.user.username %></a></td>
-        <td><a class="text-white" href="/presets/<%= preset.slug %>" target="_blank"><%= preset.title %></a></td>
+        <td><a class="text-white" href="/users/<%= preset.user.slug %>"><%= preset.user.username %></a></td>
+        <td><a class="text-white" href="/presets/<%= preset.slug %>"><%= preset.title %></a></td>
         <td><p class="text-white"><%= preset.description %></p></td>
       </tr>
     <% end %>
