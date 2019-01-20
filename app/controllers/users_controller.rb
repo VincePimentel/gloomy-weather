@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   get "/users/account" do
     if logged_in?
+      @validation = validation_form
+
       erb :"/users/account"
     else
       session[:previous] = "/users/account"
@@ -30,32 +32,7 @@ class UsersController < ApplicationController
     if logged_in?
       redirect "/users/#{current_user.slug}"
     else
-      @validation = {
-        username: {
-          value: nil,
-          test: {
-            length: nil,
-            available: nil
-          },
-          valid: nil
-        },
-        email: {
-          value: nil,
-          test: {
-            length: nil,
-            format: nil,
-            available: nil
-          },
-          valid: nil
-        },
-        password: {
-          test: {
-            length: nil,
-            match: nil
-          },
-          valid: nil
-        }
-      }
+      @validation = validation_form
 
       erb :"/registrations/form"
     end
@@ -224,6 +201,8 @@ class UsersController < ApplicationController
 
   delete "/users/:id" do
     if logged_in?
+      #CHECK IF PASSWORD IS CORRECT FIRST
+
       user = User.find(params[:id])
 
       if user.id == session[:user_id]
@@ -242,6 +221,72 @@ class UsersController < ApplicationController
   end
 
   helpers do
+    def validation_form
+      {
+        username: {
+          value: nil,
+          valid: nil,
+          test: {
+            length: nil,
+            available: nil
+          }
+        },
+        email: {
+          value: nil,
+          valid: nil,
+          test: {
+            length: nil,
+            format: nil,
+            available: nil
+          }
+        },
+        password: {
+          valid: nil,
+          test: {
+            length: nil,
+            match: nil
+          }
+        }
+      }
+    end
+
+    def validation_test(params, type = "registration")
+      form = {
+        username: {
+          value: params[:username],
+          test: {
+            length: params[:username].length >= 3,
+            available: !User.all.exists?(username: params[:username])
+          }
+        },
+        email: {
+          value: params[:email],
+          test: {
+            length: params[:email].length >= 6,
+            format: params[:email].match(/\w+@\w+\.\w{2,}/),
+            available: !User.all.exists?(email: params[:email])
+          }
+        },
+        password: {
+          test: {
+            length: params[:password].length + params[:password?].length >= 12,
+            match: params[:password] == params[:password?]
+          }
+        }
+      }
+
+      case type
+      when "account"
+        form[:username][:test][:available] = form[:username][:test][:available] && current_user.username != params[:username]
+        form[:email][:test][:available] = form[:email][:test][:available] && current_user.email != params[:email]
+      end
+
+      form[:username][:valid] = form[:username][:test].values.all?
+      form[:email][:valid] = form[:email][:test].values.all?
+      form[:password][:valid] = form[:password][:test].values.all?
+
+      form
+    end
 
   end
 end

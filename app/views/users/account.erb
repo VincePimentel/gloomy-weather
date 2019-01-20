@@ -3,75 +3,86 @@
   heading: "EDIT ACCOUNT"
 } %>
 
+<% server_validation = true %> <!-- false to turn on client-side validation (via Bootstrap) -->
+
 <div class="row">
   <div class="col-5 mx-auto">
 
     <% if @pass %>
     <div class="alert alert-success font-italic text-center" role="alert">
-      <small>Account information updated.</small>
+      <small>Account updated.</small>
     </div>
     <% end %>
 
     <form class="px-4 py-3" action="/users" method="POST">
       <input type="hidden" name="_method" value="PATCH">
+
+      <!-- USERNAME -->
       <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" class="form-control <%= "border-danger" if @username_error %>" id="username" name="username" value="<%= @username || current_user.username %>" placeholder="Minimum 3 characters">
-        <% if @error_type == 1 %>
-          <div class="alert alert-danger font-italic" role="alert">
-          <% case @error_message
-            when 1 %>
-            <small>Username is less than 3 characters. Please try again.</small>
-          <% when 2 %>
-            <small>Username already taken. Please try a different one!</small>
-          <% end %>
+        <input type="text" class="form-control <%= "is-invalid" if @validation[:username][:valid] == false %>" id="username" name="username" value="<%= @validation[:username][:value] || current_user.username %>" placeholder="Minimum 3 characters" autofocus <%= "required" if !server_validation %>>
+
+        <% if @validation[:username][:valid] == false %>
+          <div class="invalid-feedback alert alert-danger" role="alert">
+            <% if @validation[:username][:test][:length] == false %>
+              Username is too short (minimum 3 characters). Please try again.
+            <% elsif @validation[:username][:test][:available] == false %>
+              Username already taken. Please try again.
+            <% end %>
           </div>
         <% end %>
       </div>
+
+      <!-- EMAIL -->
       <div class="form-group">
         <label for="email">E-mail Address</label>
-        <input type="email" class="form-control <%= "border-danger" if @email_error %>" id="email" name="email" value="<%= @email || current_user.email %>" placeholder="email@example.com">
-        <% if @error_type == 2 %>
-          <div class="alert alert-danger font-italic" role="alert">
-          <% case @error_message
-            when 3 %>
-            <small>E-mail address is less than 5 characters. Please try again.</small>
-          <% when 4 %>
-            <small>Wrong e-mail address format. Please try again.</small>
-          <% when 5 %>
-            <small>E-mail address already in use. Please use a different one.</small>
-          <% end %>
+        <input type="<%= server_validation ? "text" : "email" %>" class="form-control <%= "is-invalid" if @validation[:email][:valid] == false %>" id="email" name="email" value="<%= @validation[:email][:value] || current_user.email %>" placeholder="email@example.com" <%= "required" if !server_validation %>>
+
+        <% if @validation[:email][:valid] == false %>
+          <div class="invalid-feedback alert alert-danger" role="alert">
+            <% if @validation[:email][:test][:length] == false %>
+              E-mail address is too short (minimum 6 characters). Please try again.
+            <% elsif @validation[:email][:test][:available] == false %>
+              E-mail address already taken. Please try again.
+            <% elsif @validation[:email][:test][:format] == false %>
+              E-mail address format is incorrect. Please try again.
+            <% end %>
           </div>
         <% end %>
       </div>
+
+      <!-- PASSWORD -->
       <div class="form-group">
         <label for="password">New Password</label>
-        <input type="password" class="form-control <%= "border-danger" if @password_error %>" id="password" name="password" placeholder="Minimum 5 characters">
-        <% if @error_type == 3 %>
-          <div class="alert alert-danger font-italic" role="alert">
-          <% case @error_message
-            when 6 %>
-            <small>Password is less than 6 characters. Please try again.</small>
-          <% when 7 %>
-            <small>Passwords do not match. Please try again.</small>
-          <% end %>
+        <input type="password" class="form-control <%= "is-invalid" if @validation[:password][:valid] == false %>" id="password" name="password" placeholder="Minimum 6 characters" <%= "required" if !server_validation %>>
+
+        <% if @validation[:password][:valid] == false %>
+          <div class="invalid-feedback alert alert-danger" role="alert">
+            <% if @validation[:password][:test][:length] == false %>
+              Password is too short (minimum 6 characters). Please try again.
+            <% elsif @validation[:password][:test][:match] == false %>
+              Passwords did not match. Please try again.
+            <% end %>
           </div>
         <% end %>
       </div>
+
+      <!-- PASSWORD CONFIRMATION -->
       <div class="form-group">
         <label for="password?">Confirm New Password</label>
-        <input type="password" class="form-control <%= "border-danger" if @password_error %>" id="password?" name="password?" placeholder="Re-type password">
-        <% if @error_type == 3 %>
-          <div class="alert alert-danger font-italic" role="alert">
-          <% case @error_message
-            when 6 %>
-            <small>Password is less than 6 characters. Please try again.</small>
-          <% when 7 %>
-            <small>Passwords do not match. Please try again.</small>
-          <% end %>
+        <input type="password" class="form-control <%= "is-invalid" if @validation[:password][:valid] == false %>" id="password?" name="password?" placeholder="Re-type new password" <%= "required" if !server_validation %>>
+
+        <% if @validation[:password][:valid] == false %>
+          <div class="invalid-feedback alert alert-danger" role="alert">
+            <% if @validation[:password][:test][:length] == false %>
+              Password is too short (minimum 6 characters). Please try again.
+            <% elsif @validation[:password][:test][:match] == false %>
+              Passwords did not match. Please try again.
+            <% end %>
           </div>
         <% end %>
       </div>
+
       <button type="submit" class="btn btn-block">Update</button>
     </form>
 
@@ -82,14 +93,25 @@
     <div class="dropdown-divider"></div>
 
     <form class="px-4 py-3" action="/users/<%= current_user.id %>" method="POST">
-
       <input type="hidden" name="_method" value="DELETE">
 
       <div class="form-group">
         <label for="password">Current Password</label>
-        <input type="password" class="form-control name="password" placeholder="Current password">
+        <input type="password" class="form-control <%= "is-invalid" if @validation[:password][:valid] == false %>" id="password" name="password" placeholder="Current password" <%= "required" if !server_validation %>>
+
+        <% if @validation[:password][:valid] == false %>
+          <div class="invalid-feedback alert alert-danger" role="alert">
+            <% if @validation[:password][:test][:length] == false %>
+              Password is too short (minimum 6 characters). Please try again.
+            <% elsif @validation[:password][:test][:match] == false %>
+              Passwords did not match. Please try again.
+            <% end %>
+          </div>
+        <% end %>
       </div>
+
       <button id="delete-account" type="submit" class="btn btn-block">Delete</button>
     </form>
+
   </div>
 </div>

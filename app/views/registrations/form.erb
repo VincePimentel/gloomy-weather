@@ -63,7 +63,7 @@
       <!-- PASSWORD CONFIRMATION -->
       <div class="form-group">
         <label for="password?">Confirm Password</label>
-        <input type="password" class="form-control <%= "is-invalid" if @validation[:password][:valid] == false %>" id="password?" name="password?" placeholder="Minimum 6 characters" <%= "required" if !server_validation %>>
+        <input type="password" class="form-control <%= "is-invalid" if @validation[:password][:valid] == false %>" id="password?" name="password?" placeholder="Re-type new password" <%= "required" if !server_validation %>>
 
         <% if @validation[:password][:valid] == false %>
           <div class="invalid-feedback alert alert-danger" role="alert">
