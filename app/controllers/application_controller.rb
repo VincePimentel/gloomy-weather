@@ -12,6 +12,8 @@ class ApplicationController < Sinatra::Base
     if logged_in?
       @preset = (session[:preset] || current_user.presets.last) || Preset.all[0]
     else
+      @validation = validation_form
+
       @preset = Preset.all[0]
     end
 

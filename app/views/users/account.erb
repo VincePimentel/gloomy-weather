@@ -106,7 +106,7 @@
             <% if @validation[:password][:test][:length] == false %>
               Password is too short (minimum 6 characters). Please try again.
             <% elsif @validation[:password][:test][:match] == false %>
-              Passwords did not match. Please try again.
+              Passwords is incorrect. Please try again.
             <% end %>
           </div>
         <% end %>

@@ -125,22 +125,14 @@ class UsersController < ApplicationController
   end
 
   delete "/users/:id" do
-    if logged_in?
-      #CHECK IF PASSWORD IS CORRECT FIRST
+    form = validation_test(params, "delete")
 
-      user = User.find(params[:id])
+    if form[:password][:valid]
+      User.delete(session[:user_id])
 
-      if user.id == session[:user_id]
-        session.clear
+      session.clear
 
-        User.delete(params[:id])
-
-        redirect "/"
-      else
-        redirect "/login"
-      end
-    else
-      redirect "/login"
+      redirect "/"
     end
     #ADD CONFIRMATION
   end
@@ -204,11 +196,18 @@ class UsersController < ApplicationController
           form[:email][:test][:available] = !email_found || current_user.email == params[:email]
           form[:password][:test][:match] = params[:password] == params[:password?]
         end
-      when "login"
-        form[:username][:user] = user
-        form[:username][:test][:available] = user_found
+      when "login", "delete"
         form[:password][:test][:length] = params[:password].length >= 6
-        form[:password][:test][:match] = user && user.authenticate(params[:password])
+
+
+        case type
+        when "login"
+          form[:username][:user] = user
+          form[:username][:test][:available] = user_found
+          form[:password][:test][:match] = user && user.authenticate(params[:password])
+        when "delete"
+          form[:password][:test][:match] = current_user.authenticate(params[:password])
+        end
       end
 
       form[:username][:valid] = form[:username][:test].values.all?
