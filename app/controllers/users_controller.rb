@@ -38,43 +38,6 @@ class UsersController < ApplicationController
     end
   end
 
-  post "/users" do
-    form = validation_test(params, "registration")
-
-    if form[:username][:valid] && form[:email][:valid] && form[:password][:valid]
-      params.delete(:password?)
-
-      user = User.create(params)
-
-      session[:user_id] = user.id
-
-      redirect "/users/#{user.slug}"
-
-      #ADD WELCOME
-    else
-      @validation = form
-
-      erb :"/registrations/form"
-    end
-  end
-
-  patch "/users" do
-    form = validation_test(params, "account")
-
-    if form[:username][:valid] && form[:email][:valid] && form[:password][:valid]
-      params.delete(:password?)
-      params.delete(:_method)
-
-      current_user.update(params)
-
-      redirect "/users/account"
-    else
-      @validation = form
-
-      erb :"/users/account"
-    end
-  end
-
   get "/login" do
     if logged_in?
       redirect "/users/#{current_user.slug}"
@@ -122,6 +85,43 @@ class UsersController < ApplicationController
     end
   end
 
+  post "/users" do
+    form = validation_test(params, "registration")
+
+    if form[:username][:valid] && form[:password][:valid]
+      params.delete(:password?)
+
+      user = User.create(params)
+
+      session[:user_id] = user.id
+
+      redirect "/users/#{user.slug}"
+
+      #ADD WELCOME
+    else
+      @validation = form
+
+      erb :"/registrations/form"
+    end
+  end
+
+  patch "/users" do
+    form = validation_test(params, "account")
+
+    if form[:username][:valid] && form[:password][:valid]
+      params.delete(:password?)
+      params.delete(:_method)
+
+      current_user.update(params)
+
+      redirect "/users/account"
+    else
+      @validation = form
+
+      erb :"/users/account"
+    end
+  end
+
   delete "/users/:id" do
     form = validation_test(params, "delete")
 
@@ -147,15 +147,6 @@ class UsersController < ApplicationController
             available: nil
           }
         },
-        email: {
-          value: nil,
-          valid: nil,
-          test: {
-            length: nil,
-            format: nil,
-            available: nil
-          }
-        },
         password: {
           valid: nil,
           test: {
@@ -170,8 +161,6 @@ class UsersController < ApplicationController
       user_found = User.all.exists?(username: params[:username])
       user = User.find_by(username: params[:username])
 
-      email_found = User.all.exists?(email: params[:email])
-
       form = validation_form
 
       form[:username][:value] = params[:username]
@@ -179,19 +168,14 @@ class UsersController < ApplicationController
 
       case type
       when "registration", "account"
-        form[:email][:value] = params[:email]
-        form[:email][:test][:length] = params[:email].length >= 6
-        form[:email][:test][:format] = !!params[:email].match(/\w+@\w+\.\w{2,}/)
         form[:password][:test][:length] = params[:password].length + params[:password?].length >= 12
 
         case type
         when "registration"
           form[:username][:test][:available] = !user_found
-          form[:email][:test][:available] = !email_found
           form[:password][:test][:match] = params[:password] == params[:password?]
         when "account"
           form[:username][:test][:available] = !user_found || current_user.username == params[:username]
-          form[:email][:test][:available] = !email_found || current_user.email == params[:email]
           form[:password][:test][:match] = params[:password] == params[:password?]
         end
       when "login", "delete"
@@ -209,7 +193,6 @@ class UsersController < ApplicationController
       end
 
       form[:username][:valid] = form[:username][:test].values.all?
-      form[:email][:valid] = form[:email][:test].values.all?
       form[:password][:valid] = form[:password][:test].values.all?
 
       form
