@@ -32,82 +32,85 @@ class PresetsController < ApplicationController
   end
 
   post "/presets" do
-    if logged_in?
-      if params[:title].strip.empty?
-        title = ""
-
-        params[:volume].each do |key, value|
-          if value.to_i > 0
-            title << "#{key.capitalize}-#{value}, "
-          end
-        end
-
-        params[:title] = title[0...-2]
-      end
+    if params[:title].strip.empty?
+      title = ""
 
       params[:volume].each do |key, value|
-        params[:volume][key.to_sym] = value.to_i
+        if value.to_i > 0
+          title << "#{key.capitalize}-#{value}, "
+        end
       end
 
-      preset = Preset.create(params)
-
-      current_user.presets << preset
-
-      session[:preset] = preset
-
-      redirect "/presets/#{preset.slug}"
-    else
-      redirect "/login"
+      params[:title] = title[0...-2]
     end
+
+    params[:volume].each do |key, value|
+      params[:volume][key.to_sym] = value.to_i
+    end
+
+    preset = Preset.create(params)
+
+    current_user.presets << preset
+
+    session[:preset] = preset
+
+    redirect "/presets/#{preset.slug}"
+    # if logged_in?
+    #
+    # else
+    #   redirect "/login"
+    # end
     #ASK USER TO LOG IN FIRST BEFORE SAVING
   end
 
   patch "/presets" do
-    if logged_in?
-      if params[:title].strip.empty?
-        title = ""
-
-        params[:volume].each do |key, value|
-          if value.to_i > 0
-            title << "#{key.capitalize}-#{value}, "
-          end
-        end
-
-        params[:title] = title[0...-2]
-      end
+    if params[:title].strip.empty?
+      title = ""
 
       params[:volume].each do |key, value|
-        params[:volume][key.to_sym] = value.to_i
+        if value.to_i > 0
+          title << "#{key.capitalize}-#{value}, "
+        end
       end
 
-      preset = Preset.find(session[:preset].id)
-
-      params.delete(:_method)
-
-      preset.update(params)
-
-      session[:preset] = preset
-
-      redirect "/presets/#{preset.slug}"
-    else
-      redirect "/login"
+      params[:title] = title[0...-2]
     end
+
+    params[:volume].each do |key, value|
+      params[:volume][key.to_sym] = value.to_i
+    end
+
+    preset = Preset.find(session[:preset].id)
+
+    params.delete(:_method)
+
+    preset.update(params)
+
+    session[:preset] = preset
+
+    redirect "/presets/#{preset.slug}"
+    # if logged_in?
+    #
+    # else
+    #   redirect "/login"
+    # end
   end
 
   delete "/presets/:id" do
-    if logged_in?
-      preset = Preset.find(params[:id])
+    preset = Preset.find(params[:id])
 
-      if preset.user_id == session[:user_id]
-        Preset.delete(params[:id])
+    if preset.user_id == session[:user_id]
+      Preset.delete(params[:id])
 
-        redirect "/users/#{current_user.slug}"
-      else
-        redirect "/login"
-      end
+      redirect "/users/#{current_user.slug}"
     else
       redirect "/login"
     end
+    # if logged_in?
+    #
+    # else
+    #   redirect "/login"
+    # end
     #ADD CONFIRM BUTTON
   end
 

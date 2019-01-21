@@ -5,8 +5,6 @@ class User < ActiveRecord::Base
 
   def slug
     self.username.gsub(/\W+/, "-").gsub(/\W+\z/,"").downcase
-    #ADD CHECKS FOR USERNAMES LATER
-    #NO SPECIAL CHARACTERS
   end
 
   def self.find_by_slug(slug)

@@ -3,7 +3,6 @@ class Preset < ActiveRecord::Base
   validates_presence_of :title
   belongs_to :user
 
-
   def slug
     self.title.gsub(/\W+/, "-").gsub(/\W+\z/,"").downcase
   end

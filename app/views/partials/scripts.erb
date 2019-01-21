@@ -8,10 +8,11 @@ var buttons = document.getElementsByClassName("preset-button");
 window.onload = function() {
   for (i = 0; i < buttons.length; i++) {
     button = buttons[i];
-    input = document.getElementById(button.id + "-input");
-    volume = document.getElementById(button.id + "-volume");
-    audio = document.getElementById(button.id + "-audio");
-    icon = document.getElementById(button.id + "-icon");
+    element = button.id;
+    input = document.getElementById(element + "-input");
+    volume = document.getElementById(element + "-volume");
+    audio = document.getElementById(element + "-audio");
+    icon = document.getElementById(element + "-icon");
 
     audio.volume = Number((input.value / 100).toFixed(1));
     volume.innerHTML = input.value;
@@ -23,6 +24,26 @@ window.onload = function() {
     }
   }
 }
+
+toggle = document.getElementById("toggle-play");
+var togglePlay = function() {
+  for (i = 0; i < buttons.length; i++) {
+    button = buttons[i];
+    audio = document.getElementById(button.id + "-audio");
+    icon = document.getElementById("toggle-play-icon");
+
+    if (audio.muted) {
+      audio.muted = false;
+      icon.classList.add("fa-pause");
+      icon.classList.remove("fa-play");
+    } else {
+      audio.muted = true;
+      icon.classList.add("fa-play");
+      icon.classList.remove("fa-pause");
+    }
+  }
+}
+toggle.addEventListener("click", togglePlay);
 
 reset = document.getElementById("reset-all");
 var resetAll = function() {
@@ -39,10 +60,11 @@ var resetAll = function() {
 reset.addEventListener("click", resetAll);
 
 var volumeUp = function() {
-  input = document.getElementById(this.id + "-input");
-  volume = document.getElementById(this.id + "-volume");
-  audio = document.getElementById(this.id + "-audio");
-  icon = document.getElementById(this.id + "-icon");
+  element = this.id;
+  input = document.getElementById(element + "-input");
+  volume = document.getElementById(element + "-volume");
+  audio = document.getElementById(element + "-audio");
+  icon = document.getElementById(element + "-icon");
 
   audio.play();
   input.value = Number(input.value) + 10;
@@ -60,10 +82,11 @@ var volumeUp = function() {
 }
 
 var volumeDown = function() {
-  input = document.getElementById(this.id + "-input");
-  volume = document.getElementById(this.id + "-volume");
-  audio = document.getElementById(this.id + "-audio");
-  icon = document.getElementById(this.id + "-icon");
+  element = this.id;
+  input = document.getElementById(element + "-input");
+  volume = document.getElementById(element + "-volume");
+  audio = document.getElementById(element + "-audio");
+  icon = document.getElementById(element + "-icon");
 
   audio.play();
   input.value = Number(input.value) - 10;
