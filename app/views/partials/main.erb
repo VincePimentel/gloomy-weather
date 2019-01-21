@@ -61,7 +61,7 @@
       <% element = element.to_s %>
 
         <div class="col-sm-3 text-center">
-          <button id="<%= element %>" type="button" class="btn preset-button"><i id="<%= element %>-icon" class="<%= source[element.to_sym][:icon] %> inactive-sound"></i></button>
+          <button id="<%= element %>" type="button" class="btn preset-button"><i id="<%= element %>-icon" class="<%= source[element.to_sym][:icon] %> inactive-sound <%= "md-48" if ["white", "pink", "brown"].include?(element) %>"><%= "waves" if ["white", "pink", "brown"].include?(element) %></i></button>
 
           <audio id="<%= element %>-audio" preload="auto" <%= "autoplay" if volume > 0 %> loop>
             <source src="<%= source[element.to_sym][:url] %>" type="audio/mpeg">

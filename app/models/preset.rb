@@ -16,15 +16,15 @@ class Preset < ActiveRecord::Base
   def self.sources
     {
       rain: {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/0200723436a",
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/985ead5c98d",
         icon: "fas fa-cloud-rain"
       },
       thunder: {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/72f6ca7f003",
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/00b6fa1a994",
         icon: "fas fa-bolt"
       },
       wave: {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/da0916d2ac2",
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/7429f4ac15e",
         icon: "fas fa-umbrella-beach"
       },
       river: {
@@ -40,11 +40,11 @@ class Preset < ActiveRecord::Base
         icon: "fas fa-leaf"
       },
       fire: {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/45e28676876",
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/0d06fccbb48",
         icon: "fas fa-fire"
       },
       bird: {
-        url: "",
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/524a66f1a53",
         icon: "fas fa-dove"
       },
       cricket: {
@@ -56,20 +56,20 @@ class Preset < ActiveRecord::Base
         icon: "fas fa-subway"
       },
       crowd: {
-        url: "",
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/0b3022e697f",
         icon: "fas fa-coffee"
       },
       white: {
-        url: "",
-        icon: "fas fa-poop"
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/07679a81f3f",
+        icon: "material-icons"
       },
       pink: {
-        url: "",
-        icon: "fas fa-poop"
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/c3f8e1315b9",
+        icon: "material-icons"
       },
       brown: {
-        url: "",
-        icon: "fas fa-poop"
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/32d1e9e159e",
+        icon: "material-icons"
       }
     }
   end
