@@ -1,6 +1,6 @@
 class Preset < ActiveRecord::Base
   belongs_to :user
-  belongs_to :volume
+  belongs_to :level
 
   def slug
     self.title.gsub(/\W+/, "-").gsub(/\W+\z/,"").downcase

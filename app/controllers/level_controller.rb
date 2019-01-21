@@ -1,0 +1,3 @@
+class LevelsController < ApplicationController
+
+end

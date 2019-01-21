@@ -1,6 +1,6 @@
-class CreateVolumes < ActiveRecord::Migration[5.2]
+class CreateLevels < ActiveRecord::Migration[5.2]
   def change
-    create_table :volumes do |t|
+    create_table :levels do |t|
       t.integer :rain, default: 0
       t.integer :thunder, default: 0
       t.integer :beach, default: 0

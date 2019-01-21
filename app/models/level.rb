@@ -1,4 +1,4 @@
-class Volume < ActiveRecord::Base
+class Level < ActiveRecord::Base
   has_many :presets
   has_many :users, through: :presets
 
@@ -12,7 +12,7 @@ class Volume < ActiveRecord::Base
         url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/00b6fa1a994",
         icon: "fas fa-bolt"
       },
-      wave: {
+      beach: {
         url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/7429f4ac15e",
         icon: "fas fa-umbrella-beach"
       },
@@ -23,10 +23,6 @@ class Volume < ActiveRecord::Base
       wind: {
         url: "",
         icon: "fas fa-wind"
-      },
-      leaf: {
-        url: "",
-        icon: "fas fa-leaf"
       },
       fire: {
         url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/0d06fccbb48",
@@ -47,10 +43,6 @@ class Volume < ActiveRecord::Base
       crowd: {
         url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/0b3022e697f",
         icon: "fas fa-coffee"
-      },
-      white: {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/07679a81f3f",
-        icon: "material-icons"
       },
       pink: {
         url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/c3f8e1315b9",

@@ -181,7 +181,6 @@ class UsersController < ApplicationController
       when "login", "delete"
         form[:password][:test][:length] = params[:password].length >= 6
 
-
         case type
         when "login"
           form[:username][:user] = user

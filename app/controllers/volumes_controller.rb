@@ -1,3 +1,0 @@
-class VolumesController < ApplicationController
-
-end

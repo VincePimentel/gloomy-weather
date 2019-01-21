@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   has_secure_password
   validates_presence_of :username, :password
   has_many :presets
-  has_many :volumes, through: :presets
+  has_many :levels, through: :presets
 
   def slug
     self.username.gsub(/\W+/, "-").gsub(/\W+\z/,"").downcase
