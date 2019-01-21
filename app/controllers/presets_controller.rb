@@ -44,11 +44,16 @@ class PresetsController < ApplicationController
       params[:title] = title[0...-2]
     end
 
+    #CHECK FOR DUPLICATES
+    size = Preset.where(title: params[:title]).size
+
+    if size > 0
+      params[:title] << " #{size + 1}"
+    end
+
     params[:volume].each do |key, value|
       params[:volume][key.to_sym] = value.to_i
     end
-
-    binding.pry
 
     preset = Preset.create(params)
 
