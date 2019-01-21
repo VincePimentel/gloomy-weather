@@ -16,8 +16,6 @@ class PresetsController < ApplicationController
 
     if @preset
       if logged_in?
-        session[:preset] = @preset
-
         erb :"/presets/display"
       else
         session[:previous] = "/presets/#{params[:slug]}"
@@ -59,14 +57,7 @@ class PresetsController < ApplicationController
 
     current_user.presets << preset
 
-    session[:preset] = preset
-
     redirect "/presets/#{preset.slug}"
-    # if logged_in?
-    #
-    # else
-    #   redirect "/login"
-    # end
     #ASK USER TO LOG IN FIRST BEFORE SAVING
   end
 
@@ -87,20 +78,17 @@ class PresetsController < ApplicationController
       params[:volume][key.to_sym] = value.to_i
     end
 
-    preset = Preset.find(session[:preset].id)
+    preset = Preset.find_by(params[:title])
 
-    params.delete(:_method)
+    if preset.user_id == session[:user_id]
+      params.delete(:_method)
 
-    preset.update(params)
+      preset.update(params)
 
-    session[:preset] = preset
-
-    redirect "/presets/#{preset.slug}"
-    # if logged_in?
-    #
-    # else
-    #   redirect "/login"
-    # end
+      redirect "/presets/#{preset.slug}"
+    else
+      redirect "/login"
+    end
   end
 
   delete "/presets/:id" do
@@ -113,11 +101,6 @@ class PresetsController < ApplicationController
     else
       redirect "/login"
     end
-    # if logged_in?
-    #
-    # else
-    #   redirect "/login"
-    # end
     #ADD CONFIRM BUTTON
   end
 end

@@ -9,13 +9,8 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    if logged_in?
-      @preset = (session[:preset] || current_user.presets.last) || Preset.all[0]
-    else
-      @validation = validation_form
-
-      @preset = Preset.all[0]
-    end
+    @preset = new_preset
+    @validation = validation_form
 
     erb :index
   end
@@ -31,6 +26,29 @@ class ApplicationController < Sinatra::Base
 
     def logged_in?
       !!session[:user_id]
+    end
+
+    def new_preset
+      Preset.create({
+        title: "",
+        description: "",
+        volume: {
+          rain: 0,
+          thunder: 0,
+          wave: 0,
+          river: 0,
+          wind: 0,
+          leaf: 0,
+          fire: 0,
+          bird: 0,
+          cricket: 0,
+          train: 0,
+          crowd: 0,
+          white: 0,
+          pink: 0,
+          brown: 0
+        }
+        })
     end
   end
 end
