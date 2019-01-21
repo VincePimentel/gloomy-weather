@@ -23,7 +23,7 @@ class UsersController < ApplicationController
         redirect "/login"
       end
     else
-      #OR SHOW ERROR
+      #SHOW ERROR
       redirect "/"
     end
   end
@@ -41,8 +41,6 @@ class UsersController < ApplicationController
   post "/users" do
     form = validation_test(params, "registration")
 
-    #binding.pry
-
     if form[:username][:valid] && form[:email][:valid] && form[:password][:valid]
       params.delete(:password?)
 
@@ -52,7 +50,7 @@ class UsersController < ApplicationController
 
       redirect "/users/#{user.slug}"
 
-      #ADD WELCOME?
+      #ADD WELCOME
     else
       @validation = form
 

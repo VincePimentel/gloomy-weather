@@ -49,7 +49,7 @@ class Preset < ActiveRecord::Base
       },
       cricket: {
         url: "",
-        icon: ""
+        icon: "fas fa-poop"
       },
       train: {
         url: "",
@@ -61,15 +61,15 @@ class Preset < ActiveRecord::Base
       },
       white: {
         url: "",
-        icon: ""
+        icon: "fas fa-poop"
       },
       pink: {
         url: "",
-        icon: ""
+        icon: "fas fa-poop"
       },
       brown: {
         url: "",
-        icon: ""
+        icon: "fas fa-poop"
       }
     }
   end

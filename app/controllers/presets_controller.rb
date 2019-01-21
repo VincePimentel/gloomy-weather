@@ -25,7 +25,7 @@ class PresetsController < ApplicationController
         redirect "/login"
       end
     else
-      #OR SHOW ERROR
+      #SHOW ERROR
 
       redirect "/"
     end
@@ -47,6 +47,8 @@ class PresetsController < ApplicationController
     params[:volume].each do |key, value|
       params[:volume][key.to_sym] = value.to_i
     end
+
+    binding.pry
 
     preset = Preset.create(params)
 
@@ -112,9 +114,5 @@ class PresetsController < ApplicationController
     #   redirect "/login"
     # end
     #ADD CONFIRM BUTTON
-  end
-
-  helpers do
-
   end
 end
