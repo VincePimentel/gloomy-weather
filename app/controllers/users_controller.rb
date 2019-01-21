@@ -39,105 +39,50 @@ class UsersController < ApplicationController
   end
 
   post "/users" do
-    @validation = {
-      username: {
-        value: params[:username],
-        test: {
-          length: params[:username].length >= 3,
-          available: !User.all.exists?(username: params[:username])
-        }
-      },
-      email: {
-        value: params[:email],
-        test: {
-          length: params[:email].length >= 6,
-          format: params[:email].match(/\w+@\w+\.\w{2,}/),
-          available: !User.all.exists?(email: params[:email])
-        }
-      },
-      password: {
-        test: {
-          length: params[:password].length + params[:password?].length >= 12,
-          match: params[:password] == params[:password?]
-        }
-      }
-    }
+    form = validation_test(params, "registration")
 
-    @validation[:username][:valid] = @validation[:username][:test].values.all?
-    @validation[:email][:valid] = @validation[:email][:test].values.all?
-    @validation[:password][:valid] = @validation[:password][:test].values.all?
+    #binding.pry
 
-    if @validation[:username][:valid] && @validation[:email][:valid] && @validation[:password][:valid]
+    if form[:username][:valid] && form[:email][:valid] && form[:password][:valid]
       params.delete(:password?)
 
       user = User.create(params)
 
       session[:user_id] = user.id
 
-      binding.pry
-
       redirect "/users/#{user.slug}"
 
       #ADD WELCOME?
     else
+      @validation = form
+
       erb :"/registrations/form"
     end
   end
 
   patch "/users" do
-    @username = params[:username]
-    @email = params[:email]
-    @pass = true
+    form = validation_test(params, "account")
 
-    if @username.length < 3
-      @error_type = 1
-      @error_message = 1
-
-      @pass = false
-    elsif User.all.exists?(username: @username) && current_user.username != @username
-      @error_type = 1
-      @error_message = 2
-
-      @pass = false
-    elsif @email.length < 5
-      @error_type = 2
-      @error_message = 3
-
-      @pass = false
-    elsif !@email.match(/\w+@\w+\.\w{2,}/)
-      @error_type = 2
-      @error_message = 4
-
-      @pass = false
-    elsif User.all.exists?(email: @email) && current_user.email != @email
-      @error_type = 2
-      @error_message = 5
-
-      @pass = false
-    elsif params[:password].length + params[:password?].length < 12
-      @error_type = 3
-      @error_message = 6
-
-      @pass = false
-    elsif params[:password] != params[:password?]
-      @error_type = 3
-      @error_message = 7
-
-      @pass = false
-    elsif @pass
+    if form[:username][:valid] && form[:email][:valid] && form[:password][:valid]
       params.delete(:password?)
       params.delete(:_method)
 
       current_user.update(params)
-    end
 
-    erb :"/users/account"
+      redirect "/users/account"
+    else
+      @validation = form
+
+      erb :"/users/account"
+    end
   end
 
   get "/login" do
     if logged_in?
       redirect "/users/#{current_user.slug}"
     else
+      @validation = validation_form
+
       @previous = session[:previous]
 
       erb :"/sessions/login"
@@ -145,46 +90,26 @@ class UsersController < ApplicationController
   end
 
   post "/login" do
-    user = User.find_by(username: params[:username])
-    pass = true
+    form = validation_test(params, "login")
 
-    @username = params[:username]
-    @email = params[:email]
+    if form[:username][:valid] && form[:password][:valid]
+      user = form[:username][:user]
 
-    if @username.length < 3
-      @error_type = 1
-      @error_message = 1
-
-      pass = false
-    elsif !User.all.exists?(username: @username)
-      @error_type = 1
-      @error_message = 2
-
-      pass = false
-    elsif params[:password].length < 6
-      @error_type = 2
-      @error_message = 3
-
-      pass = false
-    elsif user && !user.authenticate(params[:password])
-      @error_type = 2
-      @error_message = 4
-
-      pass = false
-    elsif pass && user && user.authenticate(params[:password])
       session[:user_id] = user.id
-    end
 
-    if pass
-      previous = session[:previous]
-      session.delete(:previous)
+      if session[:previous]
+        previous = session[:previous]
 
-      if previous
+        session.delete(:previous)
+
         redirect "#{previous}"
       else
         redirect "/users/#{user.slug}"
       end
+
     else
+      @validation = form
+
       erb :"/sessions/login"
     end
   end
@@ -225,6 +150,7 @@ class UsersController < ApplicationController
       {
         username: {
           value: nil,
+          user: nil,
           valid: nil,
           test: {
             length: nil,
@@ -250,35 +176,39 @@ class UsersController < ApplicationController
       }
     end
 
-    def validation_test(params, type = "registration")
-      form = {
-        username: {
-          value: params[:username],
-          test: {
-            length: params[:username].length >= 3,
-            available: !User.all.exists?(username: params[:username])
-          }
-        },
-        email: {
-          value: params[:email],
-          test: {
-            length: params[:email].length >= 6,
-            format: params[:email].match(/\w+@\w+\.\w{2,}/),
-            available: !User.all.exists?(email: params[:email])
-          }
-        },
-        password: {
-          test: {
-            length: params[:password].length + params[:password?].length >= 12,
-            match: params[:password] == params[:password?]
-          }
-        }
-      }
+    def validation_test(params, type)
+      user_found = User.all.exists?(username: params[:username])
+      user = User.find_by(username: params[:username])
+
+      email_found = User.all.exists?(email: params[:email])
+
+      form = validation_form
+
+      form[:username][:value] = params[:username]
+      form[:username][:test][:length] = params[:username].length >= 3
 
       case type
-      when "account"
-        form[:username][:test][:available] = form[:username][:test][:available] && current_user.username != params[:username]
-        form[:email][:test][:available] = form[:email][:test][:available] && current_user.email != params[:email]
+      when "registration", "account"
+        form[:email][:value] = params[:email]
+        form[:email][:test][:length] = params[:email].length >= 6
+        form[:email][:test][:format] = !!params[:email].match(/\w+@\w+\.\w{2,}/)
+        form[:password][:test][:length] = params[:password].length + params[:password?].length >= 12
+
+        case type
+        when "registration"
+          form[:username][:test][:available] = !user_found
+          form[:email][:test][:available] = !email_found
+          form[:password][:test][:match] = params[:password] == params[:password?]
+        when "account"
+          form[:username][:test][:available] = !user_found || current_user.username == params[:username]
+          form[:email][:test][:available] = !email_found || current_user.email == params[:email]
+          form[:password][:test][:match] = params[:password] == params[:password?]
+        end
+      when "login"
+        form[:username][:user] = user
+        form[:username][:test][:available] = user_found
+        form[:password][:test][:length] = params[:password].length >= 6
+        form[:password][:test][:match] = user && user.authenticate(params[:password])
       end
 
       form[:username][:valid] = form[:username][:test].values.all?
@@ -287,6 +217,5 @@ class UsersController < ApplicationController
 
       form
     end
-
   end
 end

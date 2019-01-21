@@ -1,32 +1,41 @@
+<% server_validation = true %>
+
 <form action="/login" method="POST">
+
+  <!-- USERNAME -->
   <div class="form-group col-sm-12">
     <label for="username">Username</label>
-    <input type="text" class="form-control <%= "border-danger" if @error_type == 1 %>" id="username" name="username" value="<%= @username %>" placeholder="" autofocus>
-    <% if @error_type == 1 %>
-      <div class="alert alert-danger font-italic" role="alert">
-      <% case @error_message
-        when 1 %>
-        <small>Username is less than 3 characters. Please try again.</small>
-      <% when 2 %>
-        <small>Username does not exist. Please try again.</small>
-      <% end %>
+    <input type="text" class="form-control <%= "is-invalid" if @validation[:username][:valid] == false %>" id="username" name="username" value="<%= @validation[:username][:value] %>" placeholder="Minimum 3 characters" autofocus <%= "required" if !server_validation %>>
+
+    <% if @validation[:username][:valid] == false %>
+      <div class="invalid-feedback alert alert-danger" role="alert">
+        <% if @validation[:username][:test][:length] == false %>
+          Username is too short (minimum 3 characters). Please try again.
+        <% elsif @validation[:username][:test][:available] == false %>
+          Username does not exist. Please try again.
+        <% end %>
       </div>
     <% end %>
   </div>
+
+  <!-- PASSWORD -->
   <div class="form-group col-sm-12">
     <label for="password">Password</label>
-    <input type="password" class="form-control <%= "border-danger" if @error_type == 2 %>" id="password" name="password" placeholder="">
-    <% if @error_type == 2 %>
-      <div class="alert alert-danger font-italic" role="alert">
-      <% case @error_message
-        when 3 %>
-        <small>Password is less than 6 characters. Please try again.</small>
-      <% when 4 %>
-        <small>Password is incorrect. Please try again.</small>
-      <% end %>
+    <input type="password" class="form-control <%= "is-invalid" if @validation[:password][:valid] == false %>" id="password" name="password" placeholder="Minimum 6 characters" <%= "required" if !server_validation %>>
+
+    <% if @validation[:password][:valid] == false %>
+      <div class="invalid-feedback alert alert-danger" role="alert">
+        <% if @validation[:password][:test][:length] == false %>
+          Password is too short (minimum 6 characters). Please try again.
+        <% elsif @validation[:password][:test][:match] == false %>
+          Passwords is incorrect. Please try again.
+        <% else %>
+          Username-Password combination not found. Please try again.
+        <% end %>
       </div>
     <% end %>
   </div>
+
   <div class="form-group col-sm-12">
     <button type="submit" class="btn btn-block">Log In</button>
   </div>
