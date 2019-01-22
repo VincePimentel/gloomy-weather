@@ -13,6 +13,7 @@
 
       <% if preset && preset.user_id == current_user.id %>
         <input type="hidden" name="_method" value="PATCH">
+        <input type="hidden" name="id" value="<%= preset.id %>">
         <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" data-offset="-5">edit</button>
       <% else %>
         <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" data-offset="<% logged_in? ? "-5" : "0" %>">save</button>

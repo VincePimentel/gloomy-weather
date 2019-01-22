@@ -60,7 +60,7 @@ class PresetsController < ApplicationController
   end
 
   patch "/presets" do
-    preset = Preset.find_by(title: params[:title])
+    preset = Preset.find(params[:id])
 
     if params[:title].strip.empty?
       params.each do |key, value|
