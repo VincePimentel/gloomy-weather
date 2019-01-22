@@ -18,7 +18,11 @@ Run the following at the root directory (gloomy-weather):
 bundle install
 shotgun
 ```
-Then copy the address that appears and paste it in your browser's address bar.
+Then copy the address that appears and paste it in your browser's address bar. It is usually:
+
+```
+http://0.0.0.0:9393/
+```
 
 ## Contributing
 
