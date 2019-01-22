@@ -49,7 +49,7 @@ class UsersController < ApplicationController
     form = validation_test(params, "login")
 
     if form[:username][:valid] && form[:password][:valid]
-      user = form[:username][:user]
+      user = User.find_by(username: params[:username])
 
       session[:user_id] = user.id
 
@@ -85,11 +85,7 @@ class UsersController < ApplicationController
     form = validation_test(params, "registration")
 
     if form[:username][:valid] && form[:password][:valid]
-      # user = User.create(params.except(:password?))
-
-      params.delete(:password?) #replace later with above
-
-      user = User.create(params) #replace later with above
+      user = User.create(params.except(:password?))
 
       session[:user_id] = user.id
 
@@ -107,12 +103,7 @@ class UsersController < ApplicationController
     form = validation_test(params, "account")
 
     if form[:username][:valid] && form[:password][:valid]
-      # current_user.update(params.except(:_method, :password?))
-
-      params.delete(:password?) #replace later with above
-      params.delete(:_method) #replace later with above
-
-      current_user.update(params) #replace later with above
+      current_user.update(params.except(:_method, :password?))
 
       @message = "Updated account successfully."
 
@@ -142,7 +133,6 @@ class UsersController < ApplicationController
       {
         username: {
           value: nil,
-          user: nil,
           valid: nil,
           test: {
             length: nil,
@@ -188,9 +178,8 @@ class UsersController < ApplicationController
 
         case type
         when "login"
-          form[:username][:user] = user
           form[:username][:test][:available] = user_found
-          form[:password][:test][:match] = user && user.authenticate(params[:password])
+          form[:password][:test][:match] = User.find_by(username: params[:username]) && user.authenticate(params[:password])
         when "delete"
           form[:password][:test][:match] = current_user.authenticate(params[:password])
         end
