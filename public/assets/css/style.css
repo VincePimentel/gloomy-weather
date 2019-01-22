@@ -73,8 +73,8 @@ footer {
   border-color: #2f5e4e;
 }
 
-#global-control {
-  margin-top: 8px;
+#toggle-play-icon {
+  font-size: 2.5em;
 }
 
 #toggle-play {
@@ -96,7 +96,7 @@ button.preset-button {
 }
 
 div.col-sm-3 {
-  margin-bottom: 100px;
+  margin-bottom: 125px;
 }
 
 div.col-sm-3 i {

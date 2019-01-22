@@ -40,7 +40,7 @@ class PresetsController < ApplicationController
         end
       end
 
-      params[:title].gsub!(/, \z/, "")
+      params[:title].gsub!(/, \z/, "") #REMOVE TRAILING ", "
     end
 
     #CHECK FOR DUPLICATES
@@ -52,9 +52,7 @@ class PresetsController < ApplicationController
 
     preset = Preset.create(title: params[:title], description: params[:description])
 
-    level = Level.create(params.except(:title, :description))
-
-    preset.level = level
+    preset.level = Level.create(params.except(:title, :description))
 
     current_user.presets << preset
 
@@ -76,8 +74,6 @@ class PresetsController < ApplicationController
       params[:title].gsub!(/, \z/, "")
     end
 
-    binding.pry
-
     if preset.user_id == session[:user_id]
       preset.update(title: params[:title], description: params[:description])
 
@@ -89,11 +85,11 @@ class PresetsController < ApplicationController
     end
   end
 
-  delete "/presets/:id" do
-    preset = Preset.find(params[:id])
+  delete "/presets/:slug" do
+    preset = Preset.find_by_slug(params[:slug])
 
     if preset.user_id == session[:user_id]
-      Preset.delete(params[:id])
+      Preset.delete(preset.id)
 
       redirect "/users/#{current_user.slug}"
     else
