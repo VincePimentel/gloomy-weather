@@ -30,19 +30,17 @@ class PresetsController < ApplicationController
     end
   end
 
-  post "/presets" do
+  post "/presets/:slug" do
     if params[:title].strip.empty?
-      title = ""
-
       params.each do |key, value|
         next if key == "title" || key == "description"
 
         if value.to_i > 0
-          title << "#{key.capitalize}-#{value}, "
+          params[:title] << "#{key.capitalize}-#{value}, "
         end
       end
 
-      params[:title] = title[0...-2]
+      params[:title].gsub!(/, \z/, "")
     end
 
     #CHECK FOR DUPLICATES
@@ -51,10 +49,6 @@ class PresetsController < ApplicationController
     if size > 0
       params[:title] << " #{size + 1}"
     end
-
-    # params[:volume].each do |key, value|
-    #   params[:volume][key.to_sym] = value.to_i
-    # end
 
     preset = Preset.create(title: params[:title], description: params[:description])
 
@@ -67,29 +61,27 @@ class PresetsController < ApplicationController
     redirect "/presets/#{preset.slug}"
   end
 
-  patch "/presets" do
-    if params[:title].strip.empty?
-      title = ""
+  patch "/presets/:slug" do
+    preset = Preset.find_by_slug(params[:slug])
 
-      params[:volume].each do |key, value|
+    if params[:title].strip.empty?
+      params.each do |key, value|
+        next if key == "title" || key == "description"
+
         if value.to_i > 0
-          title << "#{key.capitalize}-#{value}, "
+          params[:title] << "#{key.capitalize}-#{value}, "
         end
       end
 
-      params[:title] = title[0...-2]
+      params[:title].gsub!(/, \z/, "")
     end
 
-    params[:volume].each do |key, value|
-      params[:volume][key.to_sym] = value.to_i
-    end
-
-    preset = Preset.find_by(params[:title])
+    binding.pry
 
     if preset.user_id == session[:user_id]
-      params.delete(:_method)
+      preset.update(title: params[:title], description: params[:description])
 
-      preset.update(params)
+      preset.level.update(params.except(:_method, :title, :description, :slug))
 
       redirect "/presets/#{preset.slug}"
     else

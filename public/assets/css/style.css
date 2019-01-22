@@ -73,6 +73,10 @@ footer {
   border-color: #2f5e4e;
 }
 
+#global-control {
+  margin-top: 8px;
+}
+
 #toggle-play {
   background-color: #754516;
   border-color: #754516;

@@ -1,11 +1,15 @@
 <div>&nbsp;</div>
 <div>&nbsp;</div>
 
-<form action="/presets" method="POST">
+<form action="/presets/<%= params[:slug] %>" method="POST">
 
   <div class="row justify-content-center">
 
-    <div class="dropdown">
+    <div>
+      <img id="control-icon" class="px-3 img-fluid" src="https://i.imgur.com/Za0rRHL.png" alt="left click to increase volume by 10">
+    </div>
+
+    <div id="global-control" class="dropdown">
       <% preset = Preset.find_by_slug(params[:slug]) %>
 
       <% if preset && preset.user_id == current_user.id %>
@@ -43,9 +47,8 @@
 
     </div> <!-- dropdown -->
 
-    <div class="rows">
-      <img src="https://i.imgur.com/nCZRVH5.png" alt="">
-
+    <div>
+      <img id="control-icon" class="px-3 img-fluid" src="https://i.imgur.com/eqsk7Yr.png" alt="left click to increase volume by 10">
     </div>
 
   </div> <!-- row -->
