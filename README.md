@@ -1,6 +1,8 @@
 # Gloomy Weather
 
-Gloomy Weather generates ambient sounds. You can mix and match various sounds and volume levels to get the ideal combination to help you relax or focused. 
+Gloomy Weather generates background ambient sounds. You can mix and match various sounds and volume levels to get the ideal combination to help you relax, sleep, focus or just to drown out bothersome sounds from your environment.
+
+* Once it goes live, you can create an account to save your own preset (combination) and view/listen presets made by others.
 
 ## Demo
 
@@ -24,7 +26,7 @@ Run the following at the root directory (gloomy-weather):
 bundle install
 shotgun
 ```
-Then copy the address that appears and paste it in your browser's address bar. It is usually:
+Then copy the address that appears in your terminal and paste it in your browser's address bar. It is usually:
 
 ```
 http://0.0.0.0:9393/
