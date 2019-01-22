@@ -2,7 +2,7 @@
 
 Gloomy Weather generates background ambient sounds. You can mix and match various sounds and volume levels to get the ideal combination to help you relax, sleep, focus or just to drown out bothersome sounds from your environment.
 
-* Once it goes live, you can create an account to save your own preset (combination) and view/listen presets made by others.
+* Once it goes live, you can create an account to save and edit your own presets (combinations) and also view, listen and copy presets made by others.
 
 ## Demo
 
@@ -26,6 +26,7 @@ Run the following at the root directory (gloomy-weather):
 bundle install
 shotgun
 ```
+
 Then copy the address that appears in your terminal and paste it in your browser's address bar. It is usually:
 
 ```
@@ -38,4 +39,4 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/VinceP
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+The repo is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
