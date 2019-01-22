@@ -63,8 +63,6 @@ class UsersController < ApplicationController
     else
       @validation = form
 
-      @message = "test"
-
       erb :"/sessions/login"
     end
   end
