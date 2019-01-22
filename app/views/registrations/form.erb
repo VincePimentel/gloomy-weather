@@ -3,7 +3,12 @@
   heading: "SIGN UP"
 } %>
 
-<% server_validation = true %> <!-- false to turn on client-side validation (via Bootstrap) -->
+
+<%
+#validate user input via server or client
+server_validation = true
+@validation ||= validation_form
+%>
 
 <div class="row">
   <div class="col-5 mx-auto">

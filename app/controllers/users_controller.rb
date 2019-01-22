@@ -1,11 +1,10 @@
 class UsersController < ApplicationController
+  
   get "/users/account" do
     if logged_in?
-      @validation = validation_form
-
       erb :"/users/account"
     else
-      session[:previous] = "/users/account"
+      session[:referrer] = "/users/account"
 
       redirect "/login"
     end
@@ -18,7 +17,7 @@ class UsersController < ApplicationController
       if logged_in?
         erb :"/users/presets"
       else
-        session[:previous] = "/users/#{params[:slug]}"
+        session[:referrer] = "/users/#{params[:slug]}"
 
         redirect "/login"
       end
@@ -32,8 +31,6 @@ class UsersController < ApplicationController
     if logged_in?
       redirect "/users/#{current_user.slug}"
     else
-      @validation = validation_form
-
       erb :"/registrations/form"
     end
   end
@@ -42,10 +39,6 @@ class UsersController < ApplicationController
     if logged_in?
       redirect "/users/#{current_user.slug}"
     else
-      @validation = validation_form
-
-      @previous = session[:previous]
-
       erb :"/sessions/login"
     end
   end
@@ -58,16 +51,15 @@ class UsersController < ApplicationController
 
       session[:user_id] = user.id
 
-      if session[:previous]
-        previous = session[:previous]
+      referrer = session[:referrer]
 
-        session.delete(:previous)
+      if referrer
+        session.delete(:referrer)
 
-        redirect "#{previous}"
+        redirect "#{referrer}"
       else
         redirect "/users/#{user.slug}"
       end
-
     else
       @validation = form
 
@@ -77,9 +69,11 @@ class UsersController < ApplicationController
 
   get "/logout" do
     if logged_in?
+      @message = "Logged out successfully."
+
       session.clear
 
-      redirect "/"
+      erb :"sessions/login"
     else
       redirect "/login"
     end
@@ -114,7 +108,9 @@ class UsersController < ApplicationController
 
       current_user.update(params)
 
-      redirect "/users/account"
+      @message = "Updated account successfully."
+
+      erb :"/users/account"
     else
       @validation = form
 
@@ -126,7 +122,7 @@ class UsersController < ApplicationController
     form = validation_test(params, "delete")
 
     if form[:password][:valid]
-      User.delete(session[:user_id])
+      User.delete(params[:id])
 
       session.clear
 
@@ -163,8 +159,11 @@ class UsersController < ApplicationController
 
       form = validation_form
 
-      form[:username][:value] = params[:username]
-      form[:username][:test][:length] = params[:username].length >= 3
+      case type
+      when "registration", "account", "login"
+        form[:username][:value] = params[:username]
+        form[:username][:test][:length] = params[:username].length >= 3
+      end
 
       case type
       when "registration", "account"

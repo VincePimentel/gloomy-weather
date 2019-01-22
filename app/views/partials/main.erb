@@ -54,17 +54,26 @@
 
     <div class="row justify-content-center">
 
-      <% source = Level.sources %>
+      <% sources = Level.sources %>
 
       <% @preset.level.attributes.each do |element, volume| %>
 
         <% next if element == "id" %>
 
+        <% case element %>
+        <% when "fire" %>
+          <% icon = "whatshot" %>
+        <% when "pink", "brown" %>
+          <% icon = "wave" %>
+        <% else %>
+          <% icon = "" %>
+        <% end %>
+
         <div class="col-sm-3 text-center">
-          <button id="<%= element %>" type="button" class="btn preset-button"><i id="<%= element %>-icon" class="<%= source[element.to_sym][:icon] %> inactive-sound <%= "md-48" if ["white", "pink", "brown"].include?(element) %>"><%= "waves" if ["white", "pink", "brown"].include?(element) %></i></button>
+          <button id="<%= element %>" type="button" class="btn preset-button"><i id="<%= element %>-icon" class="<%= sources[element.to_sym][:icon] %> inactive-sound"><%= icon %></i></button>
 
           <audio id="<%= element %>-audio" preload="auto" <%= "autoplay" if volume > 0 %> loop>
-            <source src="<%= source[element.to_sym][:url] %>" type="audio/mpeg">
+            <source src="<%= sources[element.to_sym][:url] %>" type="audio/mpeg">
           </audio>
 
           <br>

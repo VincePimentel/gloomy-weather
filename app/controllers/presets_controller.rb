@@ -1,11 +1,12 @@
 class PresetsController < ApplicationController
+
   get "/presets" do
     if logged_in?
       @presets = Preset.all
 
       erb :"/presets/index"
     else
-      session[:previous] = "/presets"
+      session[:referrer] = "/presets"
 
       redirect "/login"
     end
@@ -18,7 +19,7 @@ class PresetsController < ApplicationController
       if logged_in?
         erb :"/presets/display"
       else
-        session[:previous] = "/presets/#{params[:slug]}"
+        session[:referrer] = "/presets/#{params[:slug]}"
 
         redirect "/login"
       end

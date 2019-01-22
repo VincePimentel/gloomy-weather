@@ -1,4 +1,8 @@
-<% server_validation = true %>
+<%
+#validate user input via server or client
+server_validation = true
+@validation ||= validation_form
+%>
 
 <form action="/login" method="POST">
 
