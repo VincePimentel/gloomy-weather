@@ -2,6 +2,12 @@
 
 Gloomy Weather generates ambient sounds. You can mix and match various sounds and volume levels to get the ideal combination to help you relax or focused. 
 
+## Demo
+
+```
+TBA
+```
+
 ## Installation
 
 Clone this repo via:
