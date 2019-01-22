@@ -1,39 +1,6 @@
 <% @page_info = {
   title: "My Presets",
-  heading: "my presets"
+  heading: "MY PRESETS"
 } %>
 
-<table class="table">
-
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Title</th>
-      <th scope="col">Description</th>
-
-      <% if current_user == @user %>
-        <th scope="col">Delete</th>
-      <% end %>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @user.presets.each do |preset| %>
-      <tr>
-        <th scope="row"><%= preset.id %></th>
-        <td><a class="text-white" href="/presets/<%= preset.slug %>"><%= preset.title %></a></td>
-        <td><p class="text-white"><%= preset.description %></p></td>
-
-        <% if current_user == @user %>
-        <td>
-          <form class="" action="/presets/<%= preset.slug %>" method="post">
-            <input type="hidden" name="_method" value="DELETE">
-            <button type="submit" class="btn"><i class="fas fa-trash text-danger"></i></button>
-          </form>
-        </td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-
-</table>
+<%= erb :"/partials/list" %>

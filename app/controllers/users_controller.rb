@@ -11,10 +11,12 @@ class UsersController < ApplicationController
   end
 
   get "/users/:slug" do
-    @user = User.find_by_slug(params[:slug])
+    user = User.find_by_slug(params[:slug])
 
-    if @user
+    if user
       if logged_in?
+        @presets = user.presets
+
         erb :"/users/presets"
       else
         session[:referrer] = "/users/#{params[:slug]}"

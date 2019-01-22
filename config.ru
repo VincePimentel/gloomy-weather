@@ -9,5 +9,6 @@ use Rack::MethodOverride
 
 use UsersController
 use PresetsController
+use LevelsController
 
 run ApplicationController

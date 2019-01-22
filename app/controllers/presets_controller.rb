@@ -30,7 +30,7 @@ class PresetsController < ApplicationController
     end
   end
 
-  post "/presets/:slug" do
+  post "/presets" do
     if params[:title].strip.empty?
       params.each do |key, value|
         next if key == "title" || key == "description"
@@ -59,8 +59,8 @@ class PresetsController < ApplicationController
     redirect "/presets/#{preset.slug}"
   end
 
-  patch "/presets/:slug" do
-    preset = Preset.find_by_slug(params[:slug])
+  patch "/presets" do
+    preset = Preset.find_by(title: params[:title])
 
     if params[:title].strip.empty?
       params.each do |key, value|
@@ -85,8 +85,8 @@ class PresetsController < ApplicationController
     end
   end
 
-  delete "/presets/:slug" do
-    preset = Preset.find_by_slug(params[:slug])
+  delete "/presets/:id" do
+    preset = Preset.find(params[:id])
 
     if preset.user_id == session[:user_id]
       Preset.delete(preset.id)

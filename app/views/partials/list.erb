@@ -1,0 +1,42 @@
+<% if @presets.size == 0 %>
+<div>
+  <p class="text-center">
+    Nothing to see here. Create <a href="/">one</a>!
+  </p>
+</div>
+<% else %>
+<table class="table">
+
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+
+      <% if @page_info[:title] == "My Presets" %>
+        <th scope="col">Delete</th>
+      <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @presets.each do |preset| %>
+      <tr>
+        <th scope="row"><%= preset.id %></th>
+        <td><a class="text-white" href="/presets/<%= preset.slug %>"><%= preset.title %></a></td>
+        <td><p class="text-white"><%= preset.description %></p></td>
+
+        <% if @page_info[:title] == "My Presets" %>
+        <td>
+          <form class="" action="/presets/<%= preset.id %>" method="post">
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit" class="btn"><i class="fas fa-trash text-danger"></i></button>
+          </form>
+        </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
+<% end %>
