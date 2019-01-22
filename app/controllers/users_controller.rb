@@ -85,9 +85,11 @@ class UsersController < ApplicationController
     form = validation_test(params, "registration")
 
     if form[:username][:valid] && form[:password][:valid]
-      params.delete(:password?)
+      # user = User.create(params.except(:password?))
 
-      user = User.create(params)
+      params.delete(:password?) #replace later with above
+
+      user = User.create(params) #replace later with above
 
       session[:user_id] = user.id
 
@@ -105,10 +107,12 @@ class UsersController < ApplicationController
     form = validation_test(params, "account")
 
     if form[:username][:valid] && form[:password][:valid]
-      params.delete(:password?)
-      params.delete(:_method)
+      # current_user.update(params.except(:_method, :password?))
 
-      current_user.update(params)
+      params.delete(:password?) #replace later with above
+      params.delete(:_method) #replace later with above
+
+      current_user.update(params) #replace later with above
 
       @message = "Updated account successfully."
 
