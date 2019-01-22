@@ -31,24 +31,9 @@ class PresetsController < ApplicationController
   end
 
   post "/presets" do
-    if params[:title].strip.empty?
-      params.each do |key, value|
-        next if key == "title" || key == "description"
+    params[:title] = generate_title(params) if params[:title].strip.empty?
 
-        if value.to_i > 0
-          params[:title] << "#{key.capitalize}-#{value}, "
-        end
-      end
-
-      params[:title].gsub!(/, \z/, "") #REMOVE TRAILING ", "
-    end
-
-    #CHECK FOR DUPLICATES
-    size = Preset.where(title: params[:title]).size
-
-    if size > 0
-      params[:title] << " #{size + 1}"
-    end
+    #ADD DUPLICATE FIX LATER
 
     preset = Preset.create(title: params[:title], description: params[:description])
 
@@ -60,19 +45,11 @@ class PresetsController < ApplicationController
   end
 
   patch "/presets" do
+    params[:title] = generate_title(params) if params[:title].strip.empty?
+
+    #ADD DUPLICATE FIX LATER
+
     preset = Preset.find(params[:id])
-
-    if params[:title].strip.empty?
-      params.each do |key, value|
-        next if key == "title" || key == "description"
-
-        if value.to_i > 0
-          params[:title] << "#{key.capitalize}-#{value}, "
-        end
-      end
-
-      params[:title].gsub!(/, \z/, "")
-    end
 
     if preset.user_id == session[:user_id]
       preset.update(title: params[:title], description: params[:description])
@@ -96,5 +73,19 @@ class PresetsController < ApplicationController
       redirect "/login"
     end
     #ADD CONFIRM BUTTON
+  end
+
+  helpers do
+    def generate_title(params)
+      params.each do |key, value|
+        next if key == "title" || key == "description"
+
+        if value.to_i > 0
+          params[:title] << "#{key.capitalize}-#{value}, "
+        end
+      end
+
+      params[:title].gsub!(/, \z/, "")
+    end
   end
 end
