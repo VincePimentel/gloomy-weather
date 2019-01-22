@@ -1,7 +1,8 @@
-<div class="row">&nbsp;</div>
-<div class="row">&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
 
 <form action="/presets" method="POST">
+
   <div class="row justify-content-center">
 
     <div class="dropdown">
@@ -38,42 +39,29 @@
           <%= erb :"/partials/login_form" %>
         <% end %>
 
-
       </div> <!-- dropdown menu -->
+
     </div> <!-- dropdown -->
 
   </div> <!-- row -->
 
-  <div class="row">&nbsp;</div>
-  <div class="row">&nbsp;</div>
-  <div class="row">&nbsp;</div>
+  <div>&nbsp;</div>
+  <div>&nbsp;</div>
+  <div>&nbsp;</div>
 
   <div class="container">
 
-    <br>
-
     <div class="row justify-content-center">
-
-      <% sources = Level.sources %>
 
       <% @preset.level.attributes.each do |element, volume| %>
 
         <% next if element == "id" %>
 
-        <% case element %>
-        <% when "fire" %>
-          <% icon = "whatshot" %>
-        <% when "pink", "brown" %>
-          <% icon = "wave" %>
-        <% else %>
-          <% icon = "" %>
-        <% end %>
-
         <div class="col-sm-3 text-center">
-          <button id="<%= element %>" type="button" class="btn preset-button"><i id="<%= element %>-icon" class="<%= sources[element.to_sym][:icon] %> inactive-sound"><%= icon %></i></button>
+          <button id="<%= element %>" type="button" class="btn preset-button"><i id="<%= element %>-icon" class="<%= source(element)[:icon] %> inactive-sound <%= "material-icons" if icon(element) %>"><%= icon(element) %></i></button>
 
           <audio id="<%= element %>-audio" preload="auto" <%= "autoplay" if volume > 0 %> loop>
-            <source src="<%= sources[element.to_sym][:url] %>" type="audio/mpeg">
+            <source src="<%= source(element)[:url] %>" type="audio/mpeg">
           </audio>
 
           <br>
@@ -82,7 +70,7 @@
 
           <span id="<%= element %>-volume" class="badge badge-pill"></span>&nbsp;
 
-        </div>
+        </div> <!-- col-sm-3 -->
 
       <% end %>
 

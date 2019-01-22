@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  
+
   get "/users/account" do
     if logged_in?
       erb :"/users/account"
@@ -62,6 +62,8 @@ class UsersController < ApplicationController
       end
     else
       @validation = form
+
+      @message = "test"
 
       erb :"/sessions/login"
     end
