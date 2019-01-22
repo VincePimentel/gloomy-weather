@@ -74,8 +74,8 @@ class ApplicationController < Sinatra::Base
       when "fire"
         {
           url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/0d06fccbb48",
-          icon: "material-icons",
-          icon_2: "fas fa-fire"
+          icon: "material-icons"
+          #icon_2: "fas fa-fire"
         }
       when "bird"
         {

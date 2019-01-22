@@ -34,7 +34,9 @@ class PresetsController < ApplicationController
     if params[:title].strip.empty?
       title = ""
 
-      params[:volume].each do |key, value|
+      params.each do |key, value|
+        next if key == "title" || key == "description"
+
         if value.to_i > 0
           title << "#{key.capitalize}-#{value}, "
         end
@@ -50,16 +52,19 @@ class PresetsController < ApplicationController
       params[:title] << " #{size + 1}"
     end
 
-    params[:volume].each do |key, value|
-      params[:volume][key.to_sym] = value.to_i
-    end
+    # params[:volume].each do |key, value|
+    #   params[:volume][key.to_sym] = value.to_i
+    # end
 
-    preset = Preset.create(params)
+    preset = Preset.create(title: params[:title], description: params[:description])
+
+    level = Level.create(params.except(:title, :description))
+
+    preset.level = level
 
     current_user.presets << preset
 
     redirect "/presets/#{preset.slug}"
-    #ASK USER TO LOG IN FIRST BEFORE SAVING
   end
 
   patch "/presets" do
