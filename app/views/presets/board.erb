@@ -1,0 +1,68 @@
+<% @page_info = {
+  title: nil,
+  heading: nil
+} %>
+
+<div>&nbsp;</div>
+
+<form action="/presets" method="POST">
+
+  <div class="row justify-content-center">
+
+    <div>
+      <img id="control-icon" class="px-4 img-fluid" src="https://i.imgur.com/Za0rRHL.png" alt="left click to increase volume by 10">
+    </div>
+
+    <div>
+      <% if @preset.user_id == current_user.id %>
+        <a id="edit-button" class="btn dark-green-color text-white" role="button" href="/presets/<%= @preset.slug %>/edit">edit</a>
+      <% else %>
+        <button id="copy-button" type="submit" class="btn">copy</button>
+      <% end %>
+
+        <button id="toggle-play" type="button" class="btn"><i id="toggle-play-icon" class="fas fa-pause"></i></button>
+
+        <button id="reset-all" type="button" class="btn">reset</button>
+
+    </div>
+
+    <div>
+      <img id="control-icon" class="px-4 img-fluid" src="https://i.imgur.com/eqsk7Yr.png" alt="left click to increase volume by 10">
+    </div>
+
+  </div> <!-- row -->
+
+  <div>&nbsp;</div>
+  <div>&nbsp;</div>
+  <div>&nbsp;</div>
+  <div>&nbsp;</div>
+
+  <div class="container">
+
+    <div class="row justify-content-center">
+
+      <% @preset.level.attributes.each do |element, volume| %>
+
+        <% next if element == "id" %>
+
+        <div class="col-sm-3 text-center">
+          <button id="<%= element %>" type="button" class="btn preset-button"><i id="<%= element %>-icon" class="<%= source(element)[:icon] %> inactive-sound <%= "material-icons" if icon(element) %>"><%= icon(element) %></i></button>
+
+          <audio id="<%= element %>-audio" preload="auto" <%= "autoplay" if volume > 0 %> loop>
+            <source src="<%= source(element)[:url] %>" type="audio/mpeg">
+          </audio>
+
+          <div>&nbsp;</div>
+
+          <input id="<%= element %>-input" class="form-control-plaintext text-center" type="number" name="<%= element %>" value="<%= volume %>" hidden>
+
+          <span id="<%= element %>-volume" class="badge badge-pill"></span>&nbsp;
+
+        </div> <!-- col-sm-3 -->
+
+      <% end %>
+
+    </div> <!-- row -->
+  </div> <!-- container -->
+
+</form>

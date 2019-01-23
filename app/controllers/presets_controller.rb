@@ -17,20 +17,23 @@ class PresetsController < ApplicationController
 
     if @preset
       if logged_in?
-        erb :"/presets/display"
+        erb :"/presets/board"
       else
         session[:referrer] = "/presets/#{params[:slug]}"
 
         redirect "/login"
       end
     else
-      #SHOW ERROR
+      #SHOW ERROR THAT IT DOESNT EXIST
 
       redirect "/"
     end
   end
 
   post "/presets" do
+
+    binding.pry
+
     params[:title] = generate_title(params) if params[:title].strip.empty?
 
     #ADD DUPLICATE FIX LATER

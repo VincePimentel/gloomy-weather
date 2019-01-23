@@ -10,9 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_21_190446) do
+ActiveRecord::Schema.define(version: 2019_01_16_002015) do
 
-  create_table "levels", force: :cascade do |t|
+  create_table "presets", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "title", default: ""
+    t.string "description", default: ""
     t.integer "rain", default: 0
     t.integer "thunder", default: 0
     t.integer "beach", default: 0
@@ -25,13 +28,6 @@ ActiveRecord::Schema.define(version: 2019_01_21_190446) do
     t.integer "crowd", default: 0
     t.integer "pink", default: 0
     t.integer "brown", default: 0
-  end
-
-  create_table "presets", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "level_id"
-    t.string "title", default: ""
-    t.string "description", default: ""
   end
 
   create_table "users", force: :cascade do |t|
