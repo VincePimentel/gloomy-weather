@@ -27,15 +27,13 @@ class PresetsController < ApplicationController
 
     if @preset
       if logged_in?
-        erb :"/presets/board"
+        erb :"/presets/show"
       else
-        session[:referrer] = "/presets/#{params[:slug]}"
+        session[:referrer] = "/presets/#{params[:id]}/#{params[:slug]}"
 
         redirect "/login"
       end
     else
-      #SHOW ERROR THAT IT DOESNT EXIST
-
       redirect "/"
     end
   end
@@ -64,7 +62,6 @@ class PresetsController < ApplicationController
     else
       redirect "/login"
     end
-    #ADD CONFIRM BUTTON
   end
 
   helpers do

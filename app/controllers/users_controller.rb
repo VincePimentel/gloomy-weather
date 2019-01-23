@@ -24,7 +24,6 @@ class UsersController < ApplicationController
         redirect "/login"
       end
     else
-      #SHOW ERROR
       redirect "/"
     end
   end
@@ -60,8 +59,7 @@ class UsersController < ApplicationController
 
         redirect "#{referrer}"
       else
-        redirect "/"
-        # redirect "/users/#{user.slug}"
+        redirect "/users/#{user.slug}"
       end
     else
       @validation = form
