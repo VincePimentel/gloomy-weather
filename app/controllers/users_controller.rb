@@ -104,7 +104,11 @@ class UsersController < ApplicationController
     form = validation_test(params, "account")
 
     if form[:username][:valid] && form[:password][:valid]
-      current_user.update(params.except(:_method, :password?))
+      if params[:password].length == 0
+        current_user.update(params.except(:_method, :password, :password?))
+      else
+        current_user.update(params.except(:_method, :password?))
+      end
 
       @message = "Updated account successfully."
 
@@ -163,27 +167,33 @@ class UsersController < ApplicationController
       end
 
       case type
-      when "registration", "account"
+      when "registration"
+        form[:username][:value] = params[:username]
+        form[:username][:test][:length] = params[:username].length >= 3
+        form[:username][:test][:available] = !user_found
+
         form[:password][:test][:length] = params[:password].length + params[:password?].length >= 12
+        form[:password][:test][:match] = params[:password] == params[:password?]
 
-        case type
-        when "registration"
-          form[:username][:test][:available] = !user_found
-          form[:password][:test][:match] = params[:password] == params[:password?]
-        when "account"
-          form[:username][:test][:available] = !user_found || current_user.username == params[:username]
-          form[:password][:test][:match] = params[:password] == params[:password?]
-        end
-      when "login", "delete"
+      when "account"
+        form[:username][:value] = params[:username]
+        form[:username][:test][:length] = params[:username].length >= 3
+        form[:username][:test][:available] = !user_found || current_user.username == params[:username]
+
+        form[:password][:test][:length] = params[:password].length + params[:password?].length == 0 || params[:password].length + params[:password?].length >= 12
+        form[:password][:test][:match] = params[:password] == params[:password?]
+
+      when "login"
+        form[:username][:value] = params[:username]
+        form[:username][:test][:length] = params[:username].length >= 3
+        form[:username][:test][:available] = user_found
+
         form[:password][:test][:length] = params[:password].length >= 6
+        form[:password][:test][:match] = user&.authenticate(params[:password])
 
-        case type
-        when "login"
-          form[:username][:test][:available] = user_found
-          form[:password][:test][:match] = User.find_by(username: params[:username]) && user.authenticate(params[:password])
-        when "delete"
-          form[:password][:test][:match] = current_user.authenticate(params[:password])
-        end
+      when "delete"
+        form[:password][:test][:length] = params[:password].length >= 6
+        form[:password][:test][:match] = current_user.authenticate(params[:password])
       end
 
       form[:username][:valid] = form[:username][:test].values.all?

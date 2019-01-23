@@ -69,8 +69,16 @@ class PresetsController < ApplicationController
 
   helpers do
     def generate_title(params)
+      extras = %w[
+        _method
+        id
+        slug
+        title
+        description
+      ]
+
       params.each do |key, value|
-        next if key == "title" || key == "description"
+        next if extras.include?(key)
 
         if value.to_i > 0
           params[:title] << "#{key.capitalize}-#{value}, "
