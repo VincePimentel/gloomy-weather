@@ -1,4 +1,5 @@
 require "securerandom"
+require "rack-flash"
 
 class ApplicationController < Sinatra::Base
 
@@ -7,10 +8,22 @@ class ApplicationController < Sinatra::Base
     set :views, "app/views"
     enable :sessions
     set :session_secret, ENV.fetch("SESSION_SECRET") { SecureRandom.hex(64) }
+
+    use Rack::Flash
   end
 
   get "/" do
     erb :index
+  end
+
+  get "/test" do
+    erb :test
+  end
+
+  post "/test" do
+    flash[:message] = "test"
+
+    redirect "/test"
   end
 
   helpers do
