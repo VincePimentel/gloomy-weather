@@ -60,7 +60,8 @@ class UsersController < ApplicationController
 
         redirect "#{referrer}"
       else
-        redirect "/users/#{user.slug}"
+        redirect "/"
+        # redirect "/users/#{user.slug}"
       end
     else
       @validation = form

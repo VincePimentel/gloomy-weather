@@ -26,6 +26,7 @@
 
   <tbody>
     <% @presets.each do |preset| %>
+
       <tr>
         <th scope="row"><%= preset.id %></th>
 
@@ -33,7 +34,7 @@
           <td scope="col"><%= preset.user.username %></td>
         <% end %>
 
-        <td><a class="text-white" href="/presets/<%= preset.slug %>"><%= preset.title %></a></td>
+        <td><a class="text-white" href="/presets/<%= preset.id %>/<%= preset.slug %>"><%= preset.title %></a></td>
         <td><p class="text-white"><%= preset.description %></p></td>
 
         <% if @page_info[:title] == "My Presets" %>

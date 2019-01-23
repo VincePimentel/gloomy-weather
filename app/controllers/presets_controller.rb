@@ -12,8 +12,8 @@ class PresetsController < ApplicationController
     end
   end
 
-  get "/presets/:slug" do
-    @preset = Preset.find_by_slug(params[:slug])
+  get "/presets/:id/:slug" do
+    @preset = Preset.find(params[:id])
 
     if @preset
       if logged_in?
@@ -31,41 +31,36 @@ class PresetsController < ApplicationController
   end
 
   post "/presets" do
-
-    binding.pry
-
     params[:title] = generate_title(params) if params[:title].strip.empty?
 
     #ADD DUPLICATE FIX LATER
 
-    preset = Preset.create(title: params[:title], description: params[:description])
-
-    preset.level = Level.create(params.except(:title, :description))
+    preset = Preset.create(params)
 
     current_user.presets << preset
 
-    redirect "/presets/#{preset.slug}"
+    redirect "/presets/#{preset.id}/#{preset.slug}"
   end
 
-  patch "/presets" do
+  patch "/presets/:id/:slug" do
     params[:title] = generate_title(params) if params[:title].strip.empty?
 
     #ADD DUPLICATE FIX LATER
 
     preset = Preset.find(params[:id])
 
+    binding.pry
+
     if preset.user_id == session[:user_id]
-      preset.update(title: params[:title], description: params[:description])
+      preset.update(params.except(:_method))
 
-      preset.level.update(params.except(:_method, :title, :description, :slug))
-
-      redirect "/presets/#{preset.slug}"
+      redirect "/presets/#{preset.id}/#{preset.slug}"
     else
       redirect "/login"
     end
   end
 
-  delete "/presets/:id" do
+  delete "/presets/:id/:slug" do
     preset = Preset.find(params[:id])
 
     if preset.user_id == session[:user_id]

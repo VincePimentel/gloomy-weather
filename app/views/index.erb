@@ -14,7 +14,8 @@
     </div>
 
     <div id="global-control" class="dropdown">
-        <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" data-offset="-5">save</button>
+
+        <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" <%= 'data-offset="-5"' if logged_in? %>><%= logged_in? ? "save" : "log in" %></button>
 
         <button id="toggle-play" type="button" class="btn"><i id="toggle-play-icon" class="fas fa-pause"></i></button>
 
@@ -22,6 +23,7 @@
 
       <div class="dropdown-menu">
 
+        <% if logged_in? %>
         <div class="px-3 py-1">
 
           <div class="form-group">
@@ -34,6 +36,10 @@
           </div>
 
         </div> <!-- px-3 py-1 -->
+
+        <% else %>
+          <%= erb :"/partials/login_form" %>
+        <% end %>
 
       </div> <!-- dropdown-menu -->
 
@@ -65,7 +71,7 @@
 
           <div>&nbsp;</div>
 
-          <input id="<%= element %>-input" class="form-control-plaintext text-center" type="number" name="<%= element %>" value="" hidden>
+          <input id="<%= element %>-input" class="form-control-plaintext text-center" type="number" name="<%= element %>" value="0" hidden>
 
           <span id="<%= element %>-volume" class="badge badge-pill"></span>&nbsp;
 
