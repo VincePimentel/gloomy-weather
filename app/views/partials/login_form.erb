@@ -11,11 +11,11 @@ server_validation = true
     <label for="username">Username</label>
     <input type="text" class="form-control <%= "is-invalid" if @validation[:username][:valid] == false %>" id="username" name="username" value="<%= @validation[:username][:value] %>" placeholder="Minimum 3 characters" autofocus <%= "required" if !server_validation %>>
 
-    <% if @validation[:username][:valid] == false %>
+    <% if !@validation[:username][:valid] %>
       <div class="invalid-feedback alert alert-danger" role="alert">
-        <% if @validation[:username][:test][:length] == false %>
+        <% if !@validation[:username][:test][:length] %>
           Username is too short (minimum 3 characters). Please try again.
-        <% elsif @validation[:username][:test][:available] == false %>
+        <% elsif !@validation[:username][:test][:available] %>
           Username does not exist. Please try again.
         <% end %>
       </div>

@@ -70,7 +70,6 @@ class UsersController < ApplicationController
 
   get "/logout" do
     if logged_in?
-      flash[:message] = "Logged out successfully."
 
       @message = "Logged out successfully."
 
@@ -109,8 +108,6 @@ class UsersController < ApplicationController
       else
         current_user.update(params.except(:_method, :password?))
       end
-
-      flash[:message] = "Updated account successfully."
 
       @message = "Updated account successfully."
 
@@ -166,6 +163,12 @@ class UsersController < ApplicationController
       form = validation_form
 
       case type
+      when "register", "login", "edit"
+        form[:username][:test][:length] = params[:username].length >= 3
+        # If username is at least 3 characters then it is valid
+      end
+
+      case type
       when "register", "edit"
         form[:password][:test][:match] = params[:password] == params[:password?]
         # If both passwords match then it is valid
@@ -208,7 +211,7 @@ class UsersController < ApplicationController
       # If all tests return true then proceed with registration/edit/login/delete
 
       form
-      # Return the filled out form (hash) for use on their respective views
+      # Return the filled out hash for use on their respective views
     end
   end
 end

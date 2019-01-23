@@ -1,11 +1,13 @@
 <nav class="navbar sticky-top navbar-expand-sm navbar-dark">
   <!-- bg-light -->
   <a class="navbar-brand" href="/">gloomy weather</a>
+
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navigation-bar" aria-controls="main-navigation-bar" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="main-navigation-bar">
+  <div class="collapse navbar-collapse">
+
     <div class="navbar-nav mr-auto"></div>
 
     <div class="navbar-nav float-right">
@@ -19,10 +21,15 @@
         <a class="nav-item nav-link dropdown-toggle dropdown" href="#" id="logged-in-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-user"></i> <%= current_user.username %>
         </a>
+
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="logged-in-dropdown">
+
           <a class="dropdown-item" href="/users/account"><i class="fas fa-edit fa-fw"></i> ACCOUNT</a>
+
           <div class="dropdown-divider"></div>
+
           <a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt fa-fw"></i> LOG OUT</a>
+
         </div>
 
       <% else %>
@@ -30,18 +37,23 @@
         <% if @page_info[:title] != "Log In" %>
 
           <a class="nav-item nav-link dropdown-toggle dropdown" href="#" id="login-menu-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-sign-in-alt fa-fw"></i> LOG IN</a>
+
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="login-menu-dropdown">
 
-            <%= erb :"/partials/login_form" %>
+          <%= erb :"/partials/login_form" %>
 
           </div>
 
         <% end %>
 
         <a class="nav-item nav-link" href="/signup">SIGN UP</a>
+
       <% end %>
-    </div>
-  </div>
+
+    </div> <!-- float-right -->
+
+  </div> <!-- mr-auto -->
+
 </nav>
 
 <!-- loop fix -->
