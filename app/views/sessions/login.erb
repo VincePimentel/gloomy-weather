@@ -4,19 +4,25 @@
 } %>
 
 <div class="row">
+
   <div class="col-5 mx-auto">
 
     <% if session[:referrer] %>
+
       <div class="alert alert-danger font-italic text-center" role="alert">
         <small>Please log in first and you will be redirected after.</small>
       </div>
+
     <% elsif @message %>
+
       <div class="alert alert-success font-italic text-center" role="alert">
         <small><%= @message %></small>
       </div>
+
     <% end %>
 
     <%= erb :"/partials/login_form" %>
 
   </div>
+
 </div>

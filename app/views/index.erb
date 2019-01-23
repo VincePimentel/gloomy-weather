@@ -22,6 +22,7 @@
       <div class="dropdown-menu">
 
         <% if logged_in? %>
+
         <div class="px-3 py-1">
 
           <div class="form-group">
@@ -36,7 +37,9 @@
         </div> <!-- px-3 py-1 -->
 
         <% else %>
+
           <%= erb :"/partials/login_form" %>
+
         <% end %>
 
       </div> <!-- dropdown-menu -->
@@ -78,6 +81,7 @@
       <% end %>
 
     </div> <!-- row -->
+
   </div> <!-- container -->
 
 </form>

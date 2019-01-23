@@ -16,12 +16,15 @@ server_validation = true
   <div class="col-5 mx-auto">
 
     <% if @message %>
+
     <div class="alert alert-success font-italic text-center" role="alert">
       <small><%= @message %></small>
     </div>
+
     <% end %>
 
     <form class="px-4 py-3" action="/users" method="POST">
+
       <input type="hidden" name="_method" value="PATCH">
 
       <!-- USERNAME -->
@@ -29,15 +32,22 @@ server_validation = true
         <label for="username">Username</label>
         <input type="text" class="form-control <%= "is-invalid" if @validation[:username][:valid] == false %>" id="username" name="username" value="<%= @validation[:username][:value] || current_user.username %>" placeholder="Minimum 3 characters" autofocus <%= "required" if !server_validation %>>
 
-        <% if @validation[:username][:valid] == false %>
+        <% if !@validation[:username][:valid] %>
+
           <div class="invalid-feedback alert alert-danger" role="alert">
-            <% if @validation[:username][:test][:length] == false %>
+
+            <% if !@validation[:username][:test][:length] %>
               Username is too short (minimum 3 characters). Please try again.
-            <% elsif @validation[:username][:test][:available] == false %>
+
+            <% elsif !@validation[:username][:test][:available] %>
               Username already taken. Please try again.
+
             <% end %>
+
           </div>
+
         <% end %>
+
       </div>
 
       <!-- PASSWORD -->
@@ -45,15 +55,22 @@ server_validation = true
         <label for="password">New Password</label>
         <input type="password" class="form-control <%= "is-invalid" if @validation[:password][:valid] == false %>" id="password" name="password" placeholder="Minimum 6 characters" <%= "required" if !server_validation %>>
 
-        <% if @validation[:password][:valid] == false %>
+        <% if !@validation[:password][:valid] %>
+
           <div class="invalid-feedback alert alert-danger" role="alert">
-            <% if @validation[:password][:test][:length] == false %>
+
+            <% if !@validation[:password][:test][:length] %>
               Password is too short (minimum 6 characters). Please try again.
-            <% elsif @validation[:password][:test][:match] == false %>
+
+            <% elsif !@validation[:password][:test][:match] %>
               Passwords did not match. Please try again.
+
             <% end %>
+
           </div>
+
         <% end %>
+
       </div>
 
       <!-- PASSWORD CONFIRMATION -->
@@ -61,18 +78,26 @@ server_validation = true
         <label for="password?">Confirm New Password</label>
         <input type="password" class="form-control <%= "is-invalid" if @validation[:password][:valid] == false %>" id="password?" name="password?" placeholder="Re-type new password" <%= "required" if !server_validation %>>
 
-        <% if @validation[:password][:valid] == false %>
+        <% if !@validation[:password][:valid] %>
+
           <div class="invalid-feedback alert alert-danger" role="alert">
-            <% if @validation[:password][:test][:length] == false %>
+
+            <% if !@validation[:password][:test][:length] %>
               Password is too short (minimum 6 characters). Please try again.
-            <% elsif @validation[:password][:test][:match] == false %>
+
+            <% elsif !@validation[:password][:test][:match] %>
               Passwords did not match. Please try again.
+
             <% end %>
+
           </div>
+
         <% end %>
+
       </div>
 
       <button type="submit" class="btn btn-block">Update</button>
+
     </form>
 
     <div class="dropdown-divider"></div>
@@ -82,25 +107,35 @@ server_validation = true
     <div class="dropdown-divider"></div>
 
     <form class="px-4 py-3" action="/users/<%= current_user.id %>" method="POST">
+
       <input type="hidden" name="_method" value="DELETE">
 
       <div class="form-group">
         <label for="password">Current Password</label>
         <input type="password" class="form-control <%= "is-invalid" if @validation[:password][:valid] == false %>" id="password" name="password" placeholder="Current password" <%= "required" if !server_validation %>>
 
-        <% if @validation[:password][:valid] == false %>
+        <% if !@validation[:password][:valid] %>
+
           <div class="invalid-feedback alert alert-danger" role="alert">
-            <% if @validation[:password][:test][:length] == false %>
+
+            <% if !@validation[:password][:test][:length] %>
               Password is too short (minimum 6 characters). Please try again.
-            <% elsif @validation[:password][:test][:match] == false %>
+
+            <% elsif !@validation[:password][:test][:match] %>
               Passwords is incorrect. Please try again.
+
             <% end %>
+
           </div>
+
         <% end %>
+
       </div>
 
       <button id="delete-account" type="submit" class="btn btn-block">Delete</button>
+
     </form>
 
   </div>
+
 </div>

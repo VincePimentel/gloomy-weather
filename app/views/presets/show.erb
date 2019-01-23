@@ -4,9 +4,13 @@
 } %>
 
 <% if @preset.user_id == current_user.id %>
+
   <form action="/presets/<%= @preset.id %>/<%= @preset.slug %>" method="POST">
+
 <% else %>
+
   <form action="/presets" method="POST">
+
 <% end %>
 
   <div class="row justify-content-center">
@@ -18,10 +22,14 @@
     <div id="global-control" class="dropdown">
 
       <% if @preset.user_id == current_user.id %>
+
         <input type="hidden" name="_method" value="PATCH">
         <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" data-offset="-8">edit</button>
+
       <% else %>
+
         <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" data-offset="-5">save</button>
+
       <% end %>
 
         <button id="toggle-play" type="button" class="btn"><i id="toggle-play-icon" class="fas fa-pause"></i></button>
@@ -29,6 +37,7 @@
         <button id="reset-all" type="button" class="btn">reset</button>
 
       <div class="dropdown-menu">
+
         <div class="px-3 py-1">
 
           <div class="form-group">
@@ -66,6 +75,7 @@
         <% next if !Preset.elements.include?(element) %>
 
         <div class="col-sm-3 text-center">
+
           <button id="<%= element %>" type="button" class="btn preset-button"><i id="<%= element %>-icon" class="<%= Preset.source(element)[:icon] %> inactive-sound <%= "material-icons" if Preset.icon(element) %>"><%= Preset.icon(element) %></i></button>
 
           <audio id="<%= element %>-audio" preload="auto" <%= "autoplay" if volume > 0 %> loop>
@@ -83,6 +93,7 @@
       <% end %>
 
     </div> <!-- row -->
+
   </div> <!-- container -->
 
 </form>

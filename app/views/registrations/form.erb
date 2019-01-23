@@ -19,14 +19,21 @@ server_validation = true
       <input type="text" class="form-control <%= "is-invalid" if @validation[:username][:valid] == false %>" id="username" name="username" value="<%= @validation[:username][:value] %>" placeholder="Minimum 3 characters" autofocus <%= "required" if !server_validation %>>
 
       <% if !@validation[:username][:valid] %>
+
         <div class="invalid-feedback alert alert-danger" role="alert">
+
           <% if !@validation[:username][:test][:length] %>
             Username is too short (minimum 3 characters). Please try again.
+
           <% elsif !@validation[:username][:test][:available] %>
             Username already taken. Please try again.
+
           <% end %>
+
         </div>
+
       <% end %>
+
     </div>
 
     <!-- PASSWORD -->
@@ -35,14 +42,21 @@ server_validation = true
       <input type="password" class="form-control <%= "is-invalid" if @validation[:password][:valid] == false %>" id="password" name="password" placeholder="Minimum 6 characters" <%= "required" if !server_validation %>>
 
       <% if !@validation[:password][:valid] %>
+
         <div class="invalid-feedback alert alert-danger" role="alert">
+
           <% if !@validation[:password][:test][:length] %>
             Password is too short (minimum 6 characters). Please try again.
+
           <% elsif !@validation[:password][:test][:match] %>
             Passwords did not match. Please try again.
+
           <% end %>
+
         </div>
+
       <% end %>
+
     </div>
 
     <!-- PASSWORD CONFIRMATION -->
@@ -51,15 +65,23 @@ server_validation = true
       <input type="password" class="form-control <%= "is-invalid" if @validation[:password][:valid] == false %>" id="password?" name="password?" placeholder="Re-type new password" <%= "required" if !server_validation %>>
 
       <% if !@validation[:password][:valid] %>
+
         <div class="invalid-feedback alert alert-danger" role="alert">
+
           <% if !@validation[:password][:test][:length] %>
             Password is too short (minimum 6 characters). Please try again.
+
           <% elsif !@validation[:password][:test][:match] %>
             Passwords did not match. Please try again.
+
           <% end %>
+
         </div>
+
       <% end %>
+
     </div>
+
     <button type="submit" class="btn btn-block">Sign Up</button>
 
   </form>

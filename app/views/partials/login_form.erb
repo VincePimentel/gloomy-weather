@@ -27,11 +27,11 @@ server_validation = true
     <label for="password">Password</label>
     <input type="password" class="form-control <%= "is-invalid" if @validation[:password][:valid] == false %>" id="password" name="password" placeholder="Minimum 6 characters" <%= "required" if !server_validation %>>
 
-    <% if @validation[:password][:valid] == false %>
+    <% if !@validation[:password][:valid] %>
       <div class="invalid-feedback alert alert-danger" role="alert">
-        <% if @validation[:password][:test][:length] == false %>
+        <% if !@validation[:password][:test][:length] %>
           Password is too short (minimum 6 characters). Please try again.
-        <% elsif @validation[:password][:test][:match] == false %>
+        <% elsif !@validation[:password][:test][:match] %>
           Passwords is incorrect. Please try again.
         <% else %>
           Username-Password combination not found. Please try again.

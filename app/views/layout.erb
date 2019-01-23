@@ -3,7 +3,9 @@
 
 <!doctype html>
 <html lang="en">
+
   <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -12,7 +14,9 @@
     <title><%= "Gloomy Weather - #{@page_info[:title]}" %></title>
 
   </head>
+
   <body>
+
     <header>
       <%= erb :"/partials/header" %>
     </header>
@@ -29,6 +33,7 @@
           <h1 class="display-3"><%= @page_info[:heading] %></h1>
         </div>
       </div>
+
       <% end %>
 
       <%= yield %>
@@ -39,4 +44,5 @@
     <%= erb :"/partials/scripts" %>
 
   </body>
+
 </html>
