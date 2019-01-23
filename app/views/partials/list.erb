@@ -18,7 +18,7 @@
       <th scope="col">Title</th>
       <th scope="col">Description</th>
 
-      <% if @page_info[:title] == "My Presets" %>
+      <% if current_user.slug == params[:slug] %>
         <th scope="col">Delete</th>
       <% end %>
     </tr>
@@ -31,15 +31,15 @@
         <th scope="row"><%= preset.id %></th>
 
         <% if @page_info[:title] == "All Presets" %>
-          <td scope="col"><%= preset.user.username %></td>
+          <td scope="col"><a class="text-white" href="/users/<%= preset.user.slug %>"><%= preset.user.username %></a></td>
         <% end %>
 
         <td><a class="text-white" href="/presets/<%= preset.id %>/<%= preset.slug %>"><%= preset.title %></a></td>
-        <td><p class="text-white"><%= preset.description %></p></td>
+        <td><p><a class="text-white" href="/presets/<%= preset.id %>/<%= preset.slug %>"><%= preset.description %></a></p></td>
 
-        <% if @page_info[:title] == "My Presets" %>
+        <% if current_user.slug == params[:slug] %>
         <td>
-          <form class="" action="/presets/<%= preset.id %>" method="post">
+          <form class="" action="/presets/<%= preset.id %>/<%= preset.slug %>" method="post">
             <input type="hidden" name="_method" value="DELETE">
             <button type="submit" class="btn"><i class="fas fa-trash text-danger"></i></button>
           </form>

@@ -12,6 +12,16 @@ class PresetsController < ApplicationController
     end
   end
 
+  post "/presets" do
+    params[:title] = generate_title(params) if params[:title].strip.empty?
+
+    preset = Preset.create(params)
+
+    current_user.presets << preset
+
+    redirect "/presets/#{preset.id}/#{preset.slug}"
+  end
+
   get "/presets/:id/:slug" do
     @preset = Preset.find(params[:id])
 
@@ -30,29 +40,13 @@ class PresetsController < ApplicationController
     end
   end
 
-  post "/presets" do
-    params[:title] = generate_title(params) if params[:title].strip.empty?
-
-    #ADD DUPLICATE FIX LATER
-
-    preset = Preset.create(params)
-
-    current_user.presets << preset
-
-    redirect "/presets/#{preset.id}/#{preset.slug}"
-  end
-
   patch "/presets/:id/:slug" do
     params[:title] = generate_title(params) if params[:title].strip.empty?
 
-    #ADD DUPLICATE FIX LATER
-
     preset = Preset.find(params[:id])
 
-    binding.pry
-
     if preset.user_id == session[:user_id]
-      preset.update(params.except(:_method))
+      preset.update(params.except(:_method, :id, :slug))
 
       redirect "/presets/#{preset.id}/#{preset.slug}"
     else
