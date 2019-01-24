@@ -22,4 +22,14 @@ class User < ActiveRecord::Base
       user.slug == slug
     end
   end
+
+  def authentication_error(length)
+    errors.add(:password, "is incorrect")
+
+    if length < 6 && length > 0
+      errors.add(:password, "is too short (minimum is 6 characters)")
+    elsif length == 0
+      errors.add(:password, "can't be blank")
+    end
+  end
 end

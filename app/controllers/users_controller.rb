@@ -44,6 +44,56 @@ class UsersController < ApplicationController
     end
   end
 
+  post "/login" do
+    @user = User.find_by(username: params[:username])
+
+    if @user
+      if @user.authenticate(params[:password])
+        session[:user_id] = user.id
+
+        referrer = session[:referrer]
+
+        if referrer
+          session.delete(:referrer)
+
+          redirect "/#{referrer}"
+        else
+          redirect "/users/#{user.slug}"
+        end
+      else
+        @user.authentication_error(params[:password].length)
+
+        erb :"/sessions/login"
+      end
+    else
+      @error = "Username does not exist"
+
+      erb :"/sessions/login"
+    end
+  end
+
+  post "/login" do
+    user = User.find_by(username: params[:username])
+
+    if user&.authenticate(params[:password])
+      session[:user_id] = user.id
+
+      referrer = session[:referrer]
+
+      if referrer
+        session.delete(:referrer)
+
+        redirect "/#{referrer}"
+      else
+        redirect "/users/#{user.slug}"
+      end
+    else
+      @error = "Username or password is incorrect. Please try again."
+
+      erb :"/sessions/login"
+    end
+  end
+
   get "/logout" do
     if logged_in?
 

@@ -22,9 +22,8 @@ server_validation = true
 
         <div class="invalid-feedback alert alert-danger" role="alert">
 
-          <% @user.errors.full_messages.each do |message| %>
-            <% next if !message.downcase.include?("username") %>
-              • <%= message %>.<br>
+          <% @user.errors[:username].each do |message| %>
+              • <%= "Username #{message}" %>.<br>
           <% end %>
 
         </div>
@@ -42,9 +41,8 @@ server_validation = true
 
         <div class="invalid-feedback alert alert-danger" role="alert">
 
-          <% @user.errors.full_messages.each do |message| %>
-            <% next if !message.downcase.include?("password") || message.downcase.include?("confirm") %>
-            • <%= message %>.<br>
+          <% @user.errors[:password].each do |message| %>
+              • <%= "Password #{message}" %>.<br>
           <% end %>
 
         </div>
