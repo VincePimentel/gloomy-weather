@@ -45,10 +45,10 @@ class UsersController < ApplicationController
   end
 
   post "/login" do
-    @user = User.find_by(username: params[:username])
+    user = User.find_by(username: params[:username])
 
-    if @user&.authenticate(params[:password])
-      session[:user_id] = @user.id
+    if user&.authenticate(params[:password])
+      session[:user_id] = user.id
 
       referrer = session[:referrer]
 
@@ -57,9 +57,11 @@ class UsersController < ApplicationController
 
         redirect "/#{referrer}"
       else
-        redirect "/users/#{@user.slug}"
+        redirect "/users/#{user.slug}"
       end
     else
+      @error = "Username or password is incorrect. Please try again."
+
       erb :"/sessions/login"
     end
   end

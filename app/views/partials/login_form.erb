@@ -1,7 +1,6 @@
 <%
 # Validate user input via server or client (via Bootstrap)
 server_validation = true
-@user ||= User.new
 %>
 
 <form action="/login" method="POST">
@@ -9,36 +8,19 @@ server_validation = true
   <!-- USERNAME -->
   <div class="form-group col-sm-12">
     <label for="username">Username</label>
-    <input type="text" class="form-control <%= "is-invalid" if @user.errors[:username].any? %>" id="username" name="username" value="<%= @user.username %>" placeholder="Minimum 3 characters" autofocus <%= "required" if !server_validation %>>
-
-    <% if @user.errors[:username].any? %>
-
-      <div class="invalid-feedback alert alert-danger" role="alert">
-
-        <% @user.errors.full_messages.each do |message| %>
-          <% next if !message.downcase.include?("username") %>
-            <p><%= message %>.</p>
-        <% end %>
-
-      </div>
-
-    <% end %>
-
+    <input type="text" class="form-control" id="username" name="username" value="<%= params[:username] %>" placeholder="Minimum 3 characters" <%= "autofocus" if params[:username] && params[:username].empty? %> <%= "required" if !server_validation %>>
   </div>
 
   <!-- PASSWORD -->
   <div class="form-group col-sm-12">
     <label for="password">Password</label>
-    <input type="password" class="form-control <%= "is-invalid" if @user.errors[:password].any? %>" id="password" name="password" value="<%= @user.password %>" placeholder="Minimum 6 characters" <%= "required" if !server_validation %>>
+    <input type="password" class="form-control <%= "is-invalid" if @error %>" id="password" name="password" value="" placeholder="Minimum 6 characters" <%= "autofocus" if params[:username] && !params[:username].empty? %> <%= "required" if !server_validation %>>
 
-    <% if @user.errors[:password].any? %>
+    <% if @error %>
 
       <div class="invalid-feedback alert alert-danger" role="alert">
 
-        <% @user.errors.full_messages.each do |message| %>
-          <% next if !message.downcase.include?("password") %>
-            <p><%= message %>.</p>
-        <% end %>
+        <%= @error %>
 
       </div>
 
