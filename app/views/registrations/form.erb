@@ -24,7 +24,7 @@ server_validation = true
 
           <% @user.errors.full_messages.each do |message| %>
             <% next if !message.downcase.include?("username") %>
-              <p><%= message %>.</p>
+              • <%= message %>.<br>
           <% end %>
 
         </div>
@@ -44,7 +44,7 @@ server_validation = true
 
           <% @user.errors.full_messages.each do |message| %>
             <% next if !message.downcase.include?("password") || message.downcase.include?("confirm") %>
-              <p><%= message %>.</p>
+            • <%= message %>.<br>
           <% end %>
 
         </div>
@@ -56,7 +56,7 @@ server_validation = true
     <!-- PASSWORD CONFIRMATION -->
     <div class="form-group">
       <label for="password_confirmation">Confirm Password</label>
-      <input type="password" class="form-control <%= "is-invalid" if @user.errors[:password_confirmation].any? %>" id="password_confirmation" name="password_confirmation" value="<%= @user.password_confirmation %>" placeholder="Re-type new password" <%= "required" if !server_validation %>>
+      <input type="password" class="form-control <%= "is-invalid" if @user.errors[:password_confirmation].any? %>" id="password_confirmation" name="password_confirmation" value="<%= @user.password_confirmation %>" placeholder="Re-type password" <%= "required" if !server_validation %>>
 
       <% if @user.errors[:password_confirmation].any? %>
 
@@ -64,7 +64,7 @@ server_validation = true
 
           <% @user.errors.full_messages.each do |message| %>
             <% next if !message.downcase.include?("password") %>
-              <p><%= message %>.</p>
+              • <%= message %>.<br>
           <% end %>
 
         </div>

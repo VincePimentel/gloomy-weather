@@ -66,30 +66,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # post "/login" do
-  #   form = validate(params, "login")
-  #
-  #   if form[:username][:valid] && form[:password][:valid]
-  #     user = User.find_by(username: params[:username])
-  #
-  #     session[:user_id] = user.id
-  #
-  #     referrer = session[:referrer]
-  #
-  #     if referrer
-  #       session.delete(:referrer)
-  #
-  #       redirect "#{referrer}"
-  #     else
-  #       redirect "/users/#{user.slug}"
-  #     end
-  #   else
-  #     @validation = form
-  #
-  #     erb :"/sessions/login"
-  #   end
-  # end
-
   get "/logout" do
     if logged_in?
 
@@ -116,21 +92,12 @@ class UsersController < ApplicationController
   end
 
   patch "/users" do
-    form = validate(params, "edit")
+    @user = current_user
+    @user.update(params.except(:_method))
 
-    if form[:username][:valid] && form[:password][:valid]
-      if params[:password].length == 0
-        current_user.update(params.except(:_method, :password, :password?))
-      else
-        current_user.update(params.except(:_method, :password?))
-      end
-
-      @message = "Updated account successfully."
-
-      erb :"/users/account"
+    if @user.valid?
+      redirect "/users/account"
     else
-      @validation = form
-
       erb :"/users/account"
     end
   end
