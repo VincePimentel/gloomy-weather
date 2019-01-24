@@ -45,7 +45,7 @@ class UsersController < ApplicationController
   end
 
   post "/login" do
-    form = validation_test(params, "login")
+    form = validate(params, "login")
 
     if form[:username][:valid] && form[:password][:valid]
       user = User.find_by(username: params[:username])
@@ -82,25 +82,39 @@ class UsersController < ApplicationController
   end
 
   post "/users" do
-    form = validation_test(params, "register")
+    @user = User.create(params)
 
-    if form[:username][:valid] && form[:password][:valid]
-      user = User.create(params.except(:password?))
+    if @user.valid?
+      session[:user_id] = @user.id
 
-      session[:user_id] = user.id
-
-      redirect "/users/#{user.slug}"
-
-      #ADD WELCOME
+      redirect "/users/#{@user.slug}"
     else
-      @validation = form
-
       erb :"/registrations/form"
     end
   end
 
+
+
+  # post "/users" do
+  #   form = validate(params, "register")
+  #
+  #   if form[:username][:valid] && form[:password][:valid]
+  #     user = User.create(params.except(:password?))
+  #
+  #     session[:user_id] = user.id
+  #
+  #     redirect "/users/#{user.slug}"
+  #
+  #     #ADD WELCOME
+  #   else
+  #     @validation = form
+  #
+  #     erb :"/registrations/form"
+  #   end
+  # end
+
   patch "/users" do
-    form = validation_test(params, "edit")
+    form = validate(params, "edit")
 
     if form[:username][:valid] && form[:password][:valid]
       if params[:password].length == 0
@@ -120,7 +134,7 @@ class UsersController < ApplicationController
   end
 
   delete "/users/:id" do
-    form = validation_test(params, "delete")
+    form = validate(params, "delete")
 
     if form[:password][:valid]
       User.delete(params[:id])
@@ -135,8 +149,7 @@ class UsersController < ApplicationController
   helpers do
     def validation_form
       # Nil values for when views load without any user inputs yet to avoid errors
-      # To be filled out when a user submits a form via #validation_test
-      # And used to build an invalid feedback to user
+      # To be filled out when a user submits a form via #validate
       {
         username: {
           value: nil,
@@ -156,7 +169,7 @@ class UsersController < ApplicationController
       }
     end
 
-    def validation_test(params, type)
+    def validate(params, type)
       user_found = User.all.exists?(username: params[:username])
       user = User.find_by(username: params[:username])
 
@@ -164,6 +177,7 @@ class UsersController < ApplicationController
 
       case type
       when "register", "login", "edit"
+        form[:username][:value] = params[:username]
         form[:username][:test][:length] = params[:username].length >= 3
         # If username is at least 3 characters then it is valid
       end
@@ -212,6 +226,8 @@ class UsersController < ApplicationController
 
       form
       # Return the filled out hash for use on their respective views
+      # to build an invalid feedback to user
+      # and return the last value the user submitted
     end
   end
 end
