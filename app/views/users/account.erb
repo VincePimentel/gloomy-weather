@@ -50,7 +50,7 @@ server_validation = true
       <!-- PASSWORD -->
       <div class="form-group">
         <label for="password">New Password</label>
-        <input type="password" class="form-control <%= "is-invalid" if @user.errors[:password].any? %>" id="password" name="password" value="<%= @user.password %>" placeholder="Minimum 6 characters" <%= "required" if !server_validation %>>
+        <input type="password" class="form-control <%= "is-invalid" if @user.errors[:password].any? %>" id="password" name="password" placeholder="Minimum 6 characters" <%= "required" if !server_validation %>>
 
         <% if @user.errors[:password].any? %>
 
@@ -70,7 +70,7 @@ server_validation = true
       <!-- PASSWORD CONFIRMATION -->
       <div class="form-group">
         <label for="password_confirmation">Confirm New Password</label>
-        <input type="password" class="form-control <%= "is-invalid" if @user.errors[:password_confirmation].any? %>" id="password_confirmation" name="password_confirmation" value="<%= @user.password_confirmation %>" placeholder="Re-type new password" <%= "required" if !server_validation %>>
+        <input type="password" class="form-control <%= "is-invalid" if @user.errors[:password_confirmation].any? %>" id="password_confirmation" name="password_confirmation" placeholder="Re-type new password" <%= "required" if !server_validation %>>
 
         <% if @user.errors[:password_confirmation].any? %>
 
@@ -97,22 +97,19 @@ server_validation = true
 
     <div class="dropdown-divider"></div>
 
-    <form class="px-4 py-3" action="/users/<%= current_user.id %>" method="POST">
+    <form class="px-4 py-3" action="/users" method="POST">
 
       <input type="hidden" name="_method" value="DELETE">
 
       <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control <%= "is-invalid" if @user_delete.errors[:password].any? %>" id="password" name="password" value="" placeholder="Minimum 6 characters" <%= "required" if !server_validation %>>
+        <label for="password_del">Password</label>
+        <input type="password" class="form-control <%= "is-invalid" if @error %>" id="password_del" name="password_del" value="" placeholder="Minimum 6 characters" <%= "required" if !server_validation %>>
 
-        <% if @user_delete.errors[:password].any? %>
+        <% if @error %>
 
           <div class="invalid-feedback alert alert-danger" role="alert">
 
-            <% @user_delete.errors.full_messages.each do |message| %>
-              <% next if !message.downcase.include?("password") || message.downcase.include?("confirm") %>
-              • <%= message %>.<br>
-            <% end %>
+            <%= @error %>
 
           </div>
 

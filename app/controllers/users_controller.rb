@@ -44,28 +44,6 @@ class UsersController < ApplicationController
     end
   end
 
-  post "/login" do
-    user = User.find_by(username: params[:username])
-
-    if user&.authenticate(params[:password])
-      session[:user_id] = user.id
-
-      referrer = session[:referrer]
-
-      if referrer
-        session.delete(:referrer)
-
-        redirect "/#{referrer}"
-      else
-        redirect "/users/#{user.slug}"
-      end
-    else
-      @error = "Username or password is incorrect. Please try again."
-
-      erb :"/sessions/login"
-    end
-  end
-
   get "/logout" do
     if logged_in?
 
@@ -92,111 +70,32 @@ class UsersController < ApplicationController
   end
 
   patch "/users" do
+    previous_username = current_user.username
     @user = current_user
     @user.update(params.except(:_method))
 
     if @user.valid?
-      redirect "/users/account"
-    else
-      erb :"/users/account"
+      if previous_username == params[:username] && params[:password].empty?
+        @message = "No changes made."
+      else
+        @message = "Successfully updated account."
+      end
     end
+
+    erb :"/users/account"
   end
 
-  delete "/users/:id" do
-    form = validate(params, "delete")
-
-    if form[:password][:valid]
-      User.delete(params[:id])
+  delete "/users" do
+    if current_user.authenticate(params[:password_del])
+      current_user.destroy
 
       session.clear
 
       redirect "/"
-    end
-    #ADD CONFIRMATION
-  end
+    else
+      @error = "Password is incorrect. Please try again."
 
-  helpers do
-    def validation_form
-      # Nil values for when views load without any user inputs yet to avoid errors
-      # To be filled out when a user submits a form via #validate
-      {
-        username: {
-          value: nil,
-          valid: nil,
-          test: {
-            length: nil,
-            available: nil
-          }
-        },
-        password: {
-          valid: nil,
-          test: {
-            length: nil,
-            match: nil
-          }
-        }
-      }
-    end
-
-    def validate(params, type)
-      user_found = User.all.exists?(username: params[:username])
-      user = User.find_by(username: params[:username])
-
-      form = validation_form
-
-      case type
-      when "register", "login", "edit"
-        form[:username][:value] = params[:username]
-        form[:username][:test][:length] = params[:username].length >= 3
-        # If username is at least 3 characters then it is valid
-      end
-
-      case type
-      when "register", "edit"
-        form[:password][:test][:match] = params[:password] == params[:password?]
-        # If both passwords match then it is valid
-
-      when "login", "delete"
-        form[:password][:test][:length] = params[:password].length >= 6
-        # If password is at least 6 characters then it is valid
-      end
-
-      case type
-      when "register"
-        form[:username][:test][:available] = !user_found
-        # If username is not found then it is available for use
-
-        form[:password][:test][:length] = params[:password].length + params[:password?].length >= 12
-        # If both passwords are at least 6 characters each then it is valid
-
-      when "edit"
-        form[:username][:test][:available] = !user_found || current_user.username == params[:username]
-        # If username is not found then it is available for use OR username is not current user's username
-
-        form[:password][:test][:length] = params[:password].length + params[:password?].length == 0 || params[:password].length + params[:password?].length >= 12
-        # If user has not change their password OR both passwords are at least 6 characters each
-
-      when "login"
-        form[:username][:test][:available] = user_found
-        # If username exists then it is a valid/registered user
-
-        form[:password][:test][:match] = user&.authenticate(params[:password])
-        # If user(name) and password match then it is valid
-
-      when "delete"
-        form[:password][:test][:match] = current_user.authenticate(params[:password])
-        # If current user enters correct password then it is valid (for account deletion)
-
-      end
-
-      form[:username][:valid] = form[:username][:test].values.all?
-      form[:password][:valid] = form[:password][:test].values.all?
-      # If all tests return true then proceed with registration/edit/login/delete
-
-      form
-      # Return the filled out hash for use on their respective views
-      # to build an invalid feedback to user
-      # and return the last value the user submitted
+      erb :"/users/account"
     end
   end
 end
