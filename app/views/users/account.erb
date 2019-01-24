@@ -7,6 +7,7 @@
 #validate user input via server or client
 server_validation = true
 @user ||= current_user
+@user_delete ||= current_user
 %>
 
 <!-- ADD SUCCESS MESSAGE FOR UPDATING -->
@@ -30,15 +31,16 @@ server_validation = true
       <!-- USERNAME -->
       <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" class="form-control <%= "is-invalid" if @user.errors[:username].any? %>" id="username" name="username" value="<%= @user.username || current_user.username %>" placeholder="Minimum 3 characters" autofocus <%= "required" if !server_validation %>>
+        <input type="text" class="form-control <%= "is-invalid" if @user.errors[:username].any? %>" id="username" name="username" value="<%= @user.username || current_user.username %>" placeholder="Minimum 3 characters" <%= "autofocus" if @user.errors[:username].any? %> <%= "required" if !server_validation %>>
 
         <% if @user.errors[:username].any? %>
 
           <div class="invalid-feedback alert alert-danger" role="alert">
 
-            <% @user.errors.full_messages.each do |message| %>
-              <% next if !message.downcase.include?("username") %>
-                • <%= message %>.<br>
+            <% @user.errors[:username].each do |message| %>
+
+              • <%= "Username #{message}" %>.<br>
+
             <% end %>
 
           </div>
@@ -56,9 +58,10 @@ server_validation = true
 
           <div class="invalid-feedback alert alert-danger" role="alert">
 
-            <% @user.errors.full_messages.each do |message| %>
-              <% next if !message.downcase.include?("password") || message.downcase.include?("confirm") %>
-              • <%= message %>.<br>
+            <% @user.errors[:password].each do |message| %>
+
+              • <%= "Password #{message}" %>.<br>
+
             <% end %>
 
           </div>
@@ -76,9 +79,10 @@ server_validation = true
 
           <div class="invalid-feedback alert alert-danger" role="alert">
 
-            <% @user.errors.full_messages.each do |message| %>
-              <% next if !message.downcase.include?("password") %>
-                • <%= message %>.<br>
+            <% @user.errors[:password_confirmation].each do |message| %>
+
+              • <%= "Password confirmation #{message}" %>.<br>
+
             <% end %>
 
           </div>
@@ -103,13 +107,17 @@ server_validation = true
 
       <div class="form-group">
         <label for="password_del">Password</label>
-        <input type="password" class="form-control <%= "is-invalid" if @error %>" id="password_del" name="password_del" value="" placeholder="Minimum 6 characters" <%= "required" if !server_validation %>>
+        <input type="password" class="form-control <%= "is-invalid" if @user_delete.errors[:password_del].any? %>" id="password_del" name="password_del" value="" <%= "autofocus" if @user_delete.errors[:password_del].any? %> placeholder="Minimum 6 characters" <%= "required" if !server_validation %>>
 
-        <% if @error %>
+        <% if @user_delete.errors[:password_del].any? %>
 
           <div class="invalid-feedback alert alert-danger" role="alert">
 
-            <%= @error %>
+            <% @user_delete.errors[:password_del].each do |message| %>
+
+              • <%= "Password #{message}" %>.<br>
+
+            <% end %>
 
           </div>
 

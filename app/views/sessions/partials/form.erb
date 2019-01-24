@@ -9,13 +9,13 @@ server_validation = true
   <!-- USERNAME -->
   <div class="form-group col-sm-12">
     <label for="username">Username</label>
-    <input type="text" class="form-control <%= "is-invalid" if @error %>" id="username" name="username" value="<%= params[:username] %>" placeholder="Minimum 3 characters" <%= "autofocus" if params[:username] && params[:username].empty? %> <%= "required" if !server_validation %>>
+    <input type="text" class="form-control <%= "is-invalid" if @user_error %>" id="username" name="username" value="<%= params[:username] %>" placeholder="Minimum 3 characters" <%= "autofocus" if params[:username] && params[:username].empty? %> <%= "required" if !server_validation %>>
 
-    <% if @error %>
+    <% if @user_error %>
 
       <div class="invalid-feedback alert alert-danger" role="alert">
 
-        • <%= @error %>.
+        • <%= @user_error %>.
 
       </div>
 

@@ -23,13 +23,16 @@ class User < ActiveRecord::Base
     end
   end
 
-  def authentication_error(length)
+  def generate_errors(length)
     errors.add(:password, "is incorrect")
+    errors.add(:password_del, "is incorrect")
 
-    if length < 6 && length > 0
+    if length > 0 && length < 6
       errors.add(:password, "is too short (minimum is 6 characters)")
+      errors.add(:password_del, "is too short (minimum is 6 characters)")
     elsif length == 0
       errors.add(:password, "can't be blank")
+      errors.add(:password_del, "can't be blank")
     end
   end
 end

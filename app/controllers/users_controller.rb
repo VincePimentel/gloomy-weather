@@ -2,6 +2,10 @@ class UsersController < ApplicationController
 
   get "/users/account" do
     if logged_in?
+      @message = session[:message]
+
+      session.delete(:message)
+
       erb :"/users/account"
     else
       session[:referrer] = "/users/account"
@@ -40,8 +44,22 @@ class UsersController < ApplicationController
     if logged_in?
       redirect "/users/#{current_user.slug}"
     else
+      @message = session[:message]
+
+      session.delete(:message)
+
       erb :"/sessions/login"
     end
+  end
+
+  get "/logout" do
+    if logged_in?
+      session.clear
+
+      session[:message] = "Logged out successfully."
+    end
+
+    redirect "/login"
   end
 
   post "/login" do
@@ -49,7 +67,7 @@ class UsersController < ApplicationController
 
     if @user
       if @user.authenticate(params[:password])
-        session[:user_id] = user.id
+        session[:user_id] = @user.id
 
         referrer = session[:referrer]
 
@@ -58,15 +76,15 @@ class UsersController < ApplicationController
 
           redirect "/#{referrer}"
         else
-          redirect "/users/#{user.slug}"
+          redirect "/users/#{@user.slug}"
         end
       else
-        @user.authentication_error(params[:password].length)
+        @user.generate_errors(params[:password].length)
 
         erb :"/sessions/login"
       end
     else
-      @error = "Username does not exist"
+      @user_error = "Username does not exist"
 
       erb :"/sessions/login"
     end
@@ -94,19 +112,6 @@ class UsersController < ApplicationController
     end
   end
 
-  get "/logout" do
-    if logged_in?
-
-      @message = "Logged out successfully."
-
-      session.clear
-
-      erb :"sessions/login"
-    else
-      redirect "/login"
-    end
-  end
-
   post "/users" do
     @user = User.create(params)
 
@@ -126,10 +131,12 @@ class UsersController < ApplicationController
 
     if @user.valid?
       if previous_username == params[:username] && params[:password].empty?
-        @message = "No changes made."
+        session[:message] = "No changes made."
       else
-        @message = "Successfully updated account."
+        session[:message] = "Successfully updated account."
       end
+
+      redirect "/users/account"
     end
 
     erb :"/users/account"
@@ -143,7 +150,8 @@ class UsersController < ApplicationController
 
       redirect "/"
     else
-      @error = "Password is incorrect. Please try again."
+      @user_delete = current_user
+      @user_delete.generate_errors(params[:password_del].length)
 
       erb :"/users/account"
     end
