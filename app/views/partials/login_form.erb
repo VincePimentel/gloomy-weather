@@ -1,7 +1,7 @@
 <%
 # Validate user input via server or client (via Bootstrap)
 server_validation = true
-@validation ||= validation_form
+@user ||= User.new
 %>
 
 <form action="/login" method="POST">
@@ -9,35 +9,41 @@ server_validation = true
   <!-- USERNAME -->
   <div class="form-group col-sm-12">
     <label for="username">Username</label>
-    <input type="text" class="form-control <%= "is-invalid" if @validation[:username][:valid] == false %>" id="username" name="username" value="<%= @validation[:username][:value] %>" placeholder="Minimum 3 characters" autofocus <%= "required" if !server_validation %>>
+    <input type="text" class="form-control <%= "is-invalid" if @user.errors[:username].any? %>" id="username" name="username" value="<%= @user.username %>" placeholder="Minimum 3 characters" autofocus <%= "required" if !server_validation %>>
 
-    <% if !@validation[:username][:valid] %>
+    <% if @user.errors[:username].any? %>
+
       <div class="invalid-feedback alert alert-danger" role="alert">
-        <% if !@validation[:username][:test][:length] %>
-          Username is too short (minimum 3 characters). Please try again.
-        <% elsif !@validation[:username][:test][:available] %>
-          Username does not exist. Please try again.
+
+        <% @user.errors.full_messages.each do |message| %>
+          <% next if !message.downcase.include?("username") %>
+            <p><%= message %>.</p>
         <% end %>
+
       </div>
+
     <% end %>
+
   </div>
 
   <!-- PASSWORD -->
   <div class="form-group col-sm-12">
     <label for="password">Password</label>
-    <input type="password" class="form-control <%= "is-invalid" if @validation[:password][:valid] == false %>" id="password" name="password" placeholder="Minimum 6 characters" <%= "required" if !server_validation %>>
+    <input type="password" class="form-control <%= "is-invalid" if @user.errors[:password].any? %>" id="password" name="password" value="<%= @user.password %>" placeholder="Minimum 6 characters" <%= "required" if !server_validation %>>
 
-    <% if !@validation[:password][:valid] %>
+    <% if @user.errors[:password].any? %>
+
       <div class="invalid-feedback alert alert-danger" role="alert">
-        <% if !@validation[:password][:test][:length] %>
-          Password is too short (minimum 6 characters). Please try again.
-        <% elsif !@validation[:password][:test][:match] %>
-          Passwords is incorrect. Please try again.
-        <% else %>
-          Username-Password combination not found. Please try again.
+
+        <% @user.errors.full_messages.each do |message| %>
+          <% next if !message.downcase.include?("password") %>
+            <p><%= message %>.</p>
         <% end %>
+
       </div>
+
     <% end %>
+
   </div>
 
   <div class="form-group col-sm-12">

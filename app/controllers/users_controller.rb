@@ -45,28 +45,48 @@ class UsersController < ApplicationController
   end
 
   post "/login" do
-    form = validate(params, "login")
+    @user = User.find_by(username: params[:username])
 
-    if form[:username][:valid] && form[:password][:valid]
-      user = User.find_by(username: params[:username])
-
-      session[:user_id] = user.id
+    if @user&.authenticate(params[:password])
+      session[:user_id] = @user.id
 
       referrer = session[:referrer]
 
       if referrer
         session.delete(:referrer)
 
-        redirect "#{referrer}"
+        redirect "/#{referrer}"
       else
-        redirect "/users/#{user.slug}"
+        redirect "/users/#{@user.slug}"
       end
     else
-      @validation = form
-
       erb :"/sessions/login"
     end
   end
+
+  # post "/login" do
+  #   form = validate(params, "login")
+  #
+  #   if form[:username][:valid] && form[:password][:valid]
+  #     user = User.find_by(username: params[:username])
+  #
+  #     session[:user_id] = user.id
+  #
+  #     referrer = session[:referrer]
+  #
+  #     if referrer
+  #       session.delete(:referrer)
+  #
+  #       redirect "#{referrer}"
+  #     else
+  #       redirect "/users/#{user.slug}"
+  #     end
+  #   else
+  #     @validation = form
+  #
+  #     erb :"/sessions/login"
+  #   end
+  # end
 
   get "/logout" do
     if logged_in?
@@ -92,26 +112,6 @@ class UsersController < ApplicationController
       erb :"/registrations/form"
     end
   end
-
-
-
-  # post "/users" do
-  #   form = validate(params, "register")
-  #
-  #   if form[:username][:valid] && form[:password][:valid]
-  #     user = User.create(params.except(:password?))
-  #
-  #     session[:user_id] = user.id
-  #
-  #     redirect "/users/#{user.slug}"
-  #
-  #     #ADD WELCOME
-  #   else
-  #     @validation = form
-  #
-  #     erb :"/registrations/form"
-  #   end
-  # end
 
   patch "/users" do
     form = validate(params, "edit")
