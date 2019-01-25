@@ -26,12 +26,12 @@ class Preset < ActiveRecord::Base
       thunder
       beach
       river
-      wind
+      garden
       fire
       bird
-      cricket
+      night
       train
-      crowd
+      cafe
       pink
       brown
     ]
@@ -41,53 +41,53 @@ class Preset < ActiveRecord::Base
     case element
     when "rain"
       {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/985ead5c98d",
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/682b42b13c5",
         icon: "fas fa-cloud-rain"
       }
     when "thunder"
       {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/00b6fa1a994",
+        url: "",
         icon: "fas fa-bolt"
       }
     when "beach"
       {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/7429f4ac15e",
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/7977520f309",
         icon: "fas fa-umbrella-beach"
       }
     when "river"
       {
-        url: "",
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/97a49e57fc8",
         icon: "fas fa-water"
       }
-    when "wind"
+    when "garden"
       {
-        url: "",
-        icon: "fas fa-wind"
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/2a75c949fde",
+        icon: "fas fa-spa"
       }
     when "fire"
       {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/0d06fccbb48",
+        url: "",
         icon: "material-icons"
         #icon: "fas fa-fire"
       }
     when "bird"
       {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/524a66f1a53",
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/0267c016d36",
         icon: "fas fa-dove"
       }
-    when "cricket"
+    when "night"
       {
         url: "",
-        icon: "fas fa-poop"
+        icon: "fas fa-moon"
       }
     when "train"
       {
         url: "",
         icon: "fas fa-subway"
       }
-    when "crowd"
+    when "cafe"
       {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/0b3022e697f",
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/419032046fc",
         icon: "fas fa-coffee"
       }
     when "pink"

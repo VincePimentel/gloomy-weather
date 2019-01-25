@@ -10,12 +10,12 @@ preset_1 = Preset.create(
   thunder: 40,
   beach: 10,
   river: 0,
-  wind: 10,
+  garden: 10,
   fire: 0,
   bird: 20,
-  cricket: 0,
+  night: 0,
   train: 10,
-  crowd: 0,
+  cafe: 0,
   pink: 0,
   brown: 0
 )
@@ -34,12 +34,12 @@ preset_2 = Preset.create(
   thunder: 0,
   beach: 0,
   river: 0,
-  wind: 20,
+  garden: 20,
   fire: 0,
   bird: 10,
-  cricket: 0,
+  night: 0,
   train: 10,
-  crowd: 0,
+  cafe: 0,
   pink: 0,
   brown: 0
 )
