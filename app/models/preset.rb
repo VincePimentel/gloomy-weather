@@ -60,7 +60,7 @@ class Preset < ActiveRecord::Base
       }
     when "fire"
       {
-        url: "#{url}73d0d2aef52",
+        url: "#{url}438b3245217",
         icon: "#{icon}fire-alt"
       }
     when "bird"
