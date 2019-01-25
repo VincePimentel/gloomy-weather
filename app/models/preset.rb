@@ -75,7 +75,7 @@ class Preset < ActiveRecord::Base
       }
     when "night"
       {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/d97ed3f2503",
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/a22ab336baa",
         icon: "fas fa-moon"
       }
     when "train"
