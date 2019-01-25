@@ -36,67 +36,69 @@ class Preset < ActiveRecord::Base
   end
 
   def self.source(element)
+    url = "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/"
+    icon = "fas fa-"
+    
     case element
     when "rain"
       {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/682b42b13c5",
-        icon: "fas fa-cloud-rain"
+        url: "#{url}e0453a593bb",
+        icon: "#{icon}cloud-rain"
       }
     when "thunder"
       {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/9f359d57783",
-        icon: "fas fa-bolt"
+        url: "#{url}9f359d57783",
+        icon: "#{icon}bolt"
       }
     when "beach"
       {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/7977520f309",
-        icon: "fas fa-umbrella-beach"
+        url: "#{url}7977520f309",
+        icon: "#{icon}umbrella-beach"
       }
     when "river"
       {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/97a49e57fc8",
-        icon: "fas fa-water"
+        url: "#{url}97a49e57fc8",
+        icon: "#{icon}water"
       }
     when "garden"
       {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/2a75c949fde",
-        icon: "fas fa-spa"
+        url: "#{url}2a75c949fde",
+        icon: "#{icon}spa"
       }
     when "fire"
       {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/73d0d2aef52",
-        icon: "material-icons"
-        #icon: "fas fa-fire"
+        url: "#{url}73d0d2aef52",
+        icon: "#{icon}fire-alt"
       }
     when "bird"
       {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/0267c016d36",
-        icon: "fas fa-dove"
+        url: "#{url}0267c016d36",
+        icon: "#{icon}dove"
       }
     when "night"
       {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/a22ab336baa",
-        icon: "fas fa-moon"
+        url: "#{url}a22ab336baa",
+        icon: "#{icon}moon"
       }
     when "train"
       {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/40bba114fd5",
-        icon: "fas fa-subway"
+        url: "#{url}40bba114fd5",
+        icon: "#{icon}subway"
       }
     when "cafe"
       {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/419032046fc",
-        icon: "fas fa-coffee"
+        url: "#{url}419032046fc",
+        icon: "#{icon}coffee"
       }
     when "womb"
       {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/ea6ff8c7422",
-        icon: "fas fa-baby"
+        url: "#{url}ea6ff8c7422",
+        icon: "#{icon}baby"
       }
     when "brown"
       {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/32d1e9e159e",
-        icon: "fas fa-tv"
+        url: "#{url}32d1e9e159e",
+        icon: "#{icon}tv"
       }
     end
   end
