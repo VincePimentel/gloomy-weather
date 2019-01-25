@@ -15,8 +15,6 @@ class Preset < ActiveRecord::Base
     case element
     when "fire"
       "whatshot"
-    when "pink", "brown"
-      "waves"
     end
   end
 
@@ -32,7 +30,7 @@ class Preset < ActiveRecord::Base
       night
       train
       cafe
-      pink
+      womb
       brown
     ]
   end
@@ -46,7 +44,7 @@ class Preset < ActiveRecord::Base
       }
     when "thunder"
       {
-        url: "",
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/9f359d57783",
         icon: "fas fa-bolt"
       }
     when "beach"
@@ -66,7 +64,7 @@ class Preset < ActiveRecord::Base
       }
     when "fire"
       {
-        url: "",
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/73d0d2aef52",
         icon: "material-icons"
         #icon: "fas fa-fire"
       }
@@ -77,12 +75,12 @@ class Preset < ActiveRecord::Base
       }
     when "night"
       {
-        url: "",
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/d97ed3f2503",
         icon: "fas fa-moon"
       }
     when "train"
       {
-        url: "",
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/40bba114fd5",
         icon: "fas fa-subway"
       }
     when "cafe"
@@ -90,15 +88,15 @@ class Preset < ActiveRecord::Base
         url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/419032046fc",
         icon: "fas fa-coffee"
       }
-    when "pink"
+    when "womb"
       {
-        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/c3f8e1315b9",
-        icon: "material-icons"
+        url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/d00ccee6635",
+        icon: "fas fa-baby"
       }
     when "brown"
       {
         url: "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/32d1e9e159e",
-        icon: "material-icons"
+        icon: "fas fa-tv"
       }
     end
   end

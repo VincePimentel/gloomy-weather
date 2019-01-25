@@ -64,7 +64,7 @@
   <div>&nbsp;</div>
   <div>&nbsp;</div>
   <div>&nbsp;</div>
-  <div>&nbsp;</div>
+  <!-- <div>&nbsp;</div> -->
 
   <div class="container">
 
@@ -76,7 +76,11 @@
 
         <div class="col-sm-3 text-center">
 
-          <button id="<%= element %>" type="button" class="btn preset-button"><i id="<%= element %>-icon" class="<%= Preset.source(element)[:icon] %> inactive-sound <%= "material-icons" if Preset.icon(element) %>"><%= Preset.icon(element) %></i></button>
+          <button id="<%= element %>" type="button" class="btn preset-button">
+
+            <i id="<%= element %>-icon" class="<%= Preset.source(element)[:icon] %> inactive-sound <%= "material-icons" if Preset.icon(element) %> fa-fw"><%= Preset.icon(element) %></i>
+
+          </button>
 
           <audio id="<%= element %>-audio" preload="auto" <%= "autoplay" if volume > 0 %> loop>
             <source src="<%= Preset.source(element)[:url] %>" type="audio/mpeg">

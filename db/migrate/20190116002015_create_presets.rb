@@ -14,7 +14,7 @@ class CreatePresets < ActiveRecord::Migration[5.2]
       t.integer :night, default: 0
       t.integer :train, default: 0
       t.integer :cafe, default: 0
-      t.integer :pink, default: 0
+      t.integer :womb, default: 0
       t.integer :brown, default: 0
     end
   end

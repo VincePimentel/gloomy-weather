@@ -16,7 +16,7 @@ preset_1 = Preset.create(
   night: 0,
   train: 10,
   cafe: 0,
-  pink: 0,
+  womb: 0,
   brown: 0
 )
 
@@ -40,7 +40,7 @@ preset_2 = Preset.create(
   night: 0,
   train: 10,
   cafe: 0,
-  pink: 0,
+  womb: 0,
   brown: 0
 )
 
