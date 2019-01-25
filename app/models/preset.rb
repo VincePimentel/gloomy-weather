@@ -11,13 +11,6 @@ class Preset < ActiveRecord::Base
     end
   end
 
-  def self.icon(element)
-    case element
-    when "fire"
-      "whatshot"
-    end
-  end
-
   def self.elements
     %w[
       rain
