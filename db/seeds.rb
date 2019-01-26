@@ -3,7 +3,7 @@ vince = User.create(
   password: "123456"
 )
 
-preset_1 = Preset.create(
+vince.presets << Preset.create(
   title: "My preset",
   description: "Hello world!",
   rain: 10,
@@ -20,14 +20,12 @@ preset_1 = Preset.create(
   brown: 0
 )
 
-vince.presets << preset_1
-
 alice = User.create(
   username: "alice",
   password: "123456"
 )
 
-preset_2 = Preset.create(
+alice.presets << Preset.create(
   title: "Rainy day",
   description: "Hi world!",
   rain: 40,
@@ -43,5 +41,3 @@ preset_2 = Preset.create(
   womb: 0,
   brown: 0
 )
-
-alice.presets << preset_2

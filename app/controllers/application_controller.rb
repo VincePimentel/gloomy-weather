@@ -21,5 +21,13 @@ class ApplicationController < Sinatra::Base
     def logged_in?
       !!session[:user_id]
     end
+
+    def log_in_if_logged_out(referrer = "")
+      if !logged_in?
+        session[:referrer] = referrer if !referrer.empty?
+
+        redirect "/login"
+      end
+    end
   end
 end

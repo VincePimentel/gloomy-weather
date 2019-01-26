@@ -16,7 +16,7 @@
     <tr>
       <th scope="col">ID</th>
 
-      <% if @page_info[:title] == "All Presets" %>
+      <% if @page[:title] == "All Presets" %>
         <th scope="col">User</th>
       <% end %>
 
@@ -37,7 +37,7 @@
       <tr>
         <th scope="row"><%= preset.id %></th>
 
-        <% if @page_info[:title] == "All Presets" %>
+        <% if @page[:title] == "All Presets" %>
           <td scope="col"><a class="text-white" href="/users/<%= preset.user.slug %>"><%= preset.user.username %></a></td>
         <% end %>
 

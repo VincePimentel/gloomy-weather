@@ -1,32 +1,24 @@
 class UsersController < ApplicationController
 
   get "/users/account" do
-    if logged_in?
-      @message = session[:message]
+    log_in_if_logged_out("/users/account")
 
-      session.delete(:message)
+    @message = session[:message]
 
-      erb :"/users/account"
-    else
-      session[:referrer] = "/users/account"
+    session.delete(:message)
 
-      redirect "/login"
-    end
+    erb :"/users/account"
   end
 
   get "/users/:slug" do
     user = User.find_by_slug(params[:slug])
 
     if user
-      if logged_in?
-        @presets = user.presets
+      log_in_if_logged_out("/users/#{params[:slug]}")
 
-        erb :"/users/presets"
-      else
-        session[:referrer] = "/users/#{params[:slug]}"
+      @presets = user.presets
 
-        redirect "/login"
-      end
+      erb :"/users/presets"
     else
       redirect "/"
     end
@@ -90,28 +82,6 @@ class UsersController < ApplicationController
     end
   end
 
-  post "/login" do
-    user = User.find_by(username: params[:username])
-
-    if user&.authenticate(params[:password])
-      session[:user_id] = user.id
-
-      referrer = session[:referrer]
-
-      if referrer
-        session.delete(:referrer)
-
-        redirect "#{referrer}"
-      else
-        redirect "/users/#{user.slug}"
-      end
-    else
-      @error = "Username or password is incorrect. Please try again."
-
-      erb :"/sessions/login"
-    end
-  end
-
   post "/users" do
     @user = User.create(params)
 
@@ -125,12 +95,14 @@ class UsersController < ApplicationController
   end
 
   patch "/users" do
-    previous_username = current_user.username
     @user = current_user
+
+    last_username = @user.username
+
     @user.update(params.except(:_method))
 
     if @user.valid?
-      if previous_username == params[:username] && params[:password].empty?
+      if last_username == params[:username] && params[:password].empty?
         session[:message] = "No changes made."
       else
         session[:message] = "Successfully updated account."
@@ -151,6 +123,7 @@ class UsersController < ApplicationController
       redirect "/"
     else
       @user_delete = current_user
+      
       @user_delete.generate_errors(params[:password_del].length)
 
       erb :"/users/account"

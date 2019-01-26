@@ -1,5 +1,5 @@
-<% @page_info[:title] ||= "Experience Tranquility" %>
-<% @page_info[:heading] ||= "" %>
+<% @page[:title] ||= "Experience Tranquility" %>
+<% @page[:heading] ||= "" %>
 
 <!doctype html>
 <html lang="en">
@@ -11,7 +11,7 @@
 
     <%= erb :"/partials/stylesheets" %>
 
-    <title><%= "Gloomy Weather - #{@page_info[:title]}" %></title>
+    <title><%= "Gloomy Weather - #{@page[:title]}" %></title>
 
   </head>
 
@@ -26,11 +26,11 @@
       <div>&nbsp;</div>
       <div>&nbsp;</div>
 
-      <% if !@page_info[:heading].empty? %>
+      <% if !@page[:heading].empty? %>
 
       <div class="row">
         <div class="mx-auto">
-          <h1 class="display-3"><%= @page_info[:heading] %></h1>
+          <h1 class="display-3"><%= @page[:heading] %></h1>
         </div>
       </div>
 
