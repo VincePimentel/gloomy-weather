@@ -8,7 +8,6 @@ body {
 
 header nav {
   background-color: #50aa8d;
-  /* background-color: #3fa78d; */
 }
 
 header a.navbar-brand, a.nav-item {
@@ -28,7 +27,6 @@ header a.dropdown-item a:hover {
 }
 
 footer {
-  /* background-color: #2f5e4e; */
   color: #fff;
 }
 

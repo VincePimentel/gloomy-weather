@@ -74,7 +74,7 @@ class UsersController < ApplicationController
         if referrer
           session.delete(:referrer)
 
-          redirect "/#{referrer}"
+          redirect "#{referrer}"
         else
           redirect "/users/#{@user.slug}"
         end
@@ -101,7 +101,7 @@ class UsersController < ApplicationController
       if referrer
         session.delete(:referrer)
 
-        redirect "/#{referrer}"
+        redirect "#{referrer}"
       else
         redirect "/users/#{user.slug}"
       end
