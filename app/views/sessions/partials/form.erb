@@ -1,15 +1,9 @@
-<%
-# Validate user input via server or client (via Bootstrap)
-server_validation = true
-@user ||= User.new
-%>
-
 <form action="/login" method="POST">
 
   <!-- USERNAME -->
   <div class="form-group col-sm-12">
     <label for="username">Username</label>
-    <input type="text" class="form-control <%= "is-invalid" if @user_error %>" id="username" name="username" value="<%= params[:username] %>" placeholder="Minimum 3 characters" <%= "autofocus" if params[:username] && params[:username].empty? %> <%= "required" if !server_validation %>>
+    <input type="text" class="form-control <%= "is-invalid" if @user_error %>" name="username" value="<%= params[:username] %>" placeholder="Minimum 3 characters" <%= "autofocus" if @user_error %>>
 
     <% if @user_error %>
 
@@ -26,13 +20,13 @@ server_validation = true
   <!-- PASSWORD -->
   <div class="form-group col-sm-12">
     <label for="password">Password</label>
-    <input type="password" class="form-control <%= "is-invalid" if @user.errors[:password].any? %>" id="password" name="password" value="" placeholder="Minimum 6 characters" <%= "autofocus" if params[:username] && !params[:username].empty? %> <%= "required" if !server_validation %>>
+    <input type="password" class="form-control <%= "is-invalid" if @password_errors && @password_errors.any? %>" id="password" name="password" value="" placeholder="Minimum 6 characters" <%= "autofocus" if @password_errors && @password_errors.any? && !@user_error %>>
 
-    <% if @user.errors[:password].any? %>
+    <% if @password_errors && @password_errors.any? %>
 
       <div class="invalid-feedback alert alert-danger" role="alert">
 
-        <% @user.errors[:password].each do |message| %>
+        <% @password_errors.each do |message| %>
             • <%= "Password #{message}" %>.<br>
         <% end %>
 

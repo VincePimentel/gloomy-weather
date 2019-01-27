@@ -5,7 +5,7 @@
   <!-- USERNAME -->
   <div class="form-group">
     <label for="username">Username</label>
-    <input type="text" class="form-control <%= "is-invalid" if @errors && @errors[:username].any? %>" id="username" name="username" value="<%= @errors && @errors.details[:username][0][:value] || current_user.username %>" placeholder="Minimum 3 characters" <%= "autofocus" if @errors && @errors[:username].any? %>>
+    <input type="text" class="form-control <%= "is-invalid" if @errors && @errors[:username].any? %>" id="username" name="username" value="<%= params[:username] || current_user.username %>" placeholder="Minimum 3 characters" <%= "autofocus" if @errors && (@errors[:username].any? || !@errors[:password].any?) %>>
 
     <% if @errors && @errors[:username].any? %>
 
@@ -26,7 +26,7 @@
   <!-- PASSWORD -->
   <div class="form-group">
     <label for="password">New Password</label>
-    <input type="password" class="form-control <%= "is-invalid" if @errors && @errors[:password].any? %>" id="password" name="password" placeholder="Minimum 6 characters">
+    <input type="password" class="form-control <%= "is-invalid" if @errors && @errors[:password].any? %>" id="password" name="password" placeholder="Minimum 6 characters" <%= "autofocus" if @errors && (@errors[:password].any? || !@errors[:username].any?) %>>
 
     <% if @errors && @errors[:password].any? %>
 

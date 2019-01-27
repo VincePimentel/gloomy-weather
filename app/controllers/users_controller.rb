@@ -24,14 +24,6 @@ class UsersController < ApplicationController
     end
   end
 
-  get "/signup" do
-    if logged_in?
-      redirect "/users/#{current_user.slug}"
-    else
-      erb :"/registrations/form"
-    end
-  end
-
   get "/login" do
     if logged_in?
       redirect "/users/#{current_user.slug}"
@@ -55,11 +47,11 @@ class UsersController < ApplicationController
   end
 
   post "/login" do
-    @user = User.find_by(username: params[:username])
+    user = User.find_by(username: params[:username])
 
-    if @user
-      if @user.authenticate(params[:password])
-        session[:user_id] = @user.id
+    if user
+      if user.authenticate(params[:password])
+        session[:user_id] = user.id
 
         referrer = session[:referrer]
 
@@ -68,10 +60,10 @@ class UsersController < ApplicationController
 
           redirect "#{referrer}"
         else
-          redirect "/users/#{@user.slug}"
+          redirect "/users/#{user.slug}"
         end
       else
-        @user.generate_errors(params[:password].length)
+        @password_errors = user.generate_errors(params[:password].length)
 
         erb :"/sessions/login"
       end
@@ -82,14 +74,24 @@ class UsersController < ApplicationController
     end
   end
 
-  post "/users" do
-    @user = User.create(params)
-
-    if @user.valid?
-      session[:user_id] = @user.id
-
-      redirect "/users/#{@user.slug}"
+  get "/signup" do
+    if logged_in?
+      redirect "/users/#{current_user.slug}"
     else
+      erb :"/registrations/form"
+    end
+  end
+
+  post "/users" do
+    user = User.create(params)
+
+    if user.valid?
+      session[:user_id] = user.id
+
+      redirect "/users/#{user.slug}"
+    else
+      @errors = user.errors
+
       erb :"/registrations/form"
     end
   end
