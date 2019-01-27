@@ -1,0 +1,29 @@
+<% @user_delete ||= current_user %>
+
+<form class="px-4 py-3" action="/users/account" method="POST">
+
+  <input type="hidden" name="_method" value="DELETE">
+
+  <div class="form-group">
+    <label for="password_del">Password</label>
+    <input type="password" class="form-control <%= "is-invalid" if @user_delete.errors[:password_del].any? %>" id="password_del" name="password_del" value="" <%= "autofocus" if @user_delete.errors[:password_del].any? %> placeholder="Minimum 6 characters">
+
+    <% if @user_delete.errors[:password_del].any? %>
+
+      <div class="invalid-feedback alert alert-danger" role="alert">
+
+        <% @user_delete.errors[:password_del].each do |message| %>
+
+          • <%= "Password #{message}" %>.<br>
+
+        <% end %>
+
+      </div>
+
+    <% end %>
+
+  </div>
+
+  <button id="delete-account" type="submit" class="btn btn-block">Delete</button>
+
+</form>

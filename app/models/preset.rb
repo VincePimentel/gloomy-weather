@@ -28,10 +28,12 @@ class Preset < ActiveRecord::Base
     ]
   end
 
+  private
+
   def self.source(element)
     url = "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/"
     icon = "fas fa-"
-    
+
     case element
     when "rain"
       {

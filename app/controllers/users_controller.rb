@@ -3,10 +3,6 @@ class UsersController < ApplicationController
   get "/users/account" do
     log_in_if_logged_out("/users/account")
 
-    @message = session[:message]
-
-    session.delete(:message)
-
     erb :"/users/account"
   end
 
@@ -94,7 +90,7 @@ class UsersController < ApplicationController
     end
   end
 
-  patch "/users" do
+  patch "/users/account" do
     @user = current_user
 
     last_username = @user.username
@@ -103,18 +99,16 @@ class UsersController < ApplicationController
 
     if @user.valid?
       if last_username == params[:username] && params[:password].empty?
-        session[:message] = "No changes made."
+        @message = "No changes made."
       else
-        session[:message] = "Successfully updated account."
+        @message = "Successfully updated account."
       end
-
-      redirect "/users/account"
     end
 
     erb :"/users/account"
   end
 
-  delete "/users" do
+  delete "/users/account" do
     if current_user.authenticate(params[:password_del])
       current_user.destroy
 
@@ -123,7 +117,7 @@ class UsersController < ApplicationController
       redirect "/"
     else
       @user_delete = current_user
-      
+
       @user_delete.generate_errors(params[:password_del].length)
 
       erb :"/users/account"
