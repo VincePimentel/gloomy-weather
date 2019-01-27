@@ -3,11 +3,7 @@
   heading: "SIGN UP"
 } %>
 
-<%
-# Validate user input via server or client (via Bootstrap)
-server_validation = true
-@user ||= User.new
-%>
+<% @user ||= User.new %>
 
 <div class="col-md-5 mx-auto">
 
@@ -16,7 +12,7 @@ server_validation = true
     <!-- USERNAME -->
     <div class="form-group">
       <label for="username">Username</label>
-      <input type="text" class="form-control <%= "is-invalid" if @user.errors[:username].any? %>" id="username" name="username" value="<%= @user.username %>" placeholder="Minimum 3 characters" autofocus <%= "required" if !server_validation %>>
+      <input type="text" class="form-control <%= "is-invalid" if @user.errors[:username].any? %>" id="username" name="username" value="<%= @user.username %>" placeholder="Minimum 3 characters" autofocus>
 
       <% if @user.errors[:username].any? %>
 
@@ -35,7 +31,7 @@ server_validation = true
     <!-- PASSWORD -->
     <div class="form-group">
       <label for="password">Password</label>
-      <input type="password" class="form-control <%= "is-invalid" if @user.errors[:password].any? %>" id="password" name="password" value="<%= @user.password %>" placeholder="Minimum 6 characters" <%= "required" if !server_validation %>>
+      <input type="password" class="form-control <%= "is-invalid" if @user.errors[:password].any? %>" id="password" name="password" value="<%= @user.password %>" placeholder="Minimum 6 characters">
 
       <% if @user.errors[:password].any? %>
 
@@ -54,15 +50,14 @@ server_validation = true
     <!-- PASSWORD CONFIRMATION -->
     <div class="form-group">
       <label for="password_confirmation">Confirm Password</label>
-      <input type="password" class="form-control <%= "is-invalid" if @user.errors[:password_confirmation].any? %>" id="password_confirmation" name="password_confirmation" value="<%= @user.password_confirmation %>" placeholder="Re-type password" <%= "required" if !server_validation %>>
+      <input type="password" class="form-control <%= "is-invalid" if @user.errors[:password_confirmation].any? %>" id="password_confirmation" name="password_confirmation" value="<%= @user.password_confirmation %>" placeholder="Re-type password">
 
       <% if @user.errors[:password_confirmation].any? %>
 
         <div class="invalid-feedback alert alert-danger" role="alert">
 
-          <% @user.errors.full_messages.each do |message| %>
-            <% next if !message.downcase.include?("password") %>
-              • <%= message %>.<br>
+          <% @user.errors[:password_confirmation].each do |message| %>
+              • <%= "Password confirmation #{message}" %>.<br>
           <% end %>
 
         </div>

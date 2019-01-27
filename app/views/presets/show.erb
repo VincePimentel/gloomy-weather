@@ -5,11 +5,11 @@
 
 <% if @preset.user_id == current_user.id %>
 
-  <form action="/presets/<%= @preset.id %>/<%= @preset.slug %>" method="POST">
+<form action="/presets/<%= @preset.id %>/<%= @preset.slug %>" method="POST">
 
 <% else %>
 
-  <form action="/presets" method="POST">
+<form action="/presets" method="POST">
 
 <% end %>
 

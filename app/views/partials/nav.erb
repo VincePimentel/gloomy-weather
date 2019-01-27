@@ -46,7 +46,11 @@
 
         <% end %>
 
-        <a class="nav-item nav-link" href="/signup">SIGN UP</a>
+        <% if @page[:title] != "Sign Up" %>
+
+          <a class="nav-item nav-link" href="/signup">SIGN UP</a>
+
+        <% end %>
 
       <% end %>
 

@@ -1,6 +1,4 @@
-<div>&nbsp;</div>
-
-<% if @presets.size == 0 %>
+<% if !@presets.any? %>
 
 <div>
   <p class="text-center">
@@ -47,7 +45,7 @@
         <% if current_user.slug == params[:slug] %>
 
         <td>
-          <form class="" action="/presets/<%= preset.id %>/<%= preset.slug %>" method="post">
+          <form class="" action="/presets/<%= preset.id %>/<%= preset.slug %>" method="POST">
             <input type="hidden" name="_method" value="DELETE">
             <button type="submit" class="btn"><i class="fas fa-trash text-danger"></i></button>
           </form>
