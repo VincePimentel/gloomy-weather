@@ -1,7 +1,7 @@
 class PresetsController < ApplicationController
 
   get "/presets" do
-    log_in_if_logged_out("/presets")
+    log_in_if_logged_out(request.path)
 
     @presets = Preset.all
 
@@ -19,7 +19,7 @@ class PresetsController < ApplicationController
   end
 
   get "/presets/:id/:slug" do
-    log_in_if_logged_out("/presets/#{params[:id]}/#{params[:slug]}")
+    log_in_if_logged_out(request.path)
 
     @preset = Preset.find(params[:id])
 

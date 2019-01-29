@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   get "/users/account" do
-    log_in_if_logged_out("/users/account")
+    log_in_if_logged_out(request.path)
 
     @message = session[:message]
 
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     user = User.find_by_slug(params[:slug])
 
     if user
-      log_in_if_logged_out("/users/#{params[:slug]}")
+      log_in_if_logged_out(request.path)
 
       @presets = user.presets
 
