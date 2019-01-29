@@ -16,7 +16,7 @@
   <div class="row justify-content-center">
 
     <div>
-      <img id="control-icon" class="px-4 img-fluid" src="https://i.imgur.com/Za0rRHL.png" alt="left click to increase volume by 10">
+      <img id="control-icon" class="px-4 img-fluid" src="/assets/images/left_click.png" alt="left click to increase volume by 10">
     </div>
 
     <div id="global-control" class="dropdown">
@@ -56,7 +56,7 @@
     </div> <!-- dropdown -->
 
     <div>
-      <img id="control-icon" class="px-4 img-fluid" src="https://i.imgur.com/eqsk7Yr.png" alt="left click to increase volume by 10">
+      <img id="control-icon" class="px-4 img-fluid" src="/assets/images/right_click.png" alt="left click to increase volume by 10">
     </div>
 
   </div> <!-- row -->
@@ -64,7 +64,6 @@
   <div>&nbsp;</div>
   <div>&nbsp;</div>
   <div>&nbsp;</div>
-  <!-- <div>&nbsp;</div> -->
 
   <div class="container">
 
@@ -78,12 +77,12 @@
 
           <button id="<%= element %>" type="button" class="btn preset-button">
 
-            <i id="<%= element %>-icon" class="<%= Preset.source(element)[:icon] %> inactive-sound fa-fw"></i>
+            <i id="<%= element %>-icon" class="<%= Preset.source[element.to_sym][:icon] %> inactive-sound fa-fw"></i>
 
           </button>
 
           <audio id="<%= element %>-audio" preload="auto" <%= "autoplay" if volume > 0 %> loop>
-            <source src="<%= Preset.source(element)[:url] %>" type="audio/mpeg">
+            <source src="<%= Preset.source[element.to_sym][:path] %>" type="audio/mpeg">
           </audio>
 
           <div>&nbsp;</div>

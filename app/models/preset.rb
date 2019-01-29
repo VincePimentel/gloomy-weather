@@ -30,71 +30,59 @@ class Preset < ActiveRecord::Base
 
   private
 
-  def self.source(element)
-    url = "https://jukehost.co.uk/api/audio/9cc957e015992dfb78334f2cb34a630953a7aaf0/"
+  def self.source
+    path = "/assets/audios/"
     icon = "fas fa-"
 
-    case element
-    when "rain"
-      {
-        url: "#{url}e0453a593bb",
-        icon: "#{icon}cloud-rain"
+    {
+      rain: {
+          path: "#{path}rain.mp3",
+          icon: "#{icon}cloud-rain"
+      },
+      thunder: {
+          path: "#{path}thunder.mp3",
+          icon: "#{icon}bolt"
+      },
+      beach: {
+          path: "#{path}beach.mp3",
+          icon: "#{icon}umbrella-beach"
+      },
+      river: {
+          path: "#{path}river.mp3",
+          icon: "#{icon}water"
+      },
+      garden: {
+          path: "#{path}garden.mp3",
+          icon: "#{icon}spa"
+      },
+      fire: {
+          path: "#{path}fire.mp3",
+          icon: "#{icon}fire-alt"
+      },
+      bird: {
+          path: "#{path}bird.mp3",
+          icon: "#{icon}dove"
+      },
+      night: {
+          path: "#{path}night.mp3",
+          icon: "#{icon}moon"
+      },
+      train: {
+          path: "#{path}train.mp3",
+          icon: "#{icon}subway"
+      },
+      cafe: {
+          path: "#{path}cafe.mp3",
+          icon: "#{icon}coffee"
+      },
+      womb: {
+          path: "#{path}womb.mp3",
+          icon: "#{icon}baby"
+      },
+      brown: {
+          path: "#{path}brown.mp3",
+          icon: "#{icon}tv"
       }
-    when "thunder"
-      {
-        url: "#{url}9f359d57783",
-        icon: "#{icon}bolt"
-      }
-    when "beach"
-      {
-        url: "#{url}7977520f309",
-        icon: "#{icon}umbrella-beach"
-      }
-    when "river"
-      {
-        url: "#{url}97a49e57fc8",
-        icon: "#{icon}water"
-      }
-    when "garden"
-      {
-        url: "#{url}2a75c949fde",
-        icon: "#{icon}spa"
-      }
-    when "fire"
-      {
-        url: "#{url}438b3245217",
-        icon: "#{icon}fire-alt"
-      }
-    when "bird"
-      {
-        url: "#{url}0267c016d36",
-        icon: "#{icon}dove"
-      }
-    when "night"
-      {
-        url: "#{url}a22ab336baa",
-        icon: "#{icon}moon"
-      }
-    when "train"
-      {
-        url: "#{url}40bba114fd5",
-        icon: "#{icon}subway"
-      }
-    when "cafe"
-      {
-        url: "#{url}419032046fc",
-        icon: "#{icon}coffee"
-      }
-    when "womb"
-      {
-        url: "#{url}ea6ff8c7422",
-        icon: "#{icon}baby"
-      }
-    when "brown"
-      {
-        url: "#{url}32d1e9e159e",
-        icon: "#{icon}tv"
-      }
-    end
+    }
   end
 end
