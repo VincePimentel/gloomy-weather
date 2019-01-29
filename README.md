@@ -24,7 +24,7 @@ Run the following at the root directory (gloomy-weather):
 
 ```
 bundle install
-rake db:migrate
+rake start
 shotgun
 ```
 
