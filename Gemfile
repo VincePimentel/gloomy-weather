@@ -11,7 +11,14 @@ gem "rake"
 gem "require_all"
 gem "thin"
 gem "shotgun"
-gem "pry"
 gem "bcrypt"
-gem "sqlite3"
-gem "tux"
+
+group :development do
+  gem "sqlite3"
+  gem "tux"
+  gem "pry"
+end
+
+group :production do
+  gem "pg"
+end
