@@ -33,7 +33,9 @@ class PresetsController < ApplicationController
   patch "/presets/:id/:slug" do
     preset = Preset.find(params[:id])
 
-    if preset.user_id == session[:user_id]
+    binding.pry
+
+    if preset.user == current_user
       params[:title] = generate_title(params) if params[:title].strip.empty?
 
       preset.update(params.except(:_method, :id, :slug))
@@ -47,7 +49,7 @@ class PresetsController < ApplicationController
   delete "/presets/:id/:slug" do
     preset = Preset.find(params[:id])
 
-    if preset.user_id == session[:user_id]
+    if preset.user == current_user
       Preset.delete(preset.id)
 
       redirect "/users/#{current_user.slug}"
@@ -57,6 +59,7 @@ class PresetsController < ApplicationController
   end
 
   helpers do
+
     def generate_title(params)
       extras = %w[
         _method
@@ -77,4 +80,5 @@ class PresetsController < ApplicationController
       params[:title].gsub!(/, \z/, "")
     end
   end
+
 end

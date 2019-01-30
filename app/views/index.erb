@@ -8,10 +8,10 @@
   <div class="row justify-content-center">
 
     <div>
-      <img id="control-icon" class="px-4 img-fluid" src="/assets/images/left_click.png" alt="left click to increase volume by 10">
+      <img class="px-4 img-fluid" src="/assets/images/left_click.png" alt="left click to increase volume by 10">
     </div>
 
-    <div id="global-control" class="dropdown">
+    <div class="dropdown">
 
         <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" <%= 'data-offset="-5"' if logged_in? %>><%= logged_in? ? "save" : "log in" %></button>
 
@@ -31,7 +31,7 @@
 
           <div class="form-group">
             <textarea name="description" rows="4" cols="20" placeholder="And a short description! (optional)"></textarea>
-            <button id="save-preset" class="btn btn-block" type="submit">submit</button>
+            <button class="btn btn-block" type="submit">submit</button>
           </div>
 
         </div> <!-- px-3 py-1 -->
@@ -47,7 +47,7 @@
     </div> <!-- dropdown -->
 
     <div>
-      <img id="control-icon" class="px-4 img-fluid" src="/assets/images/right_click.png" alt="left click to increase volume by 10">
+      <img class="px-4 img-fluid" src="/assets/images/right_click.png" alt="left click to increase volume by 10">
     </div>
 
   </div> <!-- row -->
