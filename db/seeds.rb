@@ -19,25 +19,3 @@ vince.presets << Preset.create(
   womb: 0,
   brown: 0
 )
-
-alice = User.create(
-  username: "alice",
-  password: "123456"
-)
-
-alice.presets << Preset.create(
-  title: "Rainy day",
-  description: "Hi world!",
-  rain: 40,
-  thunder: 0,
-  beach: 0,
-  river: 0,
-  garden: 20,
-  fire: 0,
-  bird: 10,
-  night: 0,
-  train: 10,
-  cafe: 0,
-  womb: 0,
-  brown: 0
-)
