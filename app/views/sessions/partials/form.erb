@@ -20,15 +20,13 @@
   <!-- PASSWORD -->
   <div class="form-group col-sm-12">
     <label for="password">Password</label>
-    <input type="password" class="form-control <%= "is-invalid" if @password_errors && @password_errors.any? %>" id="password" name="password" value="" placeholder="Minimum 6 characters" <%= "autofocus" if @password_errors && @password_errors.any? && !@user_error %>>
+    <input type="password" class="form-control <%= "is-invalid" if @password_error %>" name="password" placeholder="Minimum 6 characters" <%= "autofocus" if @password_error && !@user_error %>>
 
-    <% if @password_errors && @password_errors.any? %>
+    <% if @password_error %>
 
       <div class="invalid-feedback alert alert-danger" role="alert">
 
-        <% @password_errors.each do |message| %>
-            • <%= "Password #{message}" %>.<br>
-        <% end %>
+        • <%= @password_error %>.
 
       </div>
 

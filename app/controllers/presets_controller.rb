@@ -31,11 +31,11 @@ class PresetsController < ApplicationController
   end
 
   patch "/presets/:id/:slug" do
-    params[:title] = generate_title(params) if params[:title].strip.empty?
-
     preset = Preset.find(params[:id])
 
     if preset.user_id == session[:user_id]
+      params[:title] = generate_title(params) if params[:title].strip.empty?
+
       preset.update(params.except(:_method, :id, :slug))
 
       redirect "/presets/#{preset.id}/#{preset.slug}"

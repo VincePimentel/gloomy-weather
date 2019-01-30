@@ -4,17 +4,13 @@
 
   <div class="form-group">
     <label for="password_del">Password</label>
-    <input type="password" class="form-control <%= "is-invalid" if @delete_errors && @delete_errors.any? %>" id="password_del" name="password_del" value="" <%= "autofocus" if @delete_errors && @delete_errors.any? %> placeholder="Minimum 6 characters">
+    <input type="password" class="form-control <%= "is-invalid" if @delete_error %>" id="password_del" name="password_del" <%= "autofocus" if @delete_error %> placeholder="Minimum 6 characters">
 
-    <% if @delete_errors && @delete_errors.any? %>
+    <% if @delete_error %>
 
       <div class="invalid-feedback alert alert-danger" role="alert">
 
-        <% @delete_errors.each do |message| %>
-
-          • <%= "Password #{message}" %>.<br>
-
-        <% end %>
+        • <%= @delete_error %>.
 
       </div>
 

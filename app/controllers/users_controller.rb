@@ -63,7 +63,7 @@ class UsersController < ApplicationController
           redirect "/users/#{user.slug}"
         end
       else
-        @password_errors = user.generate_errors(params[:password].length)
+        @password_error = "Password is incorrect"
 
         erb :"/sessions/login"
       end
@@ -116,7 +116,6 @@ class UsersController < ApplicationController
 
       erb :"/users/account"
     end
-
   end
 
   delete "/users/account" do
@@ -129,7 +128,7 @@ class UsersController < ApplicationController
 
       redirect "/"
     else
-      @delete_errors = user.generate_errors(params[:password_del].length)
+      @delete_error = "Password is incorrect"
 
       erb :"/users/account"
     end
