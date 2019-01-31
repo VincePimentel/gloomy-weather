@@ -25,12 +25,12 @@ Run the following at the root directory (gloomy-weather):
 ```
 bundle install
 rake start
-shotgun
+shotgun -OR- rackup
 ```
 
 Then copy the address that appears in your terminal and paste it in your browser's address bar. It is usually:
 
-`http://0.0.0.0:9393/` or `http://localhost:9393`
+`http://localhost:9393` (shotgun) -OR- `http://localhost:9292` (rackup)
 
 ## Contributing
 
