@@ -4,7 +4,6 @@ class CreatePresets < ActiveRecord::Migration[5.2]
       t.integer :user_id
       t.string :title, default: ""
       t.string :description, default: ""
-      t.datetime :created_at
       t.integer :rain, default: 0
       t.integer :thunder, default: 0
       t.integer :beach, default: 0
