@@ -33,8 +33,6 @@ class PresetsController < ApplicationController
   patch "/presets/:id/:slug" do
     preset = Preset.find(params[:id])
 
-    binding.pry
-
     if preset.user == current_user
       params[:title] = generate_title(params) if params[:title].strip.empty?
 
